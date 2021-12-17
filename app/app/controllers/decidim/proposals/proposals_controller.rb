@@ -8,6 +8,7 @@ module Decidim
       helper ProposalWizardHelper
       helper ParticipatoryTextsHelper
       include Decidim::ApplicationHelper
+      include Decidim::NeedsPermission
       include FormFactory
       include FilterResource
       include Decidim::Proposals::Orderable
@@ -168,7 +169,21 @@ module Decidim
       end
 
       def edit
+        raise Decidim::ActionForbidden if check_proposal_has_comments_or_support(@proposal)
         enforce_permission_to :edit, :proposal, proposal: @proposal
+      end
+
+      def check_proposal_has_comments_or_support (proposal)
+        votes = proposal.proposal_votes_count
+        endorsements = proposal.proposal_endorsements_count
+        comments = Decidim::Comments::Comment.where("decidim_commentable_id = ? AND decidim_commentable_type = ?", proposal.id, 'Decidim::Proposals::Proposal').count
+
+        if votes.to_i > 0 or endorsements.to_i > 0 or comments.to_i > 0
+          return true
+        else
+          return false
+        end
+
       end
 
       def update
