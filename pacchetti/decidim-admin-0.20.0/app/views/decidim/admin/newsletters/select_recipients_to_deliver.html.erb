@@ -76,3 +76,23 @@
 <% end %>
 
 <%= javascript_include_tag "decidim/admin/newsletters" %>
+
+<%= javascript_tag do -%>
+
+  var labels = document.getElementsByTagName('label');
+  for(var i = 0; i < labels.length; i++) {
+    if(labels[i].htmlFor == 'newsletter_participatory_space_types_initiatives__ids') {
+      var label_content = labels[i].innerHTML.split("<select");
+      label_content[0] = "Petizioni";
+      labels[i].innerHTML = label_content[0] + "<select" + label_content[1];
+    }
+    if(labels[i].htmlFor == "newsletter_participatory_space_types_referendums__ids") {
+      var label_content = labels[i].innerHTML.split("<select");
+      label_content[0] = "Referendum";
+      labels[i].innerHTML = label_content[0] + "<select" + label_content[1];
+    }
+  }
+
+
+
+<% end -%>
