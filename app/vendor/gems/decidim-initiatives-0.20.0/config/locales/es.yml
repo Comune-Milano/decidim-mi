@@ -1,4 +1,5 @@
 es:
+  _type: Tipo
   _decidim_scopes: Ambitos
   _supports_required: Soportes necesarios
   stampa:

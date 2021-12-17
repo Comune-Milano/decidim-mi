@@ -80,3 +80,27 @@
 </div>
 
 <%= javascript_include_tag "decidim/initiatives/scoped_type" %>
+<script>
+    var label1 = "<%= t('_decidim_scopes') %>";
+    var label2 = "<%= t('_type') %>";
+    var abbr = "abbr title";
+</script>
+<%= javascript_tag nonce: true do %>
+  var labels = document.getElementsByTagName('label');
+  for(var i = 0; i < labels.length; i++) {
+  if(labels[i].htmlFor == 'initiative_type_id') {
+  var label_content = labels[i].innerHTML.split('<select');
+  console.log(label_content);
+  labels[i].innerHTML = label2 + '<select' + label_content[1];
+  }
+  }
+  for(var i = 0; i < labels.length; i++) {
+  if(labels[i].htmlFor == 'initiative_decidim_scope_id') {
+  var label_content = labels[i].innerHTML.split('<select');
+  console.log(label_content);
+  labels[i].innerHTML = label1 + '<select' + label_content[1];
+  }
+  }
+
+
+<% end -%>

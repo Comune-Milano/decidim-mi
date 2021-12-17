@@ -1,4 +1,5 @@
 it:
+  _type: Tipo
   _decidim_scopes: Ambiti
   _supports_required: Supporti richiesti
   stampa:
@@ -360,7 +361,7 @@ it:
           email_intro: "la tua firma per la petizione:"
           email_outro: è stata registrata con successo. </br> Grazie, lo Staff di Milano Partecipa.
           email_subject: Petizione firmata!
-          notification_title:
+          notification_title: La tua firma è stata registrata
       index:
         title: Petizioni
       initiative_signatures:

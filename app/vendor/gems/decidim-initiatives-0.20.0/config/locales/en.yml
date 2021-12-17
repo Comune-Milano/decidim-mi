@@ -1,5 +1,6 @@
 ---
 en:
+  _type: Type
   _decidim_scopes: Decidim scopes
   _supports_required: Supports required
   stampa:

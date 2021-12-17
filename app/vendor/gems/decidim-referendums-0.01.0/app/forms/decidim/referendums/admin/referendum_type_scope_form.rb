@@ -17,6 +17,9 @@ module Decidim
                     only_integer: true,
                     greater_than: 0
                   }
+
+        validates :decidim_scopes_id, presence: true
+
       end
     end
   end

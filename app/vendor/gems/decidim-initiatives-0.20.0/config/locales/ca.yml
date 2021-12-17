@@ -1,4 +1,5 @@
 ca:
+  _type: Tipus
   _decidim_scopes: Ambits
   _supports_required: Suports necessaris
   stampa:
