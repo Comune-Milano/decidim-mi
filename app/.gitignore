@@ -32,43 +32,5 @@
 
 # Ignore public uploads
 public/uploads
-public/uploads_old
 
 /config/environments
-
-Dockerfile
-docker-compose.yml
-app/controllers/wsdl/admin--Anagrafe1.3.wsdl
-app/controllers/wsdl/auriga
-app/controllers/xsd
-CERT/dsacert.pem
-CERT/dsaparam.pem
-CERT/dsaprivkey.pem
-CERT/rsaprivkey.pem
-docker-compose.yml
-Dockerfile
-config/cert/suomifi.key
-config/cert/suomifi.crt
-config/secrets-old.yml
-config/application.yml
-config/secrets.yml
-config/database.yml
-app/views/decidim/amendments/_edit_form_fields_aggiunto.html.erb.bk
-app/views/decidim/amendments/_edit_form_fields.html.erb.bk
-app/views/decidim/login_error/index.html.erb.bk
-app/views/decidim/proposals/admin/proposal_answers/edit.html.erb.bk
-app/views/decidim/proposals/proposals/show.html.erb.bk
-app/views/decidim/proposals/proposals/show.html.erb.bk3
-app/views/layouts/decidim/_application.html.erb.bk
-app/views/layouts/decidim/_head_extra.html.erb.bk
-app/views/layouts/decidim/_head.html.erb.bk
-app/views/layouts/decidim/_user_menu.html.erb.bk
-config/locales/it.yml.bk
-config/locales/it.yml.bk3
-config/locales/it.yml.bk2
-db/schema.rb.back
-app/cells/decidim/profile_sidebar/show.erb.bk
-app/cells/decidim/profile/user_tabs.erb.bk
-app/controllers/sso_login_controller.rb.bk
-app/controllers/sso_login_controller.rb.bk.2
-app/controllers/wsdl/auriga/admin--Auriga-Login2.0.wsdl
