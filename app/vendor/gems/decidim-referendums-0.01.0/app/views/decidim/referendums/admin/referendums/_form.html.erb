@@ -21,26 +21,68 @@
       <%= form.translated :editor, :description, toolbar: :full, lines: 8, disabled: !allowed_to?(:update, :referendum, referendum: current_referendum) %>
     </div>
 
-    <div class="row">
+
+
+
+    <!-- LASCIARE DISPLAY NONE (non commentare)#################################### -->
+
+    <div class="row" style="display: none">
       <div class="columns xlarge-6">
         <%= form.select :type_id,
                         referendum_type_options,
-                        {},
+                        { :label => t('_type') },
                         {
-                          disabled: !@form.signature_type_updatable?,
-                          "data-scope-selector": "referendum_decidim_scope_id",
-                          "data-scope-id": form.object.decidim_scope_id,
-                          "data-scope-search-url": decidim_referendums.referendum_type_scopes_search_url,
-                          "data-signature-types-selector": "referendum_signature_type",
-                          "data-signature-type": current_referendum.signature_type,
-                          "data-signature-types-search-url": decidim_referendums.referendum_type_signature_types_search_url
+                            disabled: !@form.signature_type_updatable?,
+                            "data-scope-selector": "referendum_decidim_scope_id",
+                            "data-scope-id": form.object.decidim_scope_id,
+                            "data-scope-search-url": decidim_referendums.referendum_type_scopes_search_url,
+                            "data-signature-types-selector": "referendum_signature_type",
+                            "data-signature-type": current_referendum.signature_type,
+                            "data-signature-types-search-url": decidim_referendums.referendum_type_signature_types_search_url
                         } %>
       </div>
-
       <div class="columns xlarge-6">
-        <%= form.select :decidim_scope_id, [], {}, { disabled: !@form.signature_type_updatable? } %>
+        <%= form.select :decidim_scope_id, [], { :label => "Ambito territoriale" }, { disabled: !@form.signature_type_updatable? } %>
       </div>
     </div>
+
+
+    <!-- ################################################################################################## -->
+
+    <% # ricavo il tipo e l'ambito territoriale in uso %>
+    <% petTypeScope = Decidim::ReferendumsTypeScope.where(:id => current_referendum.scoped_type_id) %>
+    <% petTypeScelto = petTypeScope[0]['decidim_referendums_types_id'] %>
+    <% petAreaScelta = petTypeScope[0]['decidim_areas_id'] %>
+
+
+    <input type="hidden" name="referendum[type_id]" value="<%= petTypeScelto.to_s %>" />
+    <input type="hidden" name="referendum[decidim_areas_id]" value="<%= petAreaScelta.to_s %>" />
+    <% # ricavo tutti i tipi e seleziono quello già scelto %>
+    <% petTypes = Decidim::ReferendumsType.order(:title) %>
+    <label>Tipo di petizione</label>
+    <select name="referendum[type_id]" onchange="change(this)" <%= "disabled" if current_referendum.published? || (!current_user.admin? && current_referendum.state != 'created') %>>
+      <% petTypes.each do |petType|  %>
+        <option value="<%= petType.id %>"
+                <% if petType.id.to_s == petTypeScelto.to_s %> selected <% end %>><%= translated_attribute(petType.title) %>
+        </option>
+      <% end %>
+    </select>
+    <% # ricavo tutti gli ambiti territoriali del tipo scelto e seleziono quello in uso %>
+    <% petTypeScope2 = Decidim::ReferendumsTypeScope.where(:decidim_referendums_types_id => petTypeScelto) %>
+    <label>Ambiti territoriali</label>
+    <select name="referendum[decidim_areas_id]" id="ambiti_terr_id" <%= "disabled" if current_referendum.published? || (!current_user.admin? && current_referendum.state != 'created') %>>
+      <% petTypeScope2.each do |p| %>
+        <% area = Decidim::Area.where(:id => p.decidim_areas_id) %>
+        <% area_id = area[0]["id"].to_s %>
+        <% area_name = translated_attribute(area[0]["name"]).to_s %>
+        <option value="<%= area_id %>"
+                <% if area_id.to_s == petAreaScelta.to_s %> selected <% end %>><%= area_name %>
+        </option>
+      <% end %>
+    </select>
+
+
+    <!-- ################################################################################################## -->
 
     <% if current_referendum.published? && current_user.admin? %>
       <div class="row">
@@ -57,7 +99,7 @@
         </div>
 
       </div>
-    <% end %>    
+    <% end %>
 
     <div class="row">
       <div class="columns xlarge-6">
@@ -80,28 +122,32 @@
 </div>
 
 <%= javascript_include_tag "decidim/referendums/scoped_type" %>
+
 <script>
-    var label1 = "<%= t('_decidim_scopes') %>";
-    var label2 = "<%= t('_type') %>";
-    var abbr = "abbr title";
+
+    function change(s) {
+        var select = document.getElementById("ambiti_terr_id");
+        var length = select.options.length;
+        for (i = length-1; i >= 0; i--) {
+            select.options[i] = null;
+        }
+        petTypeId = s.options[s.selectedIndex].value;
+        $.ajax({
+            type: "GET",
+            url: "/get_areas_from_type/"+petTypeId,
+            dataType: "json",
+            success: function(data){
+                var len = data.length;
+                for(var i=0; i<len; i++) {
+                    var option = document.createElement("option");
+                    option.value = data[i].id;
+                    option.text = data[i].name['it'];
+                    select.appendChild(option);
+                }
+            },
+            error: function(){
+                alert("Errore! Si prega di contattare un amministratore");
+            }
+        });
+    }
 </script>
-<%= javascript_tag nonce: true do %>
-  var labels = document.getElementsByTagName('label');
-  for(var i = 0; i < labels.length; i++) {
-  if(labels[i].htmlFor == 'referendum_type_id') {
-  var label_content = labels[i].innerHTML.split('<select');
-  console.log(label_content);
-  labels[i].innerHTML = label2 + '<select' + label_content[1];
-  }
-  }
-  for(var i = 0; i < labels.length; i++) {
-  if(labels[i].htmlFor == 'referendum_decidim_scope_id') {
-  var label_content = labels[i].innerHTML.split('<select');
-  console.log(label_content);
-  labels[i].innerHTML = label1 + '<select' + label_content[1];
-  }
-  }
-
-
-<% end -%>
-
