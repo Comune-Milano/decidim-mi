@@ -1,0 +1,168 @@
+class SsoLoginController < ApplicationController
+#    skip_before_action :verify_authenticity_token
+    #protect_from_forgery with: :null_session
+    require 'savon'
+     
+    def login
+        # @user = Decidim::User.find_by(email: params[:CDM_CF].downcase)
+        @user = Decidim::User.find_by(codice_fiscale: params[:cdm_cf])
+        if(@user) # se l'utente esiste lo autentico
+            sign_in @user
+            redirect_to "/processes"
+            
+        else # creo l'utente
+        current_organization = Decidim::Organization.first
+          regular_user = Decidim::User.find_or_initialize_by(codice_fiscale: params[:cdm_cf].downcase)
+          password = SecureRandom.urlsafe_base64
+          regular_user.update!(
+            name: params[:cdm_name] + ' ' + params[:cdm_surname],
+            email: params[:cdm_mail],
+            nickname: Decidim::UserBaseEntity.nicknamize(params[:cdm_name], organization: current_organization),
+            password: password,
+            password_confirmation: password,
+            confirmed_at: Time.current,
+            officialized_at: Time.current,
+            officialized_as: {'ca': '','en': '','es': '','it': ''},
+            locale: I18n.default_locale,
+            organization: current_organization,
+            tos_agreement: true,
+            #personal_url: Faker::Internet.url,
+            #about: Faker::Lorem.paragraph(2),
+            accepted_tos_version: current_organization.tos_version,
+            codice_fiscale: params[:cdm_cf]
+          )
+
+
+            sign_in regular_user
+            redirect_to "/"
+        end
+        
+        # session[:user] = @user.id
+        
+        
+    end 
+    def wsanagrafe(cf,realm)
+        params = { 
+            "Applicazione" => "DECIDIM", 
+            "Operatore" => "DECIDI", 
+            "PwdOperatore" => "DECIDI20", 
+            "Account" => cf, 
+            "Cognome" => "",
+            "Nome" => "",
+            "DataNascitaDAL" => "",
+            "DataNascitaAL" => "",
+            "DataMorteDAL" => "",
+            "DataMorteAL" => "",
+            "ComuneNascita" => 0,
+            "Sesso" => "",
+            "CodiceFiscale" => cf,
+            "NumeroFamiglia" => 0,
+            "CartaIdentita" => "",
+            "TipoRicerca" => "N",
+            "FiltroEstrazione" => "T"
+            
+            }
+        client = Savon.client(
+            wsdl: Dir.pwd + '/app/controllers/wsdl/admin--Anagrafe1.3.wsdl',
+            headers: { 'Authorization:' => 'Bearer ' + realm },
+            log: true,
+            log_level: :debug,
+            logger: Logger.new('log/savon.log', 10, 1024000),
+            pretty_print_xml: true
+        )
+        begin
+          response = client.call(
+            :get_ricerca_individui_xml,
+            message: params
+          )
+        rescue Savon::Error => soap_fault
+        #render :json => "Error: #{soap_fault}\n"
+          #print "Error: #{soap_fault}\n"
+        end
+        #response = nil
+        #response = client.call(:get_ricerca_individui_xml, message: params)
+        #response = client.request :get_ricerca_individui_xml
+        #render :json => response
+        # render :json => Dir.pwd #File.expand_path('admin--Anagrafe1.3.wsdl')
+    end 
+    
+    def checkEta?(d)
+        d >= 16 && d < 18
+    end
+    
+    def pippo
+        data_corrente = Time.now.strftime("%Y%m%d") #Time.current
+        eta_utente = Date.parse('20020323');
+        birthdate = Date.new(20121315)
+        today     = Date.new(20091214)
+
+    #puts age_in_completed_years(birthdate, today)
+    render :json => age_in_completed_years(eta_utente)
+    end
+    
+    def age_in_completed_years(bd)
+    
+    d = Time.now
+
+    a = d.year - bd.year
+    a = a - 1 if (
+         bd.month >  d.month or 
+        (bd.month >= d.month and bd.day > d.day)
+    )
+   
+    checkEta?(a)
+    end
+    
+     # controllo che l\'utente sia residente o no
+    def wsresidenza?(cf,matricola,realm)
+#     def wsresidenza               
+               
+        params = { 
+            "Applicazione" => "DECIDIM", 
+            "Operatore" => "DECIDI", 
+            "PwdOperatore" => "DECIDI20", 
+            "Account" => cf, 
+            "Matricola" => matricola
+            
+            }
+        client = Savon.client(
+            wsdl: Dir.pwd + '/app/controllers/wsdl/admin--Anagrafe1.3.wsdl',
+            headers: { 'Authorization:' => 'Bearer ' + realm },
+            log: true,
+            log_level: :debug,
+            logger: Logger.new('log/test.log', 10, 1024000),
+            pretty_print_xml: true
+        )
+        #render :json => client2
+        begin
+          response = client.call(
+            :get_dati_puntuali_xml,
+            message: params
+          )
+        codice_status_anagrafico = response.body.to_hash[:get_dati_puntuali_xml_response][:get_dati_puntuali_xml_result][:dati_individuo][:codice_status_anagrafico].to_s
+        codice_status_anagrafico == "A"
+        
+        rescue Savon::Error => soap_fault
+          print "Error: #{soap_fault}\n"
+        end
+        
+    end
+    
+    def post
+	#    params = create_params(settings, params)
+    #params_prefix = (settings.idp_sso_target_url =~ /\?/) ? '&' : '?'
+        saml_request = CGI.unescape(params.delete("SAMLRequest"))
+       # request_params = "#{params_prefix}SAMLRequest=#{saml_request}"
+        #request_params["SAMLRequest"] = Base64.encode64(@request).gsub(/\n/, "")
+        str = "<html><body onLoad=\"document.getElementById('form').submit();\">\n"
+#	str = "<html><body>\n"       
+	str += "<form id='form' name='form' method='POST' action=\"http://192.168.12.43:8080/auth/realms/DecidimMilano/protocol/saml\">\n"
+	# str += "<form id='form' name='form' method='POST' action=\"#{settings.idp_sso_target_url}\">\n"
+       # str += "<input name='RelayState' value='ruby-saml' type='hidden' />\n"
+       # params.each_pair do |key, value|
+           str += "<input name=\"SAMLRequest\" value=\"#{saml_request}\"  />\n"
+       # end
+          str += "</form></body></html>\n"
+	render inline: str
+    end   
+end
