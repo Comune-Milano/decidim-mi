@@ -412,3 +412,68 @@ div[id^="flagModalComment"] {
 }
 
 
+.modal-custom {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-custom .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+}
+
+.modal-custom .modal-content {
+    border-radius: 8px;
+}
+
+.modal-custom .modal-content h2 {
+    color: #d6012e !important;
+}
+
+.modal-custom .modal-content center input[type="submit"] {
+    background: #d6012e;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px !important;
+    cursor: pointer;
+    white-space: pre-wrap !important;
+}
+
+.modal-custom .modal-content center input[type="submit"]:hover {
+    background: #e01b45;
+}
+
+.modal-custom .modal-content center input[type="submit"]:active {
+    background: #ad1434;
+    border: none !important;
+    box-shadow: none !important;
+}
+
+/* The Close Button */
+.modal-custom .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.modal-custom .close:hover,
+.modal-custom .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+

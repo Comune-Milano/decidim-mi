@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+include CertificatoElettoraleHelper
 module Decidim
   module Referendums
     class CsvSignatureDatum < ApplicationRecord
@@ -28,15 +28,13 @@ module Decidim
           firma_validata = false
           codice_fiscale = value[3]
           stato = nil
-
+          stato = 'ok'
           if codice_fiscale.match(/^[a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1}$/).nil?
             stato = 'formato_codice_fiscale_non_valido'
-          else if check_codicefiscale?(codice_fiscale, initiatives_id)
-                 stato = 'ok'
-               else
-                 stato = 'duplicato'
-               end
-
+          elsif !check_codicefiscale?(codice_fiscale, referendums_id)
+            stato = 'duplicato'
+          elsif !check_elettore_abilitato(codice_fiscale)
+            stato = 'non avente diritto'
           end
           if checkFirmaOnline(referendums_id, codice_fiscale)
             stato = "firmato online"

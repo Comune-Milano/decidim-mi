@@ -98,8 +98,8 @@ module Decidim
             event: "decidim.events.referendums.milestone_completed",
             event_class: Decidim::Referendums::MilestoneCompletedEvent,
             resource: @referendum,
-            affected_users: [@current_user],
-            followers: @referendum.followers - [@referendum.author],
+            affected_users: [@referendum.author],
+            followers: @referendum.followers,
             extra: {
                 percentage: percentage
             }

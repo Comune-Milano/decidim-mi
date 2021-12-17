@@ -160,6 +160,24 @@ module Decidim
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
         end
       end
+
+
+      ######################## CR
+
+      # Notifica una settimana prima della scadenza delle firme
+      def notify_one_week_before_end(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @body = "Manca una settimana prima della chiusura della raccolta firme per la petizione #{initiative.title}."
+          @subject = "Scadenza imminente per la raccolta firme (#{initiative.title})"
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
     end
   end
 end

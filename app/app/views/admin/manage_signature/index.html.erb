@@ -51,6 +51,11 @@
       <% else %>
         <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
 
+        <%= form_with(url: "/admin/signatures/" + @component_id + "/petizione/send_notifications", method: "post") do %>
+
+          <%= submit_tag "Invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+
       <% end %>
     <% else %>
       <% if !@component.is_data_ultima_superata(@component_id) %>
@@ -69,4 +74,19 @@
     <%= link_to "Torna indietro", "/admin/initiatives", class: "button" %>
   <% end %>
 </div>
+
+
+<div id="myModal-manda-notifica" class="modal modal-custom" >
+  <div class="modal-content">
+    <div id="myModal-manda-notifica-content" style="margin-bottom: 15px"></div>
+    <input type="button" onclick="closeModalNotifica()" value="Chiudi" class="button btn btn-primary"/>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+  function closeModalNotifica() {
+  $('#myModal-manda-notifica').hide();
+  }
+<% end %>
+
 

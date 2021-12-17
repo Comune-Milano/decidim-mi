@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-
+include CertificatoElettoraleHelper
 module Decidim
   module Referendums
     require "wicked"
@@ -36,23 +36,30 @@ module Decidim
       def create
         group_id = params[:group_id] || session[:referendum_vote_form]&.dig("group_id")
         enforce_permission_to :vote, :referendum, referendum: current_referendum, group_id: group_id
-        @form = form(Decidim::Referendums::VoteForm)
-                .from_params(
-                  referendum_id: current_referendum.id,
-                  author_id: current_user.id,
-                  group_id: group_id
-                )
-
-        VoteReferendum.call(@form, current_user) do
-          on(:ok) do
-            current_referendum.reload
-            render :update_buttons_and_counters
+        if !check_elettore_abilitato(current_user.codice_fiscale)
+          @error_message = 1
+          respond_to do |format|
+            format.js
           end
+        else
+          @form = form(Decidim::Referendums::VoteForm)
+                      .from_params(
+                          referendum_id: current_referendum.id,
+                          author_id: current_user.id,
+                          group_id: group_id
+                      )
 
-          on(:invalid) do
-            render json: {
-              error: I18n.t("create.error", scope: "decidim.referendums.referendum_votes")
-            }, status: :unprocessable_entity
+          VoteReferendum.call(@form, current_user) do
+            on(:ok) do
+              current_referendum.reload
+              render :update_buttons_and_counters
+            end
+
+            on(:invalid) do
+              render json: {
+                  error: I18n.t("create.error", scope: "decidim.referendums.referendum_votes")
+              }, status: :unprocessable_entity
+            end
           end
         end
       end
@@ -61,12 +68,12 @@ module Decidim
 
       def fill_personal_data_step(_unused)
         @form = form(Decidim::Referendums::VoteForm)
-                .from_params(
-                  referendum_id: current_referendum.id,
-                  author_id: current_user.id,
-                  group_id: params[:group_id]
-                )
-        session[:referendum_vote_form] = { group_id: @form.group_id }
+                    .from_params(
+                        referendum_id: current_referendum.id,
+                        author_id: current_user.id,
+                        group_id: params[:group_id]
+                    )
+        session[:referendum_vote_form] = {group_id: @form.group_id}
         skip_step unless referendum_type.collect_user_extra_fields
         render_wizard
       end
@@ -156,7 +163,7 @@ module Decidim
         return unless raw_birth_date
 
         @vote_form = form(Decidim::Referendums::VoteForm).from_params(
-          session[:referendum_vote_form].merge("date_of_birth" => Date.parse(raw_birth_date))
+            session[:referendum_vote_form].merge("date_of_birth" => Date.parse(raw_birth_date))
         )
       end
 

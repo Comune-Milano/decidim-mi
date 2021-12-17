@@ -71,3 +71,13 @@
     </div>
   </div>
 </div>
+
+<%= javascript_tag do -%>
+
+  $('select option')
+  .filter(function() {
+  return !this.value || $.trim(this.value).length == 0;
+  })
+  .remove();
+
+<% end %>
