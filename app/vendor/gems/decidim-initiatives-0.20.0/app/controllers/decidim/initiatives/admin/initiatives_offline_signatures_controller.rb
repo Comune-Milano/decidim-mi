@@ -1,0 +1,65 @@
+# frozen_string_literal: true
+
+module Decidim
+  module Initiatives
+    module Admin
+      class InitiativesOfflineSignaturesController < Decidim::Admin::ApplicationController
+        #helper ::Decidim::Admin::ResourcePermissionsHelper
+        layout "decidim/admin/initiatives"
+
+        #before_action :show_instructions,
+        #unless: :csv_census_active?
+
+        # GET /admin/offline_signatures/:id
+        def index
+          #enforce_permission_to :index, :initiative_offline_signature
+
+          @initiatives_id = params[:id]
+          @initiative = Initiative.where(id: params[:id])
+          @form = form(OfflineSignatureDataForm).instance
+          @status = Status.new(current_organization)
+        end
+
+        def create
+          #enforce_permission_to :create, :initiative_offline_signature
+          #
+          @form = form(OfflineSignatureDataForm).from_params(params)
+          if current_user.admin? || current_user.role?("initiative_manager")
+            CsvSignatureDatum.clear(params[:id])
+          end
+          CreateOfflineSignatureData.call(@form, current_organization) do
+            on(:ok) do
+              flash[:notice] = t(".success", count: @form.data.values.count, errors: @form.data.errors.count)
+              redirect_to '/admin/initiatives_offline_signatures/pdf/' + params[:id] , notice: "Le firme sono state caricate correttamente."
+            end
+
+            on(:invalid) do
+              flash[:alert] = t(".error")
+              redirect_to '/admin/initiatives_offline_signatures/pdf/' + params[:id]
+            end
+          end
+          #redirect_to initiatives_offline_signatures_path(:id => @form.id.to_s)
+
+        end
+
+        def destroy_all
+          #enforce_permission_to :destroy, :initiative_offline_signature
+          CsvSignatureDatum.clear(current_organization)
+
+          redirect_to initiatives_offline_signatures_path, notice: t(".success")
+        end
+
+        private
+
+        def show_instructions
+          #enforce_permission_to :index, :initiative_offline_signature
+          render :instructions
+        end
+
+        def csv_census_active?
+          current_organization.available_authorizations.include?("csv_census")
+        end
+      end
+    end
+  end
+end
