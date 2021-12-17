@@ -14,6 +14,7 @@ it:
       proposal:
         body: Testo
         body2: Testo
+        scope_id: Ambito Tematico
       report:
         details: Ulteriori commenti
       user:
@@ -1138,7 +1139,7 @@ it:
       picker:
         cancel: Annulla
         choose: Selezionare
-        title: Seleziona %{field}
+        title: Seleziona Ambito Tematico
       prompt: Seleziona un ambito
       scopes: Ambiti
     search:

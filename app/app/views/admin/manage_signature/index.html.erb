@@ -26,6 +26,7 @@
 
     <th>N° protocollo</th>
     <th>PDF</th>
+    <th>Protocollo</th>
   </tr>
   </thead>
 
@@ -35,6 +36,7 @@
     <tr>
       <td><%= pdf_signed.id %></td>
       <td><%= link_to "Scarica", pdf_signed.attachment_url, target: "_blank" %></td>
+      <td><%= pdf_signed.numero_protocollo %></td>
       <!--<td><%#= button_to "Delete",  pdf_signed, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{pdf_signed.id}?" %></td>-->
     </tr>
 
@@ -48,16 +50,16 @@
     <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
       <% if @component_type == 'referendum' %>
         <%= link_to "Carica firme validate", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
-<% else %>
+      <% else %>
         <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
 
-<% end %>
+      <% end %>
     <% else %>
       <% if !@component.is_data_ultima_superata(@component_id) %>
         <% if @component_type == 'referendum' %>
-          <%= link_to "Carica firme offline", "/admin/referendums_offline_signatures?id=" + @component_id , class: "button" %>
+          <%= link_to "Carica firme offline", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
         <% else %>
-          <%= link_to "Carica firme offline", "/admin/initiatives_offline_signatures?id=" + @component_id , class: "button" %>
+          <%= link_to "Carica firme offline", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
         <% end %>
         <%= link_to "Carica pdf", "/admin/pdf_signeds/" + @component_id + "/new/" + @component_type, class: "button" %>
       <% end %>
