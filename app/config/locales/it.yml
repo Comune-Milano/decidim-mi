@@ -477,8 +477,8 @@ it:
         description2: Per richiedere di dissociare la tua identità dai contenuti pubblicati a tuo nome sulla piattaforma manda una mail a <a href='mailto:dpo@comune.milano.it'>dpo@comune.milano.it</a> indicando nell'oggetto "Disassocia dati account".
         description3: I contenuti resteranno pubblici ma invece del tuo nome apparirà la dicitura "utente non attivo".
         description4: ATTENZIONE
-        description5: La dissociazione della tua identità dai contenuti associati nella piattaforma Milano Partecipa si applica anche ai tuoi dati registrati sul portale del Comune del Comune.
-        description6: La dissociazione resta valida fino a che non deciderai di fare nuovamente login. Qualora decidessi di accedere di nuovo alla piattaforma Milano Partecipa, sebbene dissociato in precedenza, tutti i nuovi contenuti appariranno a tuo nome e i contenuti pubblicati in precedenza verranno di nuovo associati alla tua identità.
+        description5: La dissociazione della tua identità dai contenuti associati nella piattaforma Milano Partecipa si applica anche ai tuoi dati registrati sul portale del Comune.
+        description6: La dissociazione resta valida fino a che non deciderai di fare nuovamente login. Qualora decidessi di accedere di nuovo alla piattaforma Milano Partecipa, sebbene disassociato in precedenza, tutti i nuovi contenuti appariranno a tuo nome e i contenuti pubblicati in precedenza verranno di nuovo associati alla tua identità.
     datepicker:
       help_text: 'Formato previsto: %{datepicker_format}'
     devise:
@@ -963,17 +963,16 @@ it:
     newsletter_mailer:
       newsletter:
         note: Hai ricevuto questa email perché ti sei iscritto alla newsletter su %{organization_name}. Puoi modificare le impostazioni sulla tua <a href="%{link}">pagina di notifiche</a>.
-        see_on_website: Non riesci a vedere questa email correttamente? <a href="%{link}" target="_blank">Visualizzala sul tuo browser</a>.
+        see_on_website: Non riesci a vedere questa email correttamente? <a href="%{link}" target="_blank">Visualizzala sul tuo browser </a>.
         unsubscribe: Per disattivare la ricezione di questo tipo di email, <a href="%{link}" target="_blank" class="unsubscribe">annulla iscrizione</a>.
     newsletters:
       unsubscribe:
+        check_subscription: Ciao. <br />La tua iscrizione alla newsletter di Milano Partecipa è stata annullata.<br />Se desideri iscriverti nuovamente, vai nel tuo account e seleziona il bottone "Voglio ricevere la newsletter".<br />Grazie.<br />Lo staff di Milano Partecipa
         #check_subscription: Se desideri modificare le tue preferenze, puoi farlo nella pagina di configurazione <a href="%{link}" target="_blank"></a>
-        #prova
-        check_subscription: Ciao.<br />La tua iscrizione alla newsletter di Milano Partecipa è stata annullata.<br />Se desideri iscriverti nuovamente, vai nel tuo account e seleziona il bottone "Voglio ricevere la newsletter".<br />Grazie.<br />Lo staff di Milano Partecipa
         error: Si è verificato un errore durante l'annullamento dell'iscrizione
         success: Hai annullato l'iscrizione.
         token_error: Il link è scaduto.
-        unsubscribe: Annulla l'iscrizione
+        unsubscribe: Iscrizione annullata.
     newsletters_opt_in:
       unathorized: Spiacenti, questo link non è più disponibile
       update:
@@ -1384,6 +1383,7 @@ it:
       already_confirmed: era già confermato, per favore prova ad accedere
       confirmation_period_expired: deve essere confermato entro %{period}, si prega di richiederne uno nuovo
       content_type_whitelist_error: il tipo di file non è valido
+      extension_whitelist_error: Non puoi caricare i file di tipo %{extension},ma solo %{allowed_types}
       cycle_detected: Il genitore di un ambito non può essere uno dei suoi discendenti
       expired: è scaduto, si prega di richiederne uno nuovo
       file_size_is_less_than_or_equal_to: la dimensione del file deve essere inferiore o uguale a %{count}

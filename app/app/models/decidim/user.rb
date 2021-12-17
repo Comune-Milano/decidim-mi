@@ -121,7 +121,7 @@ module Decidim
     def utente_disabilitato?
       deleted_at.nil? ? false : true
     end
-    
+
     def officialized?
       !officialized_at.nil?
     end

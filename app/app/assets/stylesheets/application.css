@@ -405,3 +405,10 @@ span.muted.label.proposal-status {
 /*.author-data--small {
   display: none;
 }*/
+
+
+div[id^="flagModalComment"] {
+  width: 50%;
+}
+
+
