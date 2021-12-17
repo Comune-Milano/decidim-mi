@@ -1,0 +1,5 @@
+<% if referendum.rejected? || referendum.accepted? %>
+  <span class="<%= state_badge_css_class(referendum) %> label referendum-status">
+    <%= humanize_state referendum %>
+  </span>
+<% end %>

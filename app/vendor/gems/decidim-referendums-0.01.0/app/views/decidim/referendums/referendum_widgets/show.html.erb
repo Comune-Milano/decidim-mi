@@ -1,0 +1,4 @@
+<% content_for(:title, translated_attribute(model.title)) %>
+
+<%= render partial: "decidim/referendums/referendums/referendum_badge", locals: { referendum: model } %>
+<p><%= truncate(translated_attribute(model.description), length: 100) %></p>

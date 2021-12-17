@@ -1,0 +1,9 @@
+<%= cell(
+  "decidim/progress_bar",
+  current_referendum.supports_count,
+  total: current_referendum.supports_required,
+  units_name: "decidim.referendums.referendums.votes_count.count",
+  element_id: "referendum-#{current_referendum.id}-votes-count",
+  subtitle_text: current_referendum.supports_goal_reached? ? t("decidim.referendums.referendums.votes_count.most_popular_referendum") : t("decidim.referendums.referendums.votes_count.need_more_votes"),
+  small: false
+) %>

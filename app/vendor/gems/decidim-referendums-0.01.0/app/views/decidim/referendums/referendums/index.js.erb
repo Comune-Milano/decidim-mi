@@ -1,0 +1,10 @@
+var $referendums = $('#referendums');
+var $referendumsCount = $('#referendums-count');
+var $orderFilterInput = $('.order_filter');
+
+$referendums.html('<%= j(render partial: "referendums") %>');
+$referendumsCount.html('<%= j(render partial: "count") %>');
+$orderFilterInput.val('<%= order %>');
+
+var $dropdownMenu = $('.dropdown.menu', $referendums);
+$dropdownMenu.foundation();

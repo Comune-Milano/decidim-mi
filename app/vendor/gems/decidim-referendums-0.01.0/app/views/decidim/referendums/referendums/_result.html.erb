@@ -1,0 +1,26 @@
+<% if referendum.answered? && translated_attribute(referendum.answer).present? %>
+  <br>
+  <div class="row column">
+    <div class="callout success">
+      <h5><%= t(referendum.state, scope: "decidim.referendums.referendums.result.answer_title") %>:</h5>
+      <p>
+        <% if referendum.answer_url.present? %>
+          <a href="<%= referendum.answer_url %>" target="_blank">
+            <%= decidim_sanitize translated_attribute referendum.answer %>
+          </a>
+        <% else %>
+          <%= decidim_sanitize translated_attribute referendum.answer %>
+        <% end %>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<% if referendum.rejected? %>
+  <br>
+  <div class="row column">
+    <div class="callout warning">
+      <h5><%= t(".referendum_rejected_reason") %></h5>
+    </div>
+  </div>
+<% end %>

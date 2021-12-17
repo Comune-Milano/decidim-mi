@@ -1,0 +1,17 @@
+<div class="callout secondary mb-sm">
+  <p>
+    <%= t("create.success_html",
+          scope: "decidim.referendums.referendum_votes",
+          title: translated_attribute(current_referendum.title)) %>
+  </p>
+</div>
+<h2 class="section-heading"><%= t("finished", scope: "layouts.decidim.referendum_signature_creation_header") %></h2>
+
+<%= render partial: "wizard_steps" %>
+
+<div class="card">
+  <br>
+  <div class="column actions">
+    <%= link_to t(".back_to_referendum"), referendum_path(current_referendum), class: "button white-button expanded" %>
+  </div>
+</div>

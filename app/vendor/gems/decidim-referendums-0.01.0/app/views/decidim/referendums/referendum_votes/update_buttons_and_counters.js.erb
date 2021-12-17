@@ -1,0 +1,21 @@
+(function () {
+  'use strict';
+
+  var $referendumVotesCount = $('#referendum-<%= current_referendum.id %>-votes-count'),
+      userIdentitiesDialog = $('#user-identities'),
+      refreshUrl;
+
+  $referendumVotesCount.html('<%= j(render partial: "decidim/referendums/referendums/progress_bar", locals: { referendum: current_referendum }) %>');
+
+  // Update the identities dialog, if exists.
+  if (userIdentitiesDialog.length) {
+    refreshUrl = userIdentitiesDialog.data('refresh-url');
+
+    $.ajax(refreshUrl).done(function(response){
+      userIdentitiesDialog.html(response);
+    });
+  } else {
+    var $referendumVoteButton = $('#referendum-<%= current_referendum.id %>-vote-cabin');
+    $referendumVoteButton.html('<%= j(render partial: "decidim/referendums/referendums/vote_cabin", locals: { referendum: current_referendum }) %>');
+  }
+}());

@@ -1,0 +1,23 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title">
+      <%= link_to "#{t ".referendums"} > ", referendums_path %>
+      <%= decidim_sanitize translated_attribute(referendum.title) %>
+    </h2>
+  </div>
+
+  <div class="card-section">
+    <div class="row column">
+      <strong><%= t ".description" %>: </strong> <%= decidim_sanitize translated_attribute(referendum.description) %>
+    </div>
+    <div class="row column">
+      <strong><%= t ".created_at" %>: </strong> <%= l referendum.created_at, format: :decidim_short %>
+    </div>
+    <div class="row column">
+      <strong><%= t ".state" %>: </strong> <%= I18n.t(referendum.state, scope: "decidim.referendums.admin_states") %>
+    </div>
+    <div class="row column">
+      <strong><%= t ".referendum_votes_count" %>: </strong> <%= referendum.referendum_votes_count %>
+    </div>
+  </div>
+</div>

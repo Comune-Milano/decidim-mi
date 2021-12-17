@@ -1,0 +1,11 @@
+<div class="row collapse">
+  <h2 id="referendums-count" class="title-action__title section-heading">
+    <%= render partial: "count" %>
+  </h2>
+  <% if allowed_to? :create, :referendum %>
+    <%= link_to create_referendum_path(:select_referendum_type), class: "title-action__action button small" do %>
+        <%= t(".new_referendum") %>
+        <%= icon "plus" %>
+    <% end %>
+  <% end %>
+</div>

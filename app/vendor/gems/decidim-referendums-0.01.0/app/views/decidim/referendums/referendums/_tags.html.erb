@@ -1,0 +1,4 @@
+<ul class="tags tags--referendum">
+  <li><%= link_to translated_attribute(resource.type.title), referendums_path(filter: { type: [resource.type.id] }) %></li>
+  <li><%= link_to translated_attribute(resource.scope_name), referendums_path(filter: { scope_id: [resource.scope&.id] }) %></li>
+</ul>

@@ -1,0 +1,31 @@
+<% add_decidim_meta_tags({
+                             image_url: current_referendum.type.banner_image.url,
+                             description: translated_attribute(current_referendum.description),
+                             title: translated_attribute(current_referendum.title),
+                             url: referendum_url(current_referendum.id),
+                             twitter_handler: current_organization.twitter_handler
+                         }) %>
+
+<% add_decidim_page_title(translated_attribute(current_referendum.title)) %>
+<% provide :meta_image_url, current_referendum.type.banner_image.url %>
+
+<br><br>
+<div class="row column">
+  <h2 class="heading2"><%= translated_attribute(current_referendum.title) %></h2>
+  <%= render partial: "decidim/referendums/referendums/author", locals: { referendum: current_referendum } %>
+</div>
+
+<div class="row">
+  <div class="columns large-12">
+    <div class="section">
+      <%= decidim_sanitize translated_attribute(current_referendum.description) %>
+    </div>
+
+    <div class="section">
+      <p><%= t ".help_text" %></p>
+      <%= logged_link_to t(".continue"),
+                         spawn_referendum_committee_requests_path(current_referendum),
+                         class: "title-action__action button small hollow" %>
+    </div>
+  </div>
+</div>

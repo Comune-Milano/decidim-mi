@@ -1,0 +1,82 @@
+<div class="card">
+  <div class="card-divider">
+    <h2 class="card-title"><%= t ".title" %></h2>
+  </div>
+
+  <div class="card-section">
+    <div class="row">
+      <div class="columns xlarge-6">
+        <%= form.select :state,
+                        Decidim::Referendum.states.keys.map { |state| [I18n.t(state, scope: "decidim.referendums.admin_states"), state] },
+                        {},
+                        { disabled: !@form.state_updatable? } %>
+      </div>
+    </div>
+
+    <div class="row column">
+      <%= form.translated :text_field, :title, autofocus: true, disabled: !allowed_to?(:update, :referendum, referendum: current_referendum) %>
+    </div>
+
+    <div class="row column">
+      <%= form.translated :editor, :description, toolbar: :full, lines: 8, disabled: !allowed_to?(:update, :referendum, referendum: current_referendum) %>
+    </div>
+
+    <div class="row">
+      <div class="columns xlarge-6">
+        <%= form.select :type_id,
+                        referendum_type_options,
+                        {},
+                        {
+                          disabled: !@form.signature_type_updatable?,
+                          "data-scope-selector": "referendum_decidim_scope_id",
+                          "data-scope-id": form.object.decidim_scope_id,
+                          "data-scope-search-url": decidim_referendums.referendum_type_scopes_search_url,
+                          "data-signature-types-selector": "referendum_signature_type",
+                          "data-signature-type": current_referendum.signature_type,
+                          "data-signature-types-search-url": decidim_referendums.referendum_type_signature_types_search_url
+                        } %>
+      </div>
+
+      <div class="columns xlarge-6">
+        <%= form.select :decidim_scope_id, [], {}, { disabled: !@form.signature_type_updatable? } %>
+      </div>
+    </div>
+
+    <% if current_referendum.published? && current_user.admin? %>
+      <div class="row">
+        <div class="columns xlarge-6">
+          <%= form.date_field :signature_start_date %>
+        </div>
+
+        <div class="columns xlarge-6">
+          <%= form.date_field :signature_end_date %>
+        </div>
+
+        <div class="columns xlarge-6">
+          <%= form.date_field :signature_last_day %>
+        </div>
+
+      </div>
+    <% end %>    
+
+    <div class="row">
+      <div class="columns xlarge-6">
+        <%= form.text_field :hashtag, disabled: !allowed_to?(:update, :referendum, referendum: current_referendum) %>
+      </div>
+
+      <div class="columns xlarge-6">
+        <%= form.select :signature_type, [], {}, { disabled: !@form.signature_type_updatable? } %>
+      </div>
+    </div>
+
+    <% if current_referendum.accepts_offline_votes? && current_user.admin? %>
+      <div class="row">
+        <div class="columns xlarge-6">
+          <%= form.number_field :offline_votes, min: 1 %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= javascript_include_tag "decidim/referendums/scoped_type" %>

@@ -1,0 +1,36 @@
+<div class="card__footer card__footer--spaces">
+  <div class="card__support">
+    <% if model.published? %>
+      <div class="card__support__data">
+        <%= cell(
+          "decidim/progress_bar",
+          model.supports_count,
+          total: model.scoped_type.supports_required,
+          units_name: "decidim.referendums.referendums.signatures_count",
+          element_id: "referendum-#{model.id}-signatures-count",
+          small: true
+        ) %>
+        <br />
+        <div>
+          <% data_ultima_superata = model.is_offline_signature_date_passed(model.id) %>
+          <% if data_ultima_superata %>
+            <%= t("activemodel.attributes.referendum.signatures_offline") %>:
+            <%= model.offline_signature_count(model.id) %>
+          <% end %>
+        </div>
+      </div>
+    <% else %>
+      <div class="card__support__data"></div>
+    <% end %>
+
+    <% if model.closed? || model.offline_signature_type? %>
+      <%= link_to t("referendums.referendum.check", scope: "layouts.decidim"),
+                  resource_path,
+                  class: "card__button button button--sc small light secondary" %>
+    <% else %>
+      <%= link_to t("referendums.referendum.check_and_support", scope: "layouts.decidim"),
+                  resource_path,
+                  class: "card__button button button--sc small light secondary" %>
+    <% end %>
+  </div>
+</div>
