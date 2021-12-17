@@ -354,9 +354,17 @@ en:
       export:
         ready: Ready
       show:
-        download_data: Download the data
-        download_data_description: A file with all the information associated with the account will be sent to <strong>%{user_email}</strong>
+        #download_data: Download the data
+        #download_data_description: A file with all the information associated with the account will be sent to <strong>%{user_email}</strong>
+        download_data: Request data
+        download_data_description: A .zip file containing the .csv with all the information associated with the account will be sent to <strong>%{user_email}</strong>
         request_data: Request data
+        description1: DISASSOCIATE ACCOUNT
+        description2: To request to dissociate your identity from the contents published in your name on the platform, send an email to <a href='mailto:dpo@comune.milano.it'>dpo@comune.milano.it</a> indicating in the subject "Disassociate account data".
+        description3: The contents will remain public. Your name will appear "inactive user".
+        description4: WARNING
+        description5: The dissociation of your identity from the associated contents on the Milano Partecipa platform also applies to your data registered on the portal of the Municipality.
+        description6: The dissociation remains valid until you decide to log in again. If you decide to access the Milano Partecipa platform again, although previously dissociated, all new content will appear in your name and previously published content will be associated with your identity again.
     datepicker:
       help_text: 'Expected format: %{datepicker_format}'
     devise:
@@ -965,7 +973,8 @@ en:
     reports:
       create:
         error: An error ocurred while creating the report. Please, try it again.
-        success: The report has been created successfully and it will be reviewed by an admin.
+        #success: The report has been created successfully and it will be reviewed by an admin.
+        success: The report has been sent and will be viewed by an administrator.
     scopes:
       global: Global scope
       picker:
@@ -1007,10 +1016,17 @@ en:
       flag_modal:
         already_reported: This content is already reported and it will be reviewed by an admin.
         close: Close
-        description: Is this content inappropriate?
+        #description: Is this content inappropriate?
+        description: If you believe this content is inappropriate, select one of the two options below and specify the details of the report in the appropriate text space.
+        description2: We will evaluate your report and, if relevant, we will remove the content.
+        description3: Thank you.
+        description4: Milano Partecipa Staff
         does_not_belong: Contains illegal activity, suicide threats, personal information, or something else you think doesn't belong on %{organization_name}.
         offensive: Contains racism, sexism, slurs, personal attacks, death threats, suicide requests or any form of hate speech.
         report: Report
+        report2: Report
+        motivo1: Violates the rules of conduct defined in the platform's Terms and Conditions of Service
+        motivo2: Other reason (specify...)
         spam: Contains clickbait, advertising, scams or script bots.
         title: Report a problem
       floating_help:

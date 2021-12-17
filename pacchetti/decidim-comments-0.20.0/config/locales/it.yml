@@ -42,7 +42,8 @@ it:
         alignment:
           against: Contro
           in_favor: A favore
-        deleted_user: Utente cancellato
+        #deleted_user: Utente cancellato
+        deleted_user: Utente non attivo
         reply: Rispondi
         report:
           action: Report

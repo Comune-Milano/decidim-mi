@@ -350,9 +350,17 @@ es:
       export:
         ready: Listo
       show:
-        download_data: Descárgate los datos
-        download_data_description: Un archivo con toda la información asociada con la cuenta se enviará a <strong>%{user_email}</strong>
+        #download_data: Descárgate los datos
+        #download_data_description: Un archivo con toda la información asociada con la cuenta se enviará a <strong>%{user_email}</strong>
+        download_data: Solicitar los datos
+        download_data_description: Un archivo .zip que contiene el .csv con toda la información asociada con la cuenta se enviará a <strong>%{user_email}</strong>
         request_data: Solicita datos
+        description1: DESASOCIAR CUENTA
+        description2: Para solicitar que se disocie su identidad de los contenidos publicados en su nombre en la plataforma, envíe un correo electrónico a <a href='mailto:dpo@comune.milano.it'>dpo@comune.milano.it</a> indicando en el tema "Desasociar datos de cuenta".
+        description3: Los contenidos seguirán siendo públicos. Su nombre aparecerá "usuario inactivo".
+        description4: ADVERTENCIA
+        description5: La disociación de su identidad de los contenidos asociados en la plataforma Milano Partecipa también se aplica a sus datos registrados en el portal de la Municipalidad.
+        description6: La disociación sigue siendo válida hasta que decidas iniciar sesión nuevamente. Si decide acceder a la plataforma Milano Partecipa nuevamente, aunque previamente se haya disociado, todo el contenido nuevo aparecerá a su nombre y el contenido publicado anteriormente se asociará nuevamente con su identidad.
     datepicker:
       help_text: 'Formato esperado: %{datepicker_format}'
     devise:
@@ -967,7 +975,8 @@ es:
     reports:
       create:
         error: Se ha producido un error al denunciar el contenido. Por favor, inténtalo otra vez.
-        success: El contenido se ha denunciado con éxtio y será revisado por una administradora.
+        #success: El contenido se ha denunciado con éxtio y será revisado por una administradora.
+        success: El informe ha sido enviado y será visto por un administrador.
     scopes:
       global: Alcance global
       picker:
@@ -1009,11 +1018,18 @@ es:
       flag_modal:
         already_reported: Este contenido ya fue denunciado y será revisado por una administradora.
         close: Cerrar
-        description: Este contenido no es apropiado?
+        #description: Este contenido no es apropiado?
+        description: Si cree que este contenido es inapropiado, seleccione una de las dos opciones a continuación y especifique los detalles del informe en el espacio de texto apropiado.
+        description2: Evaluaremos su informe y, si corresponde, eliminaremos el contenido.
+        description3: Gracias.
+        description4: El personal de Milano participa
         does_not_belong: Contiene actividad ilegal, amenazas de suicidio, información personal o cualquier otra cosa pienses que no pertenece en %{organization_name}.
         offensive: Contiene racismo, sexismo, insultos, ataques personales, amenazas de muerte o de suicidio o cualquier forma de discurso de odio.
         report: Denunciar
+        report2: Reporte
         spam: Contiene clickbait, publicidad o estafas.
+        motivo1: Viola las reglas de conducta definidas en los Términos y condiciones de servicio de la plataforma.
+        motivo2: Otro motivo (especificar)
         title: Denuncia un problema
       floating_help:
         help: Ayuda

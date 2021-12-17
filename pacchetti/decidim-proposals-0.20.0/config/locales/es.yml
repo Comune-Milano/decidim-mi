@@ -608,7 +608,7 @@ es:
           select_identity: Seleccionar identidad
       proposal_endorsements_helper:
         endorsement_button:
-          already_endorsed: Adherida
+          already_endorsed: Ya aprobada
           endorse: Adherirse
         render_endorsements_button_card_part:
           endorse: Adherirse

@@ -77,6 +77,9 @@
                   <%= icon "pencil", class: "action-icon action-icon--disabled" %>
                   <%= icon "circle-x", class: "action-icon action-icon--disabled" %>
                 <% end %>
+		<% if current_user.ga %>
+                   <%= icon_link_to "circle-x", "/admin/officializations/disabilita?user_id=" + user.id.to_s, "Disabilita utente", class: "action-icon--verify action-icon--remove" %>
+                <% end %>
               </td>
             </tr>
           <% end %>

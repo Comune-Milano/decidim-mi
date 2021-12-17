@@ -427,7 +427,7 @@ en:
           title: Moderations
         report:
           reasons:
-            does_not_belong: Does not belong
+            does_not_belong: Otra razón
             offensive: Offensive
             spam: Spam
       newsletters:

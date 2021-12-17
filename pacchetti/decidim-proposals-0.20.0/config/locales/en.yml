@@ -610,7 +610,7 @@ en:
           select_identity: Select identity
       proposal_endorsements_helper:
         endorsement_button:
-          already_endorsed: Endorsed
+          already_endorsed: Already endorsed
           endorse: Endorse
         render_endorsements_button_card_part:
           endorse: Endorse

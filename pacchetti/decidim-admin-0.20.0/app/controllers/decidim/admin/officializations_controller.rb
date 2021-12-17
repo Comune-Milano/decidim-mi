@@ -51,6 +51,30 @@ module Decidim
         end
       end
 
+      def disabilita
+        enforce_permission_to :create, :officialization
+
+        @form = form(OfficializationForm).from_model(user)
+      end
+
+      def disable_user
+
+        user = Decidim::User.find_by(id: params[:user_id])
+        user.update!(
+            deleted_at: Time.current,
+            email_on_notification: false,
+            newsletter_notifications_at: nil,
+	    sign_in_count: 1,
+	    name: '',
+	    nickname:'',
+            form_inviato: false,
+            richiesta_at: nil,
+            body_richiesta: nil
+        )
+        #url_name = user.name.gsub! ' ', '+'
+        redirect_to "/admin/officializations"
+      end
+
       private
 
       def user

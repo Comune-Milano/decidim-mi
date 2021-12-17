@@ -609,7 +609,7 @@ ca:
           select_identity: Selecciona identitat
       proposal_endorsements_helper:
         endorsement_button:
-          already_endorsed: Adherida
+          already_endorsed: Ja avalat
           endorse: Adherir-se
         render_endorsements_button_card_part:
           endorse: Adherir-se

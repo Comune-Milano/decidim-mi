@@ -425,7 +425,7 @@ it:
           title: Moderazione
         report:
           reasons:
-            does_not_belong: Non appartiene
+            does_not_belong: Altro motivo
             offensive: Offensivo
             spam: Spam
       newsletters:

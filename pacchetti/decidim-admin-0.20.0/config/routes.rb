@@ -40,6 +40,8 @@ Decidim::Admin::Engine.routes.draw do
     end
 
     resources :officializations, only: [:new, :create, :index, :destroy], param: :user_id
+        get 'officializations/disabilita' => 'officializations#disabilita'
+        get 'officializations/disabilita/disable' => 'officializations#disable_user' 
 
     resources :impersonatable_users, only: [:index] do
       resources :promotions, controller: "managed_users/promotions", only: [:new, :create]

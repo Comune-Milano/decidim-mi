@@ -350,9 +350,17 @@ ca:
       export:
         ready: Llest
       show:
-        download_data: Descarrega't les dades
-        download_data_description: Un fitxer amb tota la informació associada al compte s'enviarà a <strong>%{user_email}</strong>
+        #download_data: Descarrega't les dades
+        #download_data_description: Un fitxer amb tota la informació associada al compte s'enviarà a <strong>%{user_email}</strong>
+        download_data: Sol·licita dades
+        download_data_description: Un fitxer .zip que conté el .csv amb tota la informació associada al compte s'enviarà a <strong>%{user_email}</strong>
         request_data: Sol·licita dades
+        description1: compte desmarcat
+        description2: Per sol·licitar dissociar la vostra identitat dels continguts publicats al vostre nom a la plataforma, envieu un correu electrònic a <a href='mailto:dpo@comune.milano.it'>dpo@comune.milano.it</a> indicant a l'assumpte "Desassocia les dades del compte".
+        description3: Els continguts continuaran sent públics. El vostre nom apareixerà "usuari inactiu".
+        description4: ATENCIÓ
+        description5: La dissociació de la vostra identitat dels continguts associats a la plataforma Milano Partecipa també s'aplica a les vostres dades registrades al portal del Municipi.
+        description6: La dissociació continua sent vàlida fins que decidiu tornar a iniciar la sessió. Si decidiu tornar a accedir a la plataforma Milano Partecipa, tot i que prèviament es va dissociar, apareixerà tot el contingut nou al vostre nom i el contingut publicat prèviament s’associarà a la vostra identitat.
     datepicker:
       help_text: 'Format esperat: %{datepicker_format}'
     devise:
@@ -967,7 +975,8 @@ ca:
     reports:
       create:
         error: S'ha produït un error en denunciar el contingut. Si us plau, torna-ho a intentar.
-        success: El contingut s'ha denunciat amb èxit i serà revisat per una administradora.
+        #success: El contingut s'ha denunciat amb èxit i serà revisat per una administradora.
+        success: El contingut ha estat enviat i serà vist per una administradora.
     scopes:
       global: Àmbit global
       picker:
@@ -1009,11 +1018,18 @@ ca:
       flag_modal:
         already_reported: Aquest contingut ja ha estat denunciat i serà revisat per una administradora.
         close: Tancar
-        description: Aquest contingut no és apropiat?
+        #description: Aquest contingut no és apropiat?
+        description: Si creu que aquest contingut és inadequat, seleccioneu una de les dues opcions a continuació i especifiqui els detalls de l'informe en l'espai de text apropiat.
+        description2: Avaluarem el seu informe i, si escau, eliminarem el contingut.
+        description3: Gràcies.
+        description4: El personal de Milano participa
         does_not_belong: Conté activitat il·legal, amenaces de suïcidi, informació personal, o qualsevol altra cosa que creguis que no pertany a %{organization_name}.
         offensive: Conté racisme, sexisme, insults, atacs personals, amenaces de mort o de suïcidi o qualsevol forma de discurs d'odi.
         report: Denunciar
+        report2: Informe
         spam: Conté "clickbait", publicitat o estafes.
+        motivo1: Viola les regles de conducta definides en els Termes i condicions de servei de la plataforma.
+        motivo2: Un altre motiu (especificar)
         title: Denuncia un problema
       floating_help:
         help: Ajuda

@@ -425,7 +425,7 @@ ca:
           title: Moderacions
         report:
           reasons:
-            does_not_belong: No pertany
+            does_not_belong: Altra raó
             offensive: Ofensiu
             spam: Contingut no desitjat
       newsletters:
