@@ -27,15 +27,18 @@ module Decidim
               logger: Logger.new('log/auriga.log', 10, 1024000),
               pretty_print_xml: true
           )
-          response = client.call(:service_operation, message: params )
+          begin
+            response = client.call(:service_operation, message: params )
+            xml_dati = response.attachments[0].body.raw_source
+            token = Nokogiri::XML(xml_dati)
+            des_user = token.children[0].attr('DesUser')
+            id_dominio = token.children[0].attr('IdDominio')
+            token_value = token.content
 
-          xml_dati = response.attachments[0].body.raw_source
-          token = Nokogiri::XML(xml_dati)
-          des_user = token.children[0].attr('DesUser')
-          id_dominio = token.children[0].attr('IdDominio')
-          token_value = token.content
-
-          return [des_user, id_dominio, token_value]
+            return [des_user, id_dominio, token_value]
+          rescue
+            raise
+          end
         end
       end
     end
