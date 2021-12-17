@@ -26,7 +26,6 @@
 
     <th>N° protocollo</th>
     <th>PDF</th>
-    <th>Protocollo</th>
   </tr>
   </thead>
 
@@ -34,9 +33,8 @@
   <% @pdfs.each do |pdf_signed| %>
 
     <tr>
-      <td><%= pdf_signed.id %></td>
-      <td><%= link_to "Scarica", pdf_signed.attachment_url, target: "_blank" %></td>
       <td><%= pdf_signed.numero_protocollo %></td>
+      <td><%= link_to "Scarica", pdf_signeds_download_path(pdf_signed.id) %></td>
       <!--<td><%#= button_to "Delete",  pdf_signed, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{pdf_signed.id}?" %></td>-->
     </tr>
 

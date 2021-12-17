@@ -1,4 +1,7 @@
-require 'decidim/ws/aurigac.rb'
+require "decidim/ws/auriga/auriga_extract_file.rb"
+require "decidim/ws/auriga/auriga_get_information_file.rb"
+require "decidim/ws/auriga/auriga_login.rb"
+require "decidim/ws/auriga/auriga_upload_file.rb"
 
 module AurigaHelper
   def protocolla_auriga_file (pdf_signed_id, file_name)
@@ -14,7 +17,7 @@ module AurigaHelper
     auriga_upload_file = Decidim::Ws::Auriga::AurigaUploadFile.new()
     id_ud = auriga_upload_file.do_upload_file(info_array, token,codApplicazione,istanzaApplicazione,userName, pdf_signed_id, file_name)
 
-    auriga_extract_file = Decidim::Ws::Auriga::AurigaExtractFile.new()
+    auriga_extract_file = Decidim::Ws::Auriga::AurigaGetInformationFile.new()
     protocollo_id = auriga_extract_file.do_get_file_information(info_array, token,codApplicazione,istanzaApplicazione,userName, id_ud)
     return ['id_ud' => id_ud, 'protocollo_id' => protocollo_id]
   end

@@ -1,7 +1,5 @@
-
-
 $(document).ready(function() {
     $('#myModal-assegnazioneProtocollo').hide();
-    $('#myModal-risposta-content').text("<%= @var %>");
+    $('#myModal-risposta-content').html('Gentile <%= @nome_utente %>, ai documenti inseriti è stato associato il numero di protocollo "<%= @protocollo %>".<br/> Riceverà notifica all\'indirizzo <%= @mail_utente %>.<br/>Grazie,<br/>Staff di Milano Partecipa');
     $('#myModal-risposta').show();
 });

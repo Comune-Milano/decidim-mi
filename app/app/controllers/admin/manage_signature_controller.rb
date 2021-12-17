@@ -8,6 +8,38 @@ module Admin
     #helper Decidim::Initiatives::InitiativeHelper
 
     before_action :set_layout
+    def check_user_can_upload_csv (id_proposta, tipo_proposta)
+      if (tipo_proposta == 'petizione')
+        component = Decidim::Initiative.where(id: id_proposta)
+      else
+        if (tipo_proposta == 'referendum')
+          component = Decidim::Referendum.where(id: id_proposta)
+        end
+      end
+      return check_user_can_manage_signature(id_proposta, tipo_proposta) && component.is_data_fine_petizione_superata(id_proposta)
+    end
+
+    def check_user_can_manage_signature (id_proposta, tipo_proposta)
+      user_richiedente = check_is_user_richiedente(id_proposta, tipo_proposta)
+      user_admin = current_user.admin || current_user.role?("initiative_manager")
+      return user_richiedente || user_admin
+    end
+
+    def check_is_user_richiedente (id_proposta, tipo_proposta)
+      if (tipo_proposta == 'petizione')
+        component = Decidim::Initiative.find(id_proposta)
+      else
+        if (tipo_proposta == 'referendum')
+          component = Decidim::Referendum.find(id_proposta)
+        end
+      end
+      if(current_user.nil?)
+        return false
+      end
+      author_id = component.author.id
+      id_user = current_user.id
+      return (author_id == id_user)
+    end
 
     def set_layout
       if params[:type] == 'petizione'
@@ -18,6 +50,7 @@ module Admin
     end
 
     def index
+      raise ActionController::RoutingError, "Not Found" if !check_user_can_manage_signature(params[:id], params[:type])
       @component_id = params[:id]
       @component_type = params[:type]
       #@initiative = Decidim::Initiative.where(id: params[:id])
@@ -35,15 +68,15 @@ module Admin
     end
 
     def create
-
+      raise ActionController::RoutingError, "Not Found" if !check_user_can_upload_csv(params[:id], params[:type])
       firme = load_firme(params[:id],params[:type])
       csv_data = CSV.generate(headers: false) do |csv|
         firme.each do |row|
-          #if current_user.admin? || current_user.role?("initiative_manager")
+          if current_user.admin? || current_user.role?("initiative_manager")
             csv << [row['name'],row['surname'],row['email'],row['codice_fiscale'],row['stato']]
-            #else
-            #csv << [row['name'],row['surname'],row['email'],row['codice_fiscale']]
-            #end
+          else
+            csv << [row['name'],row['surname'],row['email'],row['codice_fiscale']]
+          end
         end
       end
 
