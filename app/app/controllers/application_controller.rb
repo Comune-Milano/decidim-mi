@@ -7,6 +7,17 @@ class ApplicationController < ActionController::Base
   include SessionsHelper
 before_action :ssologin
   def ssologin
+    @utente_disabilitato = false
+    if  !current_user.nil? && current_user.utente_disabilitato?
+      @utente_disabilitato = true
+      current_user.update!(
+         deleted_at: nil,
+         email_on_notification: true,
+         name: 'test-'+current_user.id.to_s,
+         nickname: 'test-'+current_user.id.to_s,
+      )
+      current_user.save
+    end
     logger.warn "**** BEGIN RAW ALL REQUEST HEADERS ***"
     logger.warn response.body.to_json
     self.request.headers.each do |header|
