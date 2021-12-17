@@ -23,19 +23,27 @@ module Decidim
         #confirmed_at
         #confirmation_send_at
         if user.officialized_until != nil
-          now = Time.now.utc
-          Rails.logger.info now.to_s
-          Rails.logger.info user.officialized_until.to_s
-          if now > user.officialized_until
+          now = DateTime.now
+          scadenza = user.officialized_until.to_s
+          scadenza_split = scadenza.split(" ");
+          scadenza_data = scadenza_split[0].split("-")
+          scadenza_ora = scadenza_split[1].split(":")
+          expired = DateTime.new(scadenza_data[0].to_i, scadenza_data[1].to_i, scadenza_data[2].to_i,
+                                 scadenza_ora[0].to_i, scadenza_ora[1].to_i, scadenza_ora[2].to_i).utc
+          Rails.logger.info expired
+          Rails.logger.info "----------------"
+          Rails.logger.info now
+          Rails.logger.info expired
+          if now > expired
             Rails.logger.info "Il periodo è scaduto!"
             user.officialized_at = nil
             user.officialized_as = nil
             user.officialized_until = nil
-            user.confirmed_at = nil
-            user.officialized_until = nil
-            user.confirmation_sent_at = nil
+            user.form_inviato = nil
             user.save!
             Rails.logger.info "L'utente è stato aggiornato!"
+          else
+            Rails.logger.info "Il periodo NON è scaduto!"
           end
         end
         Rails.logger.info "FINE CONTROLLO"
