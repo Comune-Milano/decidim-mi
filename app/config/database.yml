@@ -16,6 +16,10 @@
 #
 # On Linux, the 'host: "localhost"' line below should be commented out to avoid 'password required' error.
 #
+DATABASE_HOST: localhost
+DATABASE_USERNAME: ************
+DATABASE_PASSWORD: ************
+
 default: &default
   adapter: postgresql
   encoding: unicode
@@ -29,13 +33,15 @@ default: &default
 
 development:
   <<: *default
-  database: decidim_clean_development
+  #database: decidim_milano_development
+  database: decidim_milano_development_new
+
 
   # The specified database role being used to connect to postgres.
   # To create additional roles in postgres see `$ createuser --help`.
   # When left blank, postgres will use the default role. This is
   # the same name as the operating system user that initialized the database.
-  #username: decidim_clean
+  #username: decidim_milano
 
   # The password associated with the postgres role (username).
   #password:
@@ -63,7 +69,7 @@ development:
 # Do not set this db to the same as development or production.
 test:
   <<: *default
-  database: decidim_clean_test
+  database: decidim_milano_test
 
 # As with config/secrets.yml, you never want to store sensitive information,
 # like your database password, in your source code. If your source code is

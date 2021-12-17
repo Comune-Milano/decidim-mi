@@ -35,6 +35,7 @@ public/uploads
 public/uploads_old
 
 /config/environments
+/config/secrets.yml
 
 Dockerfile
 docker-compose.yml
