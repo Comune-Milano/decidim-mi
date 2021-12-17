@@ -27,8 +27,12 @@ module Decidim
         values.each { |value|
           firma_validata = false
           codice_fiscale = value[3]
-          stato = nil
           stato = 'ok'
+
+          if @current_user.admin? || @current_user.role?("initiative_manager")
+            stato = value[4] if !value[4].nil?
+          end
+
           if codice_fiscale.match(/^[a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1}$/).nil?
             stato = 'formato_codice_fiscale_non_valido'
           elsif !check_codicefiscale?(codice_fiscale, initiatives_id)
@@ -37,10 +41,6 @@ module Decidim
 
           if checkFirmaOnline(initiatives_id,codice_fiscale)
             stato = "firmato online"
-          end
-
-          if @current_user.admin? || @current_user.role?("initiative_manager")
-            stato = value[4] if !value[4].nil?
           end
 
 

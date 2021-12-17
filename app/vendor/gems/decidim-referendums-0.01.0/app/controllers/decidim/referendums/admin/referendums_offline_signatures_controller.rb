@@ -25,9 +25,6 @@ module Decidim
           #enforce_permission_to :create, :referendum_offline_signature
           #
           @form = form(OfflineSignatureDataForm).from_params(params)
-          if current_user.admin? || current_user.role?("initiative_manager")
-            CsvSignatureDatum.clear(params[:id])
-          end
           CreateOfflineSignatureData.call(@form, current_organization) do
             on(:ok) do
               flash[:notice] = t(".success", count: @form.data.values.count, errors: @form.data.errors.count)
@@ -35,6 +32,7 @@ module Decidim
             end
 
             on(:invalid) do |_form,error|
+              flash[:error] = "Il numero di firme caricate non corrisponde a quelle attualmente registrate" if error == 'error3'
               flash[:error] = "Il formato del file non è corretto, utilizzare solo file .csv" if error == 'error2'
               flash[:error] = t(".error") if error == "error1"
               redirect_to '/admin/offline_signatures/pdf/' + params[:id] + '/referendum'
