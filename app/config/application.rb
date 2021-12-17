@@ -6,8 +6,14 @@ require 'rails/all'
 # you've limited to :test, :development, or :production.
 Bundler.require(*Rails.groups)
 
-module DecidimClean
+module DecidimMilano
   class Application < Rails::Application
+    #Context
+    #config.realtive_url_root = '/decidim'
+    #config.assets.prefix = "/decidim/test"
+    config.realtive_url_root = '/'
+    #config.assets.prefix = "/test"
+   
     # Initialize configuration defaults for originally generated Rails version.
     config.load_defaults 5.2
 
