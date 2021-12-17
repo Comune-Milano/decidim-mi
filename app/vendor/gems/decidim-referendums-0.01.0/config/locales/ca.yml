@@ -1,4 +1,6 @@
 ca:
+  _decidim_scopes: Ambits
+  _supports_required: Suports necessaris
   stampa:
     stringa_1: Sol·licitud d’admissió al procediment de referendum dels ciutadans
     stringa_2: DNI/NIE

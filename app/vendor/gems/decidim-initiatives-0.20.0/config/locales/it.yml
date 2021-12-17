@@ -1,4 +1,6 @@
 it:
+  _decidim_scopes: Ambiti
+  _supports_required: Supporti richiesti
   stampa:
     pet_stringa_1: Domanda di ammissione alla procedura di petizione dei cittadini
     pet_stringa_2: DNI/NIE

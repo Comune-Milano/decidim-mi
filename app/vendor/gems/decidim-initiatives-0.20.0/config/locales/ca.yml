@@ -1,4 +1,6 @@
 ca:
+  _decidim_scopes: Ambits
+  _supports_required: Suports necessaris
   stampa:
     pet_stringa_1: Sol·licitud d’admissió al procediment de petició dels ciutadans
     pet_stringa_2: DNI/NIE

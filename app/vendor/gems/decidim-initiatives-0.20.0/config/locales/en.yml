@@ -1,5 +1,7 @@
 ---
 en:
+  _decidim_scopes: Decidim scopes
+  _supports_required: Supports required
   stampa:
     pet_stringa_1: Application for admission to the citizens' petition procedure
     pet_stringa_2: DNI/NIE

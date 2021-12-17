@@ -1,5 +1,7 @@
 ---
 en:
+  _decidim_scopes: Decidim scopes
+  _supports_required: Supports required
   stampa:
     stringa_1: Application for admission to the citizens' referendum procedure
     stringa_2: DNI/NIE

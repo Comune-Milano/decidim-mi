@@ -1,4 +1,6 @@
 it:
+  _decidim_scopes: Ambiti
+  _supports_required: Supporti richiesti
   stampa:
     stringa_1: Domanda di ammissione alla procedura di referendum dei cittadini
     stringa_2: DNI/NIE
