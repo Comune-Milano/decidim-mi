@@ -14,6 +14,7 @@ module Decidim
         helper Decidim::Initiatives::InitiativeHelper
         helper Decidim::Initiatives::CreateInitiativeHelper
 
+        before_action :init_params
 
         # GET /admin/initiatives
         def index
@@ -22,14 +23,14 @@ module Decidim
           @query = params[:q]
           @state = params[:state]
           @initiatives = ManageableInitiatives
-                         .for(
-                           current_organization,
-                           current_user,
-                           @query,
-                           @state
-                         )
-                         .page(params[:page])
-                         .per(15)
+                             .for(
+                                 current_organization,
+                                 current_user,
+                                 @query,
+                                 @state
+                             )
+                             .page(params[:page])
+                             .per(15)
         end
 
         # GET /admin/initiatives/:id
@@ -41,10 +42,10 @@ module Decidim
         def edit
           enforce_permission_to :edit, :initiative, initiative: current_initiative
           @form = form(Decidim::Initiatives::Admin::InitiativeForm)
-                  .from_model(
-                    current_initiative,
-                    initiative: current_initiative
-                  )
+                      .from_model(
+                          current_initiative,
+                          initiative: current_initiative
+                      )
 
           render layout: "decidim/admin/initiative"
         end
@@ -55,12 +56,30 @@ module Decidim
 
           params[:id] = params[:slug]
           @form = form(Decidim::Initiatives::Admin::InitiativeForm)
-                  .from_params(params, initiative: current_initiative)
+                      .from_params(params, initiative: current_initiative)
 
           UpdateInitiative.call(current_initiative, @form, current_user) do
             on(:ok) do |initiative|
               flash[:notice] = I18n.t("initiatives.update.success", scope: "decidim.initiatives.admin")
               redirect_to edit_initiative_path(initiative)
+
+              #ULTIMO CAMPO DA AGGIORNARE (LUCA)
+              if current_initiative.state != "published"
+                tid = @form.type_id
+                dai = @form.decidim_areas_id
+                #Rails.logger.info "\n\n"+tid.to_s+"\n\n"
+                #Rails.logger.info "\n\n"+dai.to_s+"\n\n"
+                begin
+                  new_scoped_type = Decidim::InitiativesTypeScope.select(:id).where(["decidim_initiatives_types_id = ? and decidim_areas_id = ?", tid, dai])
+                  initiative.scoped_type_id = new_scoped_type[0]["id"]
+                  initiative.save!
+                rescue ActiveRecord::RecordNotFound
+                  flash.now[:alert] = I18n.t("initiatives.update.error", scope: "decidim.initiatives.admin")
+                  render :edit, layout: "decidim/admin/initiative"
+                end
+              end
+              ########################################################
+
             end
 
             on(:invalid) do
@@ -68,6 +87,7 @@ module Decidim
               render :edit, layout: "decidim/admin/initiative"
             end
           end
+
         end
 
         # POST /admin/initiatives/:id/publish
@@ -122,10 +142,10 @@ module Decidim
           SendInitiativeToTechnicalValidation.call(current_initiative, current_user) do
             on(:ok) do
               redirect_to edit_initiative_path(current_initiative), flash: {
-                notice: I18n.t(
-                  "success",
-                  scope: %w(decidim initiatives admin initiatives edit)
-                )
+                  notice: I18n.t(
+                      "success",
+                      scope: %w(decidim initiatives admin initiatives edit)
+                  )
               }
             end
           end
@@ -154,9 +174,9 @@ module Decidim
           @votes = current_initiative.votes.votes
 
           output = render_to_string(
-            pdf: "votes_#{current_initiative.id}",
-            layout: "decidim/admin/initiatives_votes",
-            template: "decidim/initiatives/admin/initiatives/export_pdf_signatures.pdf.erb"
+              pdf: "votes_#{current_initiative.id}",
+              layout: "decidim/admin/initiatives_votes",
+              template: "decidim/initiatives/admin/initiatives/export_pdf_signatures.pdf.erb"
           )
           output = pdf_signature_service.new(pdf: output).signed_pdf if pdf_signature_service
 
@@ -168,6 +188,10 @@ module Decidim
         end
 
         private
+
+        def init_params
+          params.permit(:type_id, :decidim_areas_id)
+        end
 
         def pdf_signature_service
           @pdf_signature_service ||= Decidim.pdf_signature_service.to_s.safe_constantize

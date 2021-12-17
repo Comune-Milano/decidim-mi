@@ -15,16 +15,29 @@
 </div>
 <br>
 <div class="row">
-    <div class="small-12 medium-centered">
-      <div class="card">
-        <div class="card__content">
-          <%= render partial: "finish_help" %>
-        </div>
+  <div class="small-12 medium-centered">
+    <div class="card">
+      <div class="card__content">
+        <%= render partial: "finish_help" %>
+      </div>
 
-        <div class="column actions">
-          <%= link_to t(".go_to_my_initiatives"), decidim_admin_initiatives.initiatives_path, class: "button expanded" %>
-          <%= link_to t(".back_to_initiatives"), initiatives_path, class: "button white-button expanded" %>
-        </div>
+      <div class="column actions">
+        <%= link_to t(".go_to_my_initiatives"), decidim_admin_initiatives.initiatives_path, class: "button expanded" %>
+        <%= link_to t(".back_to_initiatives"), initiatives_path, class: "button white-button expanded" %>
       </div>
     </div>
   </div>
+</div>
+
+
+<script>
+
+    $('ul li').each(function(i) {
+        if($(this).text() == 'petizioni') {
+            $(this).removeClass();
+            $(this).addClass("main-nav__link main-nav__link--active");
+            return false;
+        }
+    });
+
+</script>

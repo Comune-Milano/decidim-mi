@@ -21,6 +21,14 @@ module Decidim
         def call
           return broadcast(:invalid) if form.invalid?
 
+          type_id = form.context.type_id
+          decidim_areas_id = form.decidim_areas_id
+          dummy = Decidim::InitiativesTypeScope.where("decidim_initiatives_types_id = ? and decidim_areas_id = ?", type_id.to_s, decidim_areas_id.to_s).present?
+          if dummy == true
+            form.errors.add("", "Errore: l'ambito è già stato scelto.")
+            return broadcast(:invalid)
+          end
+
           initiative_type_scope = create_initiative_type_scope
 
           if initiative_type_scope.persisted?
@@ -40,9 +48,10 @@ module Decidim
 
         def create_initiative_type_scope
           initiative_type = InitiativesTypeScope.new(
-            supports_required: form.supports_required,
-            decidim_scopes_id: form.decidim_scopes_id,
-            decidim_initiatives_types_id: form.context.type_id
+              decidim_scopes_id: form.decidim_areas_id,              # <-- AGGIUNTO LUCA
+              supports_required: form.supports_required,
+              decidim_areas_id: form.decidim_areas_id,
+              decidim_initiatives_types_id: form.context.type_id
           )
 
           return initiative_type unless initiative_type.valid?
@@ -50,6 +59,7 @@ module Decidim
           initiative_type.save
           initiative_type
         end
+
       end
     end
   end

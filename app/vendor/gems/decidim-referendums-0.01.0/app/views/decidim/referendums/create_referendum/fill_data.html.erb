@@ -8,8 +8,9 @@
 <div class="row column">
   <div class="medium-centered">
     <div class="callout secondary">
-      <%== t ".fill_data_help" %>
-      <%= link_to t(".more_information"), decidim.page_path("referendums"), target: "_blank" %>.
+      <%#== t ".fill_data_help" %>
+      Rivedi il contenuto del tuo referendum. Il titolo è facile da capire? L’obiettivo è chiaro? Riguarda un municipio o l’intera città? Ricordati che puoi raccogliere le firme sia online sia di persona. Se raccogli le firme di persona, devi dotarti di fogli di raccolta firme vidimati dall’ufficio elettorale, e della presenza di un autenticatore.
+      <%= link_to t(".more_information"), "https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione", target: "_blank" %>.
     </div>
   </div>
 </div>
@@ -36,24 +37,45 @@
               <%= f.editor :description, lines: 8, toolbar: :full, required: true %>
             </div>
 
-            <% signature_type_options = signature_type_options(f.object) %>
-            <% if signature_type_options.length == 1 %>
-              <%= f.hidden_field :signature_type, value: signature_type_options.first.last %>
-            <% else %>
-              <div class="field">
-                <%= f.select :signature_type, signature_type_options %>
-              </div>
-            <% end %>
+            <%# signature_type_options = signature_type_options(f.object) %>
+            <%# if signature_type_options.length == 1 %>
+              <%#= f.hidden_field :signature_type, value: signature_type_options.first.last %>
+            <%# else %>
+              <!-- <div class="field">
+                <%#= f.select :signature_type, signature_type_options %>
+              </div> -->
+            <%# end %>
 
-            <% if scopes.length == 1 %>
-              <%= f.hidden_field :scope_id, value: scopes.first.scope&.id %>
-            <% else %>
+            <%= f.hidden_field :signature_type, value: "online" %>
+
+<!--
+
+            <%# if scopes.length == 1 %>
+              <%#= f.hidden_field :scope_id, value: scopes.first.scope&.id %>
+            <%# else %>
               <div class="field">
-                <%= f.select :scope_id,
+                      <%#= f.select :scope_id,
                             scopes.map { |scope| [translated_attribute(scope.scope_name), scope&.scope&.id]},
-                            prompt: t(".select_scope") %>
+                            label: "Ambito territoriale" %>
               </div>
-            <% end %>
+            <%# end %>
+-->
+
+            <!-- Ricavo gli amibiti territoriali del tipo di petizione scelto -->
+ <% petTypeScope = Decidim::ReferendumsTypeScope.where(:decidim_referendums_types_id => @form.type_id) %>
+            <label>Ambiti territoriali</label>
+            <select name="area_id">
+              <% petTypeScope.each do |p| %>
+                <% area = Decidim::Area.where(:id => p.decidim_areas_id) %>
+                <% area_id = area[0]["id"].to_s %>
+                <% area_name = translated_attribute(area[0]["name"]).to_s %>
+                <option value="<%= area_id %>"><%= area_name %></option>
+              <% end %>
+            </select>
+
+            <!-- ***************************************************************************** -->
+
+
 
             <% if Decidim::UserGroups::ManageableUserGroups.for(current_user).verified.any? %>
               <div class="field">
@@ -72,13 +94,16 @@
   </div>
 </div>
 
-<%= javascript_tag do -%>
 
-  $('select option')
-  .filter(function() {
-  return !this.value || $.trim(this.value).length == 0;
-  })
-  .remove();
+<script>
 
-<% end %>
+  $('ul li').each(function(i) {
+    if($(this).text() == 'Referendum') {
+      $(this).removeClass();
+      $(this).addClass("main-nav__link main-nav__link--active");
+      return false;
+    }
+  });
 
+</script>
+                                                              

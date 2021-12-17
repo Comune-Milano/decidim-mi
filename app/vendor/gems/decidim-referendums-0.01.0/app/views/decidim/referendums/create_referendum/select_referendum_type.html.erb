@@ -6,49 +6,79 @@
   <% end %>
 <% end %>
 
-<div class="row column">
-  <div class="callout secondary">
-    <%= t ".select_referendum_type_help" %>
-    <%= link_to t(".more_information"), decidim.page_path("referendums"), target: "_blank" %>.
-  </div>
-</div>
-<br>
-<div class="row column">
-  <div class="main-container">
-    <div class="row collapse main-container--side-panel">
-      <div class="columns medium-4 large-3">
-        <div class="side-panel">
-          <ul class="tabs vertical side-panel__tabs" id="referendums-tabs" data-tabs>
-            <% referendum_types_each do |type| %>
-              <li class="tabs-title <%= "is-active" if type == default_type %>">
-                <%= link_to "#referendumType#{type.id}" do %>
-                  <%# Quiero crear un <strong><%= translated_attribute type.title %1></strong> %>
-                  <%= t(".choose_html", title: translated_attribute(type.title)) %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
+
+<% if available_referendum_types.size == 0 %>
+
+  <div class="row column">
+    <div class="main-container">
+      <div class="main-container__content">
+        <h1 class="section-heading">Attenzione</h1>
+        <p>Non ci sono tipi di referenda o ambiti territoriali ad essi associati.<br />Si prega di contattare un amministratore.<br />Grazie.</p>
       </div>
-      <div class="columns medium-8 large-9">
-        <div class="main-container__content">
-          <div class="tabs-content vertical" data-tabs-content="referendums-tabs">
-            <% referendum_types_each do |type| %>
-              <div class="tabs-panel <%= "is-active" if type == default_type %>" id="<%= "referendumType#{type.id}" %>">
-                <h2 class="section-heading"><%= translated_attribute(type.title) %></h2>
-                <div>
-                  <%= raw translated_attribute type.description %>
+    </div>
+  </div>
+
+  <% else %>
+
+ <div class="row column">
+    <div class="callout secondary">
+      <%#= t ".select_referendum_type_help" %>
+      <%#= link_to t(".more_information"), decidim.page_path("referendums"), target: "_blank" %>
+      Lo <a href='https://partecipazione.comune.milano.it/pages/regoledellapartecipazione' target='_blank'>Statuto del Comune di Milano</a> prevede la possibilità di proporre tre tipi di referendum cittadini: abrogativo, consultivo, propositivo. I requisiti, la procedura e le regole per la presentazione di un referendum sono normate dallo Statuto e dal <a href='https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione' target='_blank'>Regolamento della Partecipazione</a>.
+    </div>
+  </div>
+  <br>
+  <div class="row column">
+    <div class="main-container">
+      <div class="row collapse main-container--side-panel">
+        <div class="columns medium-4 large-3">
+          <div class="side-panel">
+            <ul class="tabs vertical side-panel__tabs" id="referendums-tabs" data-tabs>
+              <% referendum_types_each do |type| %>
+                <li class="tabs-title <%= "is-active" if type == default_type %>">
+                  <%= link_to "#referendumType#{type.id}" do %>
+                    <%# Quiero crear un <strong><%= translated_attribute type.title %1></strong> %>
+                    <%= t(".choose_html", title: translated_attribute(type.title)) %>
+                  <% end %>
+                </li>
+              <% end %>
+            </ul>
+          </div>
+        </div>
+        <div class="columns medium-8 large-9">
+          <div class="main-container__content">
+            <div class="tabs-content vertical" data-tabs-content="referendums-tabs">
+              <% referendum_types_each do |type| %>
+                <div class="tabs-panel <%= "is-active" if type == default_type %>" id="<%= "referendumType#{type.id}" %>">
+                  <h2 class="section-heading"><%= translated_attribute(type.title) %></h2>
+                  <div>
+                    <%= raw translated_attribute type.description %>
+                  </div>
+                  <br>
+                  <%= decidim_form_for(@form, url: next_wizard_path, method: :put, html: { id: "new_referendum_#{type.id}", class: "form select-referendum_type-form" }) do |f| %>
+                    <%= f.hidden_field :type_id, value: type.id, id: "referendum_type_id_#{ type.id }" %>
+                  <%#= f.submit t(".select"), class: "button" %>
+                  <%= f.submit "Voglio creare un referendum tipo #{translated_attribute(type.title).downcase}", class: "button" %>
+                  <% end %>
                 </div>
-                <br>
-                <%= decidim_form_for(@form, url: next_wizard_path, method: :put, html: { id: "new_referendum_#{type.id}", class: "form select-referendum_type-form" }) do |f| %>
-                  <%= f.hidden_field :type_id, value: type.id, id: "referendum_type_id_#{ type.id }" %>
-                  <%= f.submit t(".select"), class: "button" %>
-                <% end %>
-              </div>
-            <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </div>
-</div>
+<% end %>
+
+<script>
+
+  $('ul li').each(function(i) {
+    if($(this).text() == 'Referendum') {
+      $(this).removeClass();
+      $(this).addClass("main-nav__link main-nav__link--active");
+      return false;
+    }
+  });
+
+</script>
+                     

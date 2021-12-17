@@ -8,8 +8,9 @@
 <div class="row">
   <div class="medium-centered">
     <div class="callout secondary">
-      <%= t ".help" %>
-      <%= link_to t(".more_information"), decidim.page_path("initiatives"), target: "_blank" %>.
+      <%#= t ".help" %>
+      <%#= link_to t(".more_information"), decidim.page_path("initiatives"), target: "_blank" %>
+      Inserisci il titolo e la descrizione. Raccomandiamo un titolo breve e conciso e una descrizione focalizzata sulla soluzione proposta. <a href="https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione" target="_blank">(Maggiori informazioni)</a>
     </div>
   </div>
 </div>
@@ -37,3 +38,16 @@
     </div>
   </div>
 </div>
+
+
+<script>
+
+    $('ul li').each(function(i) {
+        if($(this).text() == 'petizioni') {
+            $(this).removeClass();
+            $(this).addClass("main-nav__link main-nav__link--active");
+            return false;
+        }
+    });
+
+</script>

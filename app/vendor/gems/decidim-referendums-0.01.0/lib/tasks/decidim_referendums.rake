@@ -84,7 +84,7 @@ namespace :decidim_referendums do
 
   ############## CR
   desc "Check Referenda end signs (one week before)"
-  task check_one_week_before_end_signs :environment do
+  task check_one_week_before_end_signs: :environment do
     Decidim::Referendums::CheckOneWeekBeforeEndSigns.new.each do |referendum|
 
       user = Decidim::User.find_by(id: referendum.author.id)

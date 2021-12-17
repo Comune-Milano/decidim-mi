@@ -133,12 +133,12 @@ module Admin
         end
 
         if componente.state == 5
-          Decidim::EventsManager.publish(
-              event: "decidim.events.signatures.signature_publish_proposta_ok",
-              event_class: Decidim::Signatures::SignaturePublishPropostaOkEvent,
-              resource: componente,
-              affected_users: destinatari,
-              )
+          #Decidim::EventsManager.publish(
+          #   event: "decidim.events.signatures.signature_publish_proposta_ok",
+          #   event_class: Decidim::Signatures::SignaturePublishPropostaOkEvent,
+          #   resource: componente,
+          #   affected_users: destinatari,
+          #   )
           Decidim::EventsManager.publish(
               event: "decidim.events.signatures.signature_publish_proposta_ok_author",
               event_class: Decidim::Signatures::SignaturePublishPropostaOkAuthorEvent,
@@ -146,13 +146,12 @@ module Admin
               affected_users: [componente.author],
               )
         else
-          Decidim::EventsManager.publish(
-              event: "decidim.events.signatures.signature_publish_proposta_ko",
-              event_class: Decidim::Signatures::SignaturePublishPropostaKoEvent,
-              resource: componente,
-              affected_users: destinatari,
-          #followers: @referendum.author.followers
-              )
+          #Decidim::EventsManager.publish(
+          #   event: "decidim.events.signatures.signature_publish_proposta_ko",
+          #   event_class: Decidim::Signatures::SignaturePublishPropostaKoEvent,
+          #   resource: componente,
+          #   affected_users: destinatari,
+          #    )
           Decidim::EventsManager.publish(
               event: "decidim.events.signatures.signature_publish_proposta_ko_author",
               event_class: Decidim::Signatures::SignaturePublishPropostaKoAuthorEvent,

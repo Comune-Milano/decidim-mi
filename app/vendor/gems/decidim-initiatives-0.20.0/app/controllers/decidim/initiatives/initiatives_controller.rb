@@ -41,9 +41,9 @@ module Decidim
       # GET /initiatives/:id/signature_identities
       def signature_identities
         @voted_groups = InitiativesVote
-                        .supports
-                        .where(initiative: current_initiative, author: current_user)
-                        .pluck(:decidim_user_group_id)
+                            .supports
+                            .where(initiative: current_initiative, author: current_user)
+                            .pluck(:decidim_user_group_id)
         render layout: false
       end
 
@@ -69,18 +69,19 @@ module Decidim
 
       def default_filter_params
         {
-          search_text: "",
-          state: "open",
-          type: "all",
-          author: "any",
-          scope_id: nil
+            search_text: "",
+            state: "open",
+            type: "all",
+            author: "any",
+            decidim_areas_id: nil
+            #scope_id: nil
         }
       end
 
       def context_params
         {
-          organization: current_organization,
-          current_user: current_user
+            organization: current_organization,
+            current_user: current_user
         }
       end
 

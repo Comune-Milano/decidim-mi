@@ -83,7 +83,7 @@ namespace :decidim_initiatives do
 
   ############## CR
   desc "Check Initiatives end signs (one week before)"
-  task check_one_week_before_end_signs :environment do
+  task check_one_week_before_end_signs: :environment do
     Decidim::Initiatives::CheckOneWeekBeforeEndSigns.new.each do |initiative|
 
       user = Decidim::User.find_by(id: initiative.author.id)

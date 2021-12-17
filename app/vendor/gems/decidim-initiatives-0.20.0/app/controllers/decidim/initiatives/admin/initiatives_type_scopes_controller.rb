@@ -17,7 +17,7 @@ module Decidim
         def create
           enforce_permission_to :create, :initiative_type_scope
           @form = initiative_type_scope_form
-                  .from_params(params, type_id: params[:initiatives_type_id])
+                      .from_params(params, type_id: params[:initiatives_type_id])
 
           CreateInitiativeTypeScope.call(@form) do
             on(:ok) do |initiative_type_scope|
@@ -36,7 +36,6 @@ module Decidim
               end
               render :new
             end
-
           end
         end
 
@@ -61,7 +60,6 @@ module Decidim
             #  flash.now[:alert] = I18n.t("decidim.initiatives.admin.initiatives_type_scopes.update.error")
             #  render :edit
             #end
-
             on(:invalid) do
               if @form != nil
                 e = ""
@@ -72,8 +70,6 @@ module Decidim
               end
               render :edit
             end
-
-
           end
         end
 
@@ -83,7 +79,7 @@ module Decidim
           current_initiative_type_scope.destroy!
 
           redirect_to edit_initiatives_type_path(current_initiative_type_scope.type), flash: {
-            notice: I18n.t("decidim.initiatives.admin.initiatives_type_scopes.destroy.success")
+              notice: I18n.t("decidim.initiatives.admin.initiatives_type_scopes.destroy.success")
           }
         end
 

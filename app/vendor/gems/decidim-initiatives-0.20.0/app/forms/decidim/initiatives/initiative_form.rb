@@ -12,6 +12,7 @@ module Decidim
       attribute :description, String
       attribute :type_id, Integer
       attribute :scope_id, Integer
+      attribute :area_id, Integer
       attribute :decidim_user_group_id, Integer
       attribute :signature_type, String
       attribute :state, String

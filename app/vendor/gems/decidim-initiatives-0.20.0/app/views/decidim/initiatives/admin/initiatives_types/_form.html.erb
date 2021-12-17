@@ -33,6 +33,10 @@
       <%= form.check_box :collect_user_extra_fields, :checked => false %>
     </div>
 
+    <% if request.env['PATH_INFO'].end_with?('edit') %>
+      <%= render partial: "initiative_type_scopes", locals: { initiative_type: current_initiative_type } %>
+    <% end %>
+
     <div class="row column">
       <%= form.translated :editor, :extra_fields_legal_information %>
     </div>

@@ -5,50 +5,78 @@
     <%= t(".back") %>
   <% end %>
 <% end %>
+<% if available_initiative_types.size == 0 %>
 
-<div class="row column">
-  <div class="callout secondary">
-    <%= t ".select_initiative_type_help" %>
-    <%= link_to t(".more_information"), decidim.page_path("initiatives"), target: "_blank" %>.
-  </div>
-</div>
-<br>
-<div class="row column">
-  <div class="main-container">
-    <div class="row collapse main-container--side-panel">
-      <div class="columns medium-4 large-3">
-        <div class="side-panel">
-          <ul class="tabs vertical side-panel__tabs" id="initiatives-tabs" data-tabs>
-            <% initiative_types_each do |type| %>
-              <li class="tabs-title <%= "is-active" if type == default_type %>">
-                <%= link_to "#initiativeType#{type.id}" do %>
-                  <%# Quiero crear un <strong><%= translated_attribute type.title %1></strong> %>
-                  <%= t(".choose_html", title: translated_attribute(type.title)) %>
-                <% end %>
-              </li>
-            <% end %>
-          </ul>
-        </div>
-      </div>
-      <div class="columns medium-8 large-9">
-        <div class="main-container__content">
-          <div class="tabs-content vertical" data-tabs-content="initiatives-tabs">
-            <% initiative_types_each do |type| %>
-              <div class="tabs-panel <%= "is-active" if type == default_type %>" id="<%= "initiativeType#{type.id}" %>">
-                <h2 class="section-heading"><%= translated_attribute(type.title) %></h2>
-                <div>
-                  <%= raw translated_attribute type.description %>
-                </div>
-                <br>
-                <%= decidim_form_for(@form, url: next_wizard_path, method: :put, html: { id: "new_initiative_#{type.id}", class: "form select-initiative_type-form" }) do |f| %>
-                  <%= f.hidden_field :type_id, value: type.id, id: "initiative_type_id_#{ type.id }" %>
-                  <%= f.submit t(".select"), class: "button" %>
-                <% end %>
-              </div>
-            <% end %>
-          </div>
-        </div>
+  <div class="row column">
+    <div class="main-container">
+      <div class="main-container__content">
+        <h1 class="section-heading">Attenzione</h1>
+        <p>Non ci sono tipi di petizione o ambiti territoriali ad essi associati.<br />Si prega di contattare un amministratore.<br />Grazie.</p>
       </div>
     </div>
   </div>
-</div>
+
+  <% else %>
+
+  <div class="row column">
+    <div class="callout secondary">
+      <%#= t ".select_initiative_type_help" %>
+      <%#= link_to t(".more_information"), decidim.page_path("initiatives"), target: "_blank" %>
+      La petizione è una richiesta avanzata da cittadini per esporre al Consiglio comunale comuni necessità. Le petizioni, sottoscritte da almeno mille cittadini, alle quali viene data risposta scritta e motivata (<a href="https://partecipazione.comune.milano.it/pages/regoledellapartecipazione" target="_blank">art. 9, comma 2, Statuto Comunale</a>), sono pubblicate con le relative risposte all'Albo Pretorio del Comune di Milano e trasmesse al Presidente del Consiglio Comunale per l'inoltro alla Commissione competente.
+    </div>
+  </div>
+  <br>
+  <div class="row column">
+    <div class="main-container">
+        <div class="row collapse main-container--side-panel">
+          <div class="columns medium-4 large-3">
+            <div class="side-panel">
+              <ul class="tabs vertical side-panel__tabs" id="initiatives-tabs" data-tabs>
+                <% initiative_types_each do |type| %>
+                  <li class="tabs-title <%= "is-active" if type == default_type %>">
+                    <%= link_to "#initiativeType#{type.id}" do %>
+                      <%# Quiero crear un <strong><%= translated_attribute type.title %1></strong> %>
+                      <%= t(".choose_html", title: translated_attribute(type.title)) %>
+                    <% end %>
+                  </li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+          <div class="columns medium-8 large-9">
+            <div class="main-container__content">
+              <div class="tabs-content vertical" data-tabs-content="initiatives-tabs">
+                <% initiative_types_each do |type| %>
+                  <div class="tabs-panel <%= "is-active" if type == default_type %>" id="<%= "initiativeType#{type.id}" %>">
+                    <h2 class="section-heading"><%= translated_attribute(type.title) %></h2>
+                    <div>
+ <%= raw translated_attribute type.description %>
+                    </div>
+                    <br>
+                    <%= decidim_form_for(@form, url: next_wizard_path, method: :put, html: { id: "new_initiative_#{type.id}", class: "form select-initiative_type-form" }) do |f| %>
+                      <%= f.hidden_field :type_id, value: type.id, id: "initiative_type_id_#{ type.id }" %>
+                      <%= f.submit t(".select"), class: "button" %>
+                    <% end %>
+                  </div>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+    </div>
+  </div>
+<% end %>
+
+
+<script>
+
+  $('ul li').each(function(i) {
+    if($(this).text() == 'petizioni') {
+      $(this).removeClass();
+      $(this).addClass("main-nav__link main-nav__link--active");
+      return false;
+    }
+  });
+
+</script>
+
