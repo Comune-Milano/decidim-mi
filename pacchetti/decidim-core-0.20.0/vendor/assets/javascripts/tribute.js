@@ -325,6 +325,10 @@ function () {
           }
 
           li.innerHTML = _this2.current.collection.menuItemTemplate(item);
+          var nomi = li.getElementsByTagName("small");
+          for(var i = 0; i < nomi.length; i++) {
+            nomi[i].innerHTML = "";
+          }
           fragment.appendChild(li);
         });
         ul.appendChild(fragment);
