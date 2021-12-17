@@ -42,3 +42,21 @@
 
   <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
 <% end %>
+
+<%= javascript_tag do -%>
+  $(document).ready(function() {
+  $('input[type="radio"]').on('click change', function(e) {
+  setTimeout(function(){
+  window.location.reload(true); },
+  50);
+  });
+
+  $('#sb').on('click', function(e) {
+  setTimeout(function(){
+  window.location.reload(true); },
+  50);
+  });
+
+
+  });
+<% end -%>

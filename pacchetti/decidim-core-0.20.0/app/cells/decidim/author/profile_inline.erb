@@ -19,22 +19,24 @@
     data-template-classes="light expanded"
     tabindex="1"
     data-tip-text='<%= h render(:profile_minicard) %>'>
-    <%= model.name %>
+    <%= model.nickname %>
   </span>
 
-  <% if model.badge.present? %>
-    <span class="author__badge">
-      <%= icon model.badge %>
-    </span>
+  <%# if model.badge.present? %>
+  <% if model.admin.to_s == "true" %>
+    <img src = "/stellina.png" />
+    <!--<span class="author__badge" title="Amministratore">
+      <%#= icon model.badge %>
+    </span> -->
   <% end %>
 <% else %>
   <span class="author__name">
-    <%= model.name %>
+   <%= model.nickname %>
   </span>
 
   <% if model.badge.present? %>
-    <span class="author__badge">
-      <%= icon model.badge %>
+    <span class="author__badge" title="Amministratore">
+    <%= icon model.badge %>
     </span>
   <% end %>
 <% end %>

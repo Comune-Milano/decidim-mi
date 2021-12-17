@@ -24,7 +24,7 @@
       </div>
     </div>
 
-    <div class="row">
+    <div class="row" style="display: none">
       <div class="columns xlarge-6 slug">
         <%= form.text_field :cta_path %>
         <p class="help-text"><%== t(".cta_path_help", url: decidim_form_slug_url("processes/" + current_participatory_process.slug, form.object.cta_path)) %></p>
