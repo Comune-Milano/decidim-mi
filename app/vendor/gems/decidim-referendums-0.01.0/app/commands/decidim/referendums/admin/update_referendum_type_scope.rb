@@ -24,6 +24,16 @@ module Decidim
         def call
           return broadcast(:invalid) if form.invalid?
 
+          id = form.id
+          type_id = referendum_type_scope.decidim_referendums_types_id
+          decidim_areas_id = form.decidim_areas_id
+          dummy =  Decidim::ReferendumsTypeScope.where("id != ? and decidim_referendums_types_id = ? and decidim_areas_id = ?", id.to_s, type_id.to_s, decidim_areas_id.to_s).present?
+          if dummy == true
+            form.errors.add("", "Errore: l'ambito è già stato scelto.")
+            return broadcast(:invalid)
+          end
+
+
           referendum_type_scope.update(attributes)
           broadcast(:ok, referendum_type_scope)
         end
@@ -34,10 +44,13 @@ module Decidim
 
         def attributes
           {
-            supports_required: form.supports_required,
-            decidim_scopes_id: form.decidim_scopes_id
+              supports_required: form.supports_required,
+              #            decidim_scopes_id: form.decidim_scopes_id
+              decidim_scopes_id: form.decidim_areas_id,
+              decidim_areas_id: form.decidim_areas_id
           }
         end
+
       end
     end
   end

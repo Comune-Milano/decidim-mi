@@ -1,4 +1,21 @@
+<!-- RICAVO I NOMI DEL TIPO E DELL'AMBITO TERRITORIALE USANDO SCOPED_TYPE_ID -->
+
+<% ta = Decidim::ReferendumsTypeScope.select(:id, :decidim_referendums_types_id, :decidim_areas_id).where("id = ?", resource.scoped_type_id) %>
+<% tipo = Decidim::ReferendumsType.where(:id => ta[0]["decidim_referendums_types_id"]) %>
+<% ambito = Decidim::Area.where(:id => ta[0]["decidim_areas_id"]) %>
+
+
 <ul class="tags tags--referendum">
-  <li><%= link_to translated_attribute(resource.type.title), referendums_path(filter: { type: [resource.type.id] }) %></li>
-  <li><%= link_to translated_attribute(resource.scope_name), referendums_path(filter: { scope_id: [resource.scope&.id] }) %></li>
+  <!-- <li><%#= link_to translated_attribute(resource.type.title), referendums_path(filter: { type: [resource.type.id] }) %></li>
+  <li><%#= link_to translated_attribute(resource.scope_name), referendums_path(filter: { scope_id: [resource.scope&.id] }) %></li> -->
+
+  <li><a href="?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Btype%5D%5B%5D=<%=tipo[0]["id"] %>&order=random">
+    <%= translated_attribute(tipo[0]["title"]) %></a>
+  </li>
+
+  <li><a href="?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Bscope_id%5D%5B%5D=<%=ambito[0]["id"] %>&order=random">
+    <%= translated_attribute(ambito[0]["name"]) %></a></li>
+
+
 </ul>
+

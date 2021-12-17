@@ -28,18 +28,42 @@
 
   <div class="filters__section">
     <fieldset>
-      <legend><h6 class="heading6"><%= t ".type" %></h6></legend>
-      <%= form.referendum_types_select :type,
+      <legend><h6 class="heading6">Tipi di referenda</h6></legend>
+      <%#= form.referendum_types_select :type,
                                        Decidim::ReferendumsType.where(organization: current_organization),
                                        legend_title: t(".type"),
                                        label: false,
                                        prompt: t(".type_prompt"),
                                        remote_path: referendum_types_search_path,
                                        multiple: true %>
+      <% types = Decidim::ReferendumsType.order(:title) %>
+      <select class="select2" name="filter[type][]" id="filter_type">
+        <option value="" disabled selected>Seleziona un tipo</option>
+        <% types.each do |t| %>
+          <option value="<%= t.id %>"><%= translated_attribute(t.title) %></option>
+        <% end %>
+      </select>
+
     </fieldset>
   </div>
 
-  <%= scopes_picker_field form, :scope_id, root: nil %>
+  <div class="filters__section">
+    <fieldset>
+      <legend><h6 class="heading6">AMBITI TERRITORIALI</h6></legend>
+      <% areas = Decidim::Area.order(:name) %>
+      <select class="select2" name="filter[scope_id]" id="filter_scope_id">
+        <option value="" disabled selected>Seleziona un ambito</option>
+        <% areas.each do |a| %>
+          <option value="<%= a.id %>"><%= translated_attribute(a.name) %></option>
+        <% end %>
+      </select>
+
+    </fieldset>
+    <br>
+    <center><%= link_to "Pulisci i filtri di ricerca", referendums_path %></center>
+  </div>
+
+  <%#= scopes_picker_field form, :scope_id, root: nil %>
 
   <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
 <% end %>
