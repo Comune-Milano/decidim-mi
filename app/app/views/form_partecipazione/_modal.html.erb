@@ -1,0 +1,121 @@
+<style>
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+}
+
+.modal-content {
+  border-radius: 8px;
+}
+
+.modal-content h2 {
+  color: #d6012e !important;
+}
+
+.modal-content center input[type="submit"] {
+  background: #d6012e;
+  color: #ffffff;
+  border: none;
+  padding: 15px 30px !important;
+  cursor: pointer;
+  white-space: pre-wrap !important;
+}
+
+.modal-content center input[type="submit"]:hover {
+  background: #e01b45;
+}
+
+.modal-content center input[type="submit"]:active {
+  background: #ad1434;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+</style>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form accept-charset="UTF-8" action="/sender" method="post">
+      <h2 style="color: #CCCC00">Il tuo profilo risulta NON Residente presso il Comune di Milano.</h2>
+      <label for="sondaggio" style="font-size: large">Di seguito puoi indicare la natura del rapporto con il comune di Milano e chiedere l'autorizzazione a poter partecipare. La tua richiesta sarà valutata e riceverai un riscontro quanto prima</label>
+      <textarea id="sondaggio" name="sondaggio" rows="10"></textarea>
+      <center><input type="submit" value="Invia all'amministratore filippo" style="padding: 10px" /></center>
+    </form>
+  </div>
+</div>
+
+<div id="myModal2" class="modal">
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <center>
+      <h2 style="color: #CCCC00">Il modulo di partecipazione &egrave stato inviato, si prega di attendere la validazione.</h2>
+      <div style="height: 30px"></div>
+      <button id="button-close" class="button card__button button--sc">Torna indietro</button>
+    </center>
+  </div>
+</div>
+
+<div id="myModal3" class="modal">
+  <div class="modal-content">
+    <center>
+      <h2 style="color: #CCCC00">La sua richiesta è stata presa in carico dagli amministratori.</h2>
+      <div style="height: 30px"></div>
+      <button id="button-close3" class="button card__button button--sc">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+<%= javascript_tag  do -%>
+  var modal = document.getElementById("myModal");
+  var span = document.getElementsByClassName("close")[0];
+  //modal.style.display = "block";
+  span.onclick = function() {
+    modal.style.display = "none";
+  }
+  var modal2 = document.getElementById("myModal2");
+  var span2 = document.getElementsByClassName("close")[1];
+  var closeButton = document.getElementById("button-close");
+  //modal2.style.display = "block";
+  span2.onclick = function() {
+    modal2.style.display = "none";
+  }
+  closeButton.onclick = function() {
+    modal.style.display = "none";
+  }
+<% end -%>

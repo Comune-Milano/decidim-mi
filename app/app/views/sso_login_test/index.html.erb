@@ -1,0 +1,29 @@
+<h1>SSO Login - Test</h1>
+
+<form action='/sso_login_test' method='post'>
+
+	<label>IV_USER</label>
+	<input type="text" name="iv_user" autofocus="true" />
+	<br />
+
+	<label>CDM_NAME</label>
+	<input type="text" name="cdm_name" />
+	<br />
+
+	<label>CDM_SURNAME</label>
+	<input type="text" name="cdm_surname" />
+	<br />
+
+	<label>CDM_CF</label>
+	<input type="text" name="cdm_cf" />
+	<br />
+
+	<input type="submit" value="Entra..." />
+
+</form>
+
+
+<p><%= @iv_user %></p>
+<p><%= @cdm_name %></p>
+<p><%= @cdm_surname %></p>
+<p><%= @cdm_cf %></p>
