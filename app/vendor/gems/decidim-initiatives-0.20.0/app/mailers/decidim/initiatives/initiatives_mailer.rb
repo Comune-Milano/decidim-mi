@@ -72,6 +72,72 @@ module Decidim
         end
       end
 
+      def notify_start_validation_signature_date(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.initiatives.initiatives_mailer.validation_signature_started",
+              title: translated_attribute(initiative.title)
+          )
+          @body = I18n.t(
+              "decidim.initiatives.initiatives_mailer.validation_signature_started_body_for",
+              title: translated_attribute(initiative.title),
+              author_name: user.name
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+
+
+      def notify_end_signature_date(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.initiatives.initiatives_mailer.end_signature_upload",
+              title: translated_attribute(initiative.title)
+          )
+          @body = I18n.t(
+              "decidim.initiatives.initiatives_mailer.end_signature_upload_body_for",
+              title: translated_attribute(initiative.title),
+              author_name: user.name
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+      def notify_start_signature_date(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.initiatives.initiatives_mailer.start_signature_upload",
+              title: translated_attribute(initiative.title)
+          )
+          @body = I18n.t(
+              "decidim.initiatives.initiatives_mailer.start_signature_upload_body_for",
+              title: translated_attribute(initiative.title),
+              end_date: initiative.signature_end_date,
+              author_name: user.name
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
       # Notify progress to all initiative subscribers.
       def notify_progress(initiative, user)
         return if user.email.blank?

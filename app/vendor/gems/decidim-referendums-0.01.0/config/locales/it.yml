@@ -9,12 +9,12 @@ it:
         signature_end_date: Fine del periodo di raccolta della firma
         signature_start_date: Inizio del periodo di raccolta della firma
         signature_last_day: Scadenza upload firme
-        signatures_offline: Firme OFFLINE
+        signatures_offline: FIRME OFFLINE
         signature_type: Tipo di raccolta della firma
         signature_type_values:
           any: Misto
           offline: Faccia a faccia
-          online: In linea
+          online: Online
         state: Stato
         title: Titolo
       referendum_author:
@@ -437,7 +437,13 @@ it:
         status_change_body_for: 'Il referendum %{title} ha cambiato il suo stato in: %{state}'
         status_change_for: Il referendum %{title} ha cambiato il suo stato
         technical_validation_body_for: Il referendum %{title} ha richiesto la sua convalida tecnica.
+        validation_signature_started_body_for: Ciao %{author_name},<br /> Da oggi è possibile validare le firme per per il referendum %{title}.
+        end_signature_upload_body_for: Ciao %{author_name},<br /> Ti ricordiamo che sono scaduti i termini per il caricamento delle firme offline per il referendum %{title}.
+        start_signature_upload_body_for: Ciao %{author_name},<br /> Da oggi e fino a %{end_date} è possibile caricare le firme per il referendum %{title}.
         technical_validation_for: Il referendum %{title} ha richiesto la sua convalida tecnica.
+        validation_signature_started: Validazione firme referendum %{title}
+        end_signature_upload: Inserimento firme referendum %{title}
+        start_signature_upload: Inserimento firme referendum %{title}
       last_activity:
         new_referendum: Nuovo referendum
       pages:

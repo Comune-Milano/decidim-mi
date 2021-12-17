@@ -10,7 +10,7 @@ en:
         signature_end_date: End of signature collection period
         signature_start_date: Start of signature collection period
         signature_last_day: Last day upload signatures
-        signatures_offline: OFFLINE Signs
+        signatures_offline: OFFLINE SIGNS
         signature_type: Signature collection type
         signature_type_values:
           any: Mixed
@@ -429,7 +429,14 @@ en:
         status_change_body_for: 'The referendum %{title} has changed its status to: %{state}'
         status_change_for: The referendum %{title} has changed its status
         technical_validation_body_for: The referendum %{title} has requested its technical validation.
+        validation_signature_started_body_for: Ciao %{author_name},<br /> Da oggi è possibile validare le firme per per il referendum %{title}.
+        end_signature_upload_body_for: Ciao %{author_name},<br /> Ti ricordiamo che sono scaduti i termini per il caricamento delle firme offline per il referendum %{title}.
+        start_signature_upload_body_for: Ciao %{author_name},<br /> Da oggi e fino a %{end_date} è possibile caricare le firme per il referendum %{title}.
         technical_validation_for: The referendum %{title} has requested its technical validation.
+        end_signature_upload: Inserimento firme referendum %{title}
+        start_signature_upload: Inserimento firme referendum %{title}
+        validation_signature_started: Validazione firme referendum %{title}
+
       last_activity:
         new_referendum: New referendum
       pages:

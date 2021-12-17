@@ -9,7 +9,7 @@ es:
         signature_end_date: Fin del período de recogida de firmas
         signature_start_date: Inicio del período de recogida de firmas
         signature_last_day: Último día para subir firmas
-        signatures_offline: Firmas OFFLINE
+        signatures_offline: FIRMAS OFFLINE
         signature_type: Tipo de recogida de firmas
         signature_type_values:
           any: Mixta

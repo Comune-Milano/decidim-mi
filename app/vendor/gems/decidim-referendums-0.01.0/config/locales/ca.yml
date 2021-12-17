@@ -9,7 +9,7 @@ ca:
         signature_end_date: Fi del període de recollida de signatures
         signature_start_date: Inici del període de recollida de signatures
         signature_last_day: Últim dia per penjar signatures
-        signatures_offline: Signatures OFFLINE
+        signatures_offline: SIGNATURES OFFLINE
         signature_type: Tipus de recollida de signatures
         signature_type_values:
           any: Mixta

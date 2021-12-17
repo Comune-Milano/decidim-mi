@@ -12,3 +12,24 @@
   <%= render initiatives %>
 </div>
 <%= decidim_paginate initiatives %>
+
+<%= javascript_tag nonce: true do -%>
+  var slides = document.getElementsByClassName("success card__text--status");
+  for (var i = 0; i < slides.length; i++) {
+    if(slides.item(i).innerHTML == "published") {
+      slides.item(i).innerHTML = "Pubblicata";
+    }
+    if(slides.item(i).innerHTML == "accepted") {
+      slides.item(i).innerHTML = "Accettata";
+    }
+  }
+  var slides2 = document.getElementsByClassName("alert card__text--status");
+  for (var i = 0; i < slides2.length; i++) {
+    if(slides2.item(i).innerHTML == "discarded") {
+      slides2.item(i).innerHTML = "Scartata";
+    }
+    if(slides2.item(i).innerHTML == "rejected") {
+      slides2.item(i).innerHTML = "Rifiutata";
+    }
+  }
+<% end -%>

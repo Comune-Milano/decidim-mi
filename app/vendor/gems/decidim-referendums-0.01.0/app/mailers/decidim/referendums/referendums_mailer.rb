@@ -72,6 +72,72 @@ module Decidim
         end
       end
 
+      def notify_start_validation_signature_date(referendum, user)
+        return if user.email.blank?
+
+        @organization = referendum.organization
+        @link = referendum_url(referendum, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.referendums.referendums_mailer.validation_signature_started",
+              title: translated_attribute(referendum.title)
+          )
+          @body = I18n.t(
+              "decidim.referendums.referendums_mailer.validation_signature_started_body_for",
+              title: translated_attribute(referendum.title),
+              author_name: user.name
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+
+      def notify_end_signature_date(referendum, user)
+        return if user.email.blank?
+
+        @organization = referendum.organization
+        @link = referendum_url(referendum, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.referendums.referendums_mailer.end_signature_upload",
+              title: translated_attribute(referendum.title)
+          )
+          @body = I18n.t(
+              "decidim.referendums.referendums_mailer.end_signature_upload_body_for",
+              title: translated_attribute(referendum.title),
+              author_name: user.name
+
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+      def notify_start_signature_date(referendum, user)
+        return if user.email.blank?
+
+        @organization = referendum.organization
+        @link = referendum_url(referendum, host: @organization.host)
+
+        with_user(user) do
+          @subject = I18n.t(
+              "decidim.referendums.referendums_mailer.start_signature_upload",
+              title: translated_attribute(referendum.title)
+          )
+          @body = I18n.t(
+              "decidim.referendums.referendums_mailer.start_signature_upload_body_for",
+              title: translated_attribute(referendum.title),
+              end_date: referendum.signature_end_date,
+              author_name: user.name
+          )
+
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
       # Notify progress to all referendum subscribers.
       def notify_progress(referendum, user)
         return if user.email.blank?

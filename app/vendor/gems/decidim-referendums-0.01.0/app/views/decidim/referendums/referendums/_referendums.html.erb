@@ -12,3 +12,24 @@
   <%= render referendums %>
 </div>
 <%= decidim_paginate referendums %>
+
+<%= javascript_tag nonce: true do -%>
+  var slides = document.getElementsByClassName("success card__text--status");
+  for (var i = 0; i < slides.length; i++) {
+    if(slides.item(i).innerHTML == "published") {
+      slides.item(i).innerHTML = "Pubblicato";
+    }
+    if(slides.item(i).innerHTML == "accepted") {
+      slides.item(i).innerHTML = "Accettato";
+    }
+  }
+  var slides2 = document.getElementsByClassName("alert card__text--status");
+  for (var i = 0; i < slides2.length; i++) {
+    if(slides2.item(i).innerHTML == "discarded") {
+        slides2.item(i).innerHTML = "Scartato";
+    }
+    if(slides2.item(i).innerHTML == "rejected") {
+        slides2.item(i).innerHTML = "Rifiutato";
+    }
+  }
+<% end -%>

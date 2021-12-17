@@ -1531,6 +1531,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.string "codice_fiscale", limit: 25
     t.datetime "officialized_until"
     t.boolean "form_inviato", default: false, null: false
+    t.datetime "richiesta_at"
     t.index ["confirmation_token"], name: "index_decidim_users_on_confirmation_token", unique: true
     t.index ["decidim_organization_id"], name: "index_decidim_users_on_decidim_organization_id"
     t.index ["email", "decidim_organization_id"], name: "index_decidim_users_on_email_and_decidim_organization_id", unique: true, where: "((deleted_at IS NULL) AND (managed = false) AND ((type)::text = 'Decidim::User'::text))"
