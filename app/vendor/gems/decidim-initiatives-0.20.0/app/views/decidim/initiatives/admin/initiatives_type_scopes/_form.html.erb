@@ -1,5 +1,16 @@
 <div class="row column">
-  <%= scopes_picker_field form, :decidim_scopes_id, root: nil %>
+  <%#= scopes_picker_field form, :decidim_scopes_id, root: nil %>
+  <% areas = Decidim::Area.order(:name) %>
+  <label>Ambito territoriale</label>
+  <select id="initiatives_type_scope_decidim_areas_id" name="initiatives_type_scope[decidim_areas_id]">
+    <% areas.each do |area| %>
+      <% if @current_initiative_type_scope != nil %>
+        <option value="<%= area.id %>" <% if @current_initiative_type_scope.decidim_areas_id == area.id %> selected <% end %>><%= translated_attribute(area.name)%></option>
+      <% else %>
+        <option value="<%= area.id %>"><%= translated_attribute(area.name)%></option>
+      <% end %>
+    <% end %>
+  </select>
 </div>
 
 <div class="row column">
@@ -7,20 +18,16 @@
 </div>
 
 <script>
-    var label1 = "<%= t('_decidim_scopes') %>";
-    var label2 = "<%= t('_supports_required') %>";
+    var label2 = "Firme richieste";
     var abbr = "abbr title";
 </script>
 <%= javascript_tag nonce: true do %>
   var labels = document.getElementsByTagName('label');
   for(var i = 0; i < labels.length; i++) {
-    if(labels[i].htmlFor == 'initiatives_type_scope_decidim_scopes_id') {
-        labels[i].innerHTML = label1;
-    }
-    if(labels[i].htmlFor == 'initiatives_type_scope_supports_required') {
-      var label_content = labels[i].innerHTML.split(abbr);
-      label_content[0] = label2;
-      labels[i].innerHTML = label_content[0] + "<" + abbr + label_content[1];
-    }
+  if(labels[i].htmlFor == 'initiatives_type_scope_supports_required') {
+  var label_content = labels[i].innerHTML.split(abbr);
+  label_content[0] = label2;
+  labels[i].innerHTML = label_content[0] + "<" + abbr + label_content[1];
+  }
   }
 <% end -%>
