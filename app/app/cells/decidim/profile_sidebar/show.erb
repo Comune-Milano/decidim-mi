@@ -61,6 +61,7 @@
       </div>
     </div>
   <% end %>
+
   <% if current_organization.badges_enabled? && badge_statuses.any? %>
     <div class="card__footer card__footer--transparent">
       <div class="card__support">
@@ -103,6 +104,7 @@
       <%#= cell "decidim/follow_button", profile_holder, inline: false %>
       <!-- BOTTONE SEGUI UTENTE NASCOSTO --> 
     <% end %>
+
     <% if user_groups_enabled? %>
       <% if can_edit_user_group_profile? %>
         <% if user_group_email_to_be_confirmed? %>
@@ -128,6 +130,7 @@
           <%= link_to t("decidim.profiles.user.invite_user"), group_invites_path(profile_holder.nickname) %>
         </div>
       <% end %>
+
       <% if can_join_user_group? %>
         <div class="text-center">
           <%= link_to decidim.group_join_requests_path(model.nickname), method: :post, class: "button light expanded" do %>
@@ -137,6 +140,7 @@
           <% end %>
         </div>
       <% end %>
+
       <% if can_leave_group? %>
         <div class="text-center">
           <%= link_to decidim.leave_group_path(model.nickname), method: :delete, data: { confirm: t("decidim.groups.actions.are_you_sure") }, class: "button light expanded" do %>

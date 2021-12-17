@@ -12,5 +12,3 @@ class EmendationChangeStatusController < ApplicationController
     end     
     
 end
-
-© 2021 GitHub, Inc. 
