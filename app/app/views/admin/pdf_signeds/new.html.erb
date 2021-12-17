@@ -1,0 +1,21 @@
+<% if !@pdf_signed.errors.empty? %>
+  <div class = "alert alert-error">
+
+    <ul>
+      <% @pdf_signed.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+    </ul>
+
+  </div>
+<% end %>
+
+<div class = "well">
+  <%= form_for @pdf_signed, html: { multipart: true } do |f| %>
+    <%#= f.label :id %>
+    <%#= f.label :attachment %>
+    <%= f.file_field :attachment %>
+    <%= f.submit "Carica", class: "button btn btn-primary" %>
+    <%= link_to "Torna indietro", "/admin/initiatives_offline_signatures/pdf/" + params[:id], class: "button" %>
+  <% end %>
+</div>

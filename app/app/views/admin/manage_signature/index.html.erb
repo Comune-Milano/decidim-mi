@@ -1,0 +1,61 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="card">
+  <div class="card-section">
+    <div class="row column">
+      <%# if !current_user.nil? && (!current_user.admin? && !current_user.role?("initiative_manager")) %>
+        <% if @initiative.is_data_ultima_superata(@component_id) %>
+          <% if current_user.admin? %>
+          	<p>La petizione è chiusa.</p>
+  	  <% else %>	
+            <% if !current_user.role?("initiative_manager") %>	
+              <p>La Petizione è stata chiusa e non è quindi possibile apportare modifiche</p>
+            <% end %>
+          <% end %>
+        <% end %>
+      <%# end %>
+    </div>
+  </div>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+
+    <th>N° protocollo</th>
+    <th>PDF</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @pdfs.each do |pdf_signed| %>
+
+    <tr>
+      <td><%= pdf_signed.id %></td>
+      <td><%= link_to "Scarica", pdf_signed.attachment_url %></td>
+      <!--<td><%#= button_to "Delete",  pdf_signed, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{pdf_signed.id}?" %></td>-->
+    </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
+<div class="button--double form-general-submit">
+  <% if @initiative.is_data_fine_petizione_superata(@component_id) %>
+  	<%= link_to "Scarica firme inserite", "/admin/initiatives_offline_signatures/pdf/create/#{@component_id}", class: "button" %>
+  	<% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
+  		<%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
+  	<% else %>
+  	  <% if !@initiative.is_data_ultima_superata(@component_id) %>
+    		<%= link_to "Carica firme offline", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
+    		<%= link_to "Carica pdf", "/admin/pdf_signeds/" + @component_id + "/new", class: "button" %>
+	  <% end %>
+  	<% end %>
+  <% end %>
+<%= link_to "Torna indietro", "/admin/initiatives", class: "button" %> 
+  
+</div>
+
+

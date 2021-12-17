@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_05_11_125163) do
+ActiveRecord::Schema.define(version: 2020_07_16_124924) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
@@ -637,6 +637,7 @@ ActiveRecord::Schema.define(version: 2020_05_11_125163) do
     t.integer "offline_votes"
     t.string "decidim_author_type", null: false
     t.string "reference"
+    t.date "signature_last_day"
     t.index "md5((description)::text)", name: "decidim_initiatives_description_search"
     t.index ["answered_at"], name: "index_decidim_initiatives_on_answered_at"
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_initiatives_on_decidim_author"
@@ -654,6 +655,21 @@ ActiveRecord::Schema.define(version: 2020_05_11_125163) do
     t.index ["decidim_initiatives_id"], name: "index_decidim_committee_members_initiative"
     t.index ["decidim_users_id"], name: "index_decidim_committee_members_user"
     t.index ["state"], name: "index_decidim_initiatives_committee_members_on_state"
+  end
+
+  create_table "decidim_initiatives_csv_signature_data", force: :cascade do |t|
+    t.integer "initiatives_id", default: 0, null: false
+    t.integer "decidim_user_id"
+    t.string "name"
+    t.string "surname"
+    t.string "email"
+    t.string "codice_fiscale"
+    t.integer "decidim_organization_id"
+    t.string "stato", null: false
+    t.boolean "validazione", default: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["initiatives_id"], name: "index_decidim_initiatives_csv_signature_data_on_initiatives_id"
   end
 
   create_table "decidim_initiatives_type_scopes", force: :cascade do |t|
@@ -1412,6 +1428,7 @@ ActiveRecord::Schema.define(version: 2020_05_11_125163) do
     t.string "codice_fiscale", limit: 25, comment: "Il codice fiscale dell'utente"
     t.datetime "officialized_until"
     t.boolean "form_inviato", default: false, null: false, comment: "La richiesta di partecipare"
+    t.boolean "ga", default: false, null: false
     t.index ["confirmation_token"], name: "index_decidim_users_on_confirmation_token", unique: true
     t.index ["decidim_organization_id"], name: "index_decidim_users_on_decidim_organization_id"
     t.index ["email", "decidim_organization_id"], name: "index_decidim_users_on_email_and_decidim_organization_id", unique: true, where: "((deleted_at IS NULL) AND (managed = false) AND ((type)::text = 'Decidim::User'::text))"
@@ -1420,7 +1437,6 @@ ActiveRecord::Schema.define(version: 2020_05_11_125163) do
     t.index ["invitations_count"], name: "index_decidim_users_on_invitations_count"
     t.index ["invited_by_id", "invited_by_type"], name: "index_decidim_users_on_invited_by_id_and_invited_by_type"
     t.index ["invited_by_id"], name: "index_decidim_users_on_invited_by_id"
-    t.index ["nickname", "decidim_organization_id"], name: "index_decidim_users_on_nickame_and_decidim_organization_id", unique: true, where: "((deleted_at IS NULL) AND (managed = false))"
     t.index ["officialized_at"], name: "index_decidim_users_on_officialized_at"
     t.index ["reset_password_token"], name: "index_decidim_users_on_reset_password_token", unique: true
     t.index ["unlock_token"], name: "index_decidim_users_on_unlock_token", unique: true
@@ -1479,6 +1495,14 @@ ActiveRecord::Schema.define(version: 2020_05_11_125163) do
     t.boolean "confidential", default: true, null: false
     t.index ["decidim_organization_id"], name: "index_oauth_applications_on_decidim_organization_id"
     t.index ["uid"], name: "index_oauth_applications_on_uid", unique: true
+  end
+
+  create_table "pdf_signeds", force: :cascade do |t|
+    t.integer "component_id"
+    t.integer "decidim_user_id"
+    t.string "attachment"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ssologin_tests", force: :cascade do |t|
