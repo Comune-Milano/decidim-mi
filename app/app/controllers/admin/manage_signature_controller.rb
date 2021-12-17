@@ -104,6 +104,69 @@ module Admin
 
     end
 
+
+    def send_notification_custom
+      if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager"))
+        component_id = params[:id]
+        component_type = params[:type]
+        componente = nil
+        if component_type == 'petizione'
+          componente = Decidim::Initiative.find(params[:id])
+          table_offline = 'decidim_initiatives_csv_signature_data'
+          column_offline = 'initiatives_id'
+          table_online ='decidim_initiatives_votes'
+          column_online ='decidim_initiative_id'
+        else
+          componente = Decidim::Referendum.find(params[:id])
+          table_offline = 'decidim_referendums_csv_signature_data'
+          column_offline = 'referendums_id'
+          table_online ='decidim_referendums_votes'
+          column_online ='decidim_referendum_id'
+        end
+        destinatari = []
+        sql_online = "SELECT public.#{table_online}.decidim_author_id
+        FROM public.#{table_online} WHERE public.#{table_online}.#{column_online} = #{component_id} "
+        records_array_online = ActiveRecord::Base.connection.select_all(sql_online)
+        records_array_online.each do |item|
+          user = Decidim::User.find(item['decidim_author_id'])
+          destinatari.push(user)
+        end
+
+        if componente.state == 5
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ok",
+              event_class: Decidim::Signatures::SignaturePublishPropostaOkEvent,
+              resource: componente,
+              affected_users: destinatari,
+              )
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ok_author",
+              event_class: Decidim::Signatures::SignaturePublishPropostaOkAuthorEvent,
+              resource: componente,
+              affected_users: [componente.author],
+              )
+        else
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ko",
+              event_class: Decidim::Signatures::SignaturePublishPropostaKoEvent,
+              resource: componente,
+              affected_users: destinatari,
+          #followers: @referendum.author.followers
+              )
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ko_author",
+              event_class: Decidim::Signatures::SignaturePublishPropostaKoAuthorEvent,
+              resource: componente,
+              affected_users: [componente.author],
+              )
+        end
+
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
     private
 
 

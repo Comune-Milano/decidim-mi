@@ -1,0 +1,6 @@
+$(document).ready(function() {
+    if (<%= @error_message == 1 %>) {
+        $('#myModal-risposta-referendum-content').html('La possibilità di firmare il referendum è al vaglio del comitato elettorale.');
+        $('#myModal-risposta-referendum').show();
+    }
+});

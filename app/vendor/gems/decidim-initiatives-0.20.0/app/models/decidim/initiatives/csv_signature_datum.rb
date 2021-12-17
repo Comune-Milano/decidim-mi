@@ -28,16 +28,13 @@ module Decidim
           firma_validata = false
           codice_fiscale = value[3]
           stato = nil
-
+          stato = 'ok'
           if codice_fiscale.match(/^[a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1}$/).nil?
             stato = 'formato_codice_fiscale_non_valido'
-          else if check_codicefiscale?(codice_fiscale, initiatives_id)
-            stato = 'ok'
-          else
+          elsif !check_codicefiscale?(codice_fiscale, initiatives_id)
             stato = 'duplicato'
           end
 
-          end
           if checkFirmaOnline(initiatives_id,codice_fiscale)
             stato = "firmato online"
           end

@@ -55,7 +55,11 @@ module Admin
       id_pdf_signed = params[:id]
       pdf_signed = PdfSigned.find(id_pdf_signed)
       raise ActionController::RoutingError, "Not Found" if !check_user_can_download_pdf(pdf_signed.component_id, pdf_signed.component_type)
-      stream_content = scarica_auriga_file(pdf_signed.id_ud)
+      begin
+        stream_content = scarica_auriga_file(pdf_signed.id_ud)
+      rescue
+        return
+      end
       send_data stream_content, :filename => pdf_signed.attachment.to_s()
     end
 
@@ -69,7 +73,16 @@ module Admin
       @pdf_signed.decidim_user_id = current_user.id.to_s
 
       if @pdf_signed.save
-        protocollo = protocolla_auriga_file(@pdf_signed.id, @pdf_signed.attachment)
+        begin
+          protocollo = protocolla_auriga_file(@pdf_signed.id, @pdf_signed.attachment)
+        rescue StandardError => e
+          @pdf_signed.delete
+          @error_message = 1
+          respond_to do |format|
+            format.js
+          end
+          return
+        end
         Rails.logger.info "\n\n\n" + protocollo.to_json
         PdfSigned.find(@pdf_signed.id).update(:protocollato => true)
         PdfSigned.find(@pdf_signed.id).update(:numero_protocollo => protocollo[0]['protocollo_id'])
