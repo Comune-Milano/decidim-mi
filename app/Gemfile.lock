@@ -1,11 +1,12 @@
-GIT
-  remote: https://github.com/mainio/decidim-module-suomifi
-  revision: e807b0a815efc9b1dc010c1be57e0969fb67cd5f
+PATH
+  remote: vendor/gems/decidim-initiatives-0.20.0
   specs:
-    decidim-suomifi (0.20.0)
-      decidim-core (~> 0.20.0)
-      henkilotunnus (~> 1.1.0)
-      omniauth-suomifi (~> 0.3.0)
+    decidim-initiatives (0.20.0)
+
+PATH
+  remote: vendor/gems/decidim-referendums-0.01.0
+  specs:
+    decidim-referendums (0.01.0)
 
 GEM
   remote: https://rubygems.org/
@@ -58,7 +59,6 @@ GEM
       activerecord (>= 3.0)
     addressable (2.6.0)
       public_suffix (>= 2.0.2, < 4.0)
-    aes_key_wrap (1.0.1)
     akami (1.3.1)
       gyoku (>= 0.4.0)
       nokogiri
@@ -85,7 +85,6 @@ GEM
       html_tokenizer (~> 0.0.6)
       parser (>= 2.4)
       smart_properties
-    bindata (2.4.7)
     bindex (0.7.0)
     bootsnap (1.4.4)
       msgpack (~> 1.0)
@@ -125,7 +124,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.12.2)
-    colorize (0.8.1)
     concurrent-ruby (1.1.5)
     crack (0.4.3)
       safe_yaml (~> 1.0.0)
@@ -285,17 +283,6 @@ GEM
       decidim-core (= 0.20.0)
     decidim-generators (0.20.0)
       decidim-core (= 0.20.0)
-    decidim-initiatives (0.20.0)
-      decidim-admin (= 0.20.0)
-      decidim-comments (= 0.20.0)
-      decidim-core (= 0.20.0)
-      decidim-verifications (= 0.20.0)
-      kaminari (~> 1.1)
-      origami (~> 2.1)
-      virtus-multiparams (~> 0.1)
-      wicked (~> 1.3)
-      wicked_pdf (~> 1.4)
-      wkhtmltopdf-binary (~> 0.12)
     decidim-meetings (0.20.0)
       cells-erb (~> 0.1.0)
       cells-rails (~> 0.0.9)
@@ -415,8 +402,6 @@ GEM
       builder (>= 2.1.2)
     hashdiff (1.0.0)
     hashie (3.6.0)
-    henkilotunnus (1.1.0)
-      activemodel (>= 4.2)
     highline (2.0.3)
     html_tokenizer (0.0.7)
     htmlentities (4.3.4)
@@ -455,10 +440,6 @@ GEM
     jquery-tmpl-rails (1.1.0)
       rails (>= 3.1.0)
     json (2.3.0)
-    json-jwt (1.9.4)
-      activesupport
-      aes_key_wrap
-      bindata
     jwt (2.2.1)
     kaminari (1.1.1)
       activesupport (>= 4.1.0)
@@ -535,10 +516,6 @@ GEM
       jwt (>= 2.0)
       omniauth (>= 1.1.1)
       omniauth-oauth2 (>= 1.6)
-    omniauth-keycloak (1.1.0)
-      json-jwt (~> 1.9.4)
-      omniauth (~> 1.9.0)
-      omniauth-oauth2 (~> 1.6.0)
     omniauth-oauth (1.1.0)
       oauth
       omniauth (~> 1.0)
@@ -551,13 +528,9 @@ GEM
     omniauth-saml (1.10.1)
       omniauth (~> 1.3, >= 1.3.2)
       ruby-saml (~> 1.7)
-    omniauth-suomifi (0.3.0)
-      omniauth-saml (~> 1.10.1)
     omniauth-twitter (1.4.0)
       omniauth-oauth (~> 1.1)
       rack
-    origami (2.1.0)
-      colorize (~> 0.7)
     orm_adapter (0.5.0)
     paper_trail (10.3.1)
       activerecord (>= 4.2)
@@ -811,15 +784,14 @@ DEPENDENCIES
   decidim-comments (= 0.20.0)
   decidim-consultations (= 0.20.0)
   decidim-dev (= 0.20.0)
-  decidim-initiatives (= 0.20.0)
+  decidim-initiatives (= 0.20.0)!
   decidim-proposals (= 0.20.0)
-  decidim-suomifi!
+  decidim-referendums (= 0.01.0)!
   decidim-surveys (= 0.20.0)
   faker (~> 1.9)
   letter_opener_web (~> 1.3)
   listen (~> 3.1)
   omniauth
-  omniauth-keycloak
   omniauth-saml (= 1.10.1)
   puma (~> 3.12.2)
   ruby-saml (~> 1.11.0)
@@ -827,7 +799,9 @@ DEPENDENCIES
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0)
   uglifier (~> 4.1)
+  virtus-multiparams
   web-console (~> 3.5)
+  wicked
   wicked_pdf (~> 1.4)
   wkhtmltopdf-binary (~> 0.12.4)
 
