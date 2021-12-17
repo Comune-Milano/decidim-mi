@@ -5,7 +5,9 @@
 
 # Example:
 #
-set :output, "log/cron_log.log"
+set :output, "/home/sviluppo/decidim/decidim_milano/log/cron_log.log"
+set :environment, 'development'
+
 #
 # every 2.hours do
 #   command "/usr/bin/some_great_command"
@@ -18,15 +20,19 @@ set :output, "log/cron_log.log"
 # end
 
 # Learn more: http://github.com/javan/whenever
-every 1.day do # 1.minute 1.day 1.week 1.month 1.year is also supported
+every '* 9 * * *' do
+  # 1.minute 1.day 1.week 1.month 1.year is also supported
   # the following tasks are run in parallel (not in sequence)
   #command "cd #{Rails.root} && rake decidim_initiatives:check_signature_end_date", :environment => 'development'
-   # runner "Initiative.xxx", :environment => 'development'
+  #runner "MyModel.some_process", :environment => 'development'
   rake "decidim_initiatives:check_validation_signature_start_date"
   rake "decidim_initiatives:check_signature_end_date"
   rake "decidim_initiatives:check_signature_start_date"
   rake "decidim_referendums:check_validation_signature_start_date"
   rake "decidim_referendums:check_signature_end_date"
   rake "decidim_referendums:check_signature_start_date"
-    #command "/usr/bin/my_great_command"
+  ###### CR
+  rake "decidim_initiatives:check_one_week_before_end_signs"
+  rake "decidim_referendums:check_one_week_before_end_signs"
+  #command "/usr/bin/my_great_command"
 end

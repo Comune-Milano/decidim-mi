@@ -140,7 +140,7 @@
                                  t(".print",),
                                  class: "action-icon--print" %>
               <% end %>
-              <% if initiative.closed?  && initiative.state == 'published'%>
+              <% if initiative.closed?  && (initiative.state == 'published' || initiative.state=='accepted' || initiative.state=='rejected')%>
                 <%# if allowed_to? :edit, :initiative, initiative: initiative %>
                 <% if initiative.is_gestione_firme_icona_visibile(current_user, initiative) %>
 

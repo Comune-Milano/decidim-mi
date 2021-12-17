@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+  post 'admin/signatures/:id/:type/send_notifications', :to => 'admin/manage_signature#send_notification_custom', :as =>'send_signature_notification'
+
   get 'admin/download/pdf_signeds/:id', :to => 'admin/pdf_signeds#download',  :as => 'pdf_signeds_download'
 
   get 'admin/pdf_signeds/:id/:type', :to => 'admin/pdf_signeds#index',  :as => 'pdf_signeds'
@@ -44,8 +46,10 @@ Rails.application.routes.draw do
 
   get 'pluto' => "auriga#test_login"
 
-  get '/pdf_signed_redirect' => 'admin/pdf_signed_redirect#index'
+  get 'pdf_signed_redirect' => 'admin/pdf_signed_redirect#index'
 
-  
+  #post 'admin/signatures/:id/:type/send_notifications', :to => 'admin/signature_notification#send_notification', :as =>'send_signature_notification_execute'
+
+
 end
 

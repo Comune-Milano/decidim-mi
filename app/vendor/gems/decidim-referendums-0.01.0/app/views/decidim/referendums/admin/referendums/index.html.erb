@@ -140,7 +140,7 @@
                                  t(".print",),
                                  class: "action-icon--print" %>
               <% end %>
-              <% if referendum.closed?  && referendum.state == 'published'%>
+              <% if referendum.closed?  && (referendum.state == 'published' || referendum.state=='accepted' || referendum.state=='rejected')%>
 	        <%# if allowed_to? :edit, :referendum, referendum: referendum %>
 	        <% if referendum.is_gestione_firme_icona_visibile(current_user, referendum) %>
 	          <%#= icon_link_to "pencil", "/admin/offline_signatures/pdf/" + referendum.id.to_s + "/referendum", "Gestione firme", class: "action-icon--edit" %>

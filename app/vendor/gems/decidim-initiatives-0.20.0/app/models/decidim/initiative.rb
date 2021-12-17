@@ -257,8 +257,17 @@ module Decidim
       digital_votes + face_to_face_votes
     end
 
+    def get_online_votes
+      digital_votes = offline_signature_type? ? 0 : (initiative_votes_count + initiative_supports_count)
+      return digital_votes
+    end
+
     def offline_signature_count(initiative_id)
-      sql = "Select count(id) from decidim_initiatives_csv_signature_data where initiatives_id = #{initiative_id} and validazione = true;"
+      sql = "Select count(decidim_initiatives_csv_signature_data.id) from decidim_initiatives_csv_signature_data
+          JOIN decidim_initiatives ON decidim_initiatives.id = decidim_initiatives_csv_signature_data.initiatives_id
+          where decidim_initiatives_csv_signature_data.initiatives_id = #{initiative_id}
+          and decidim_initiatives_csv_signature_data.validazione = true
+          and decidim_initiatives.mail_chiusura_mandata = true;"
       records_array = ActiveRecord::Base.connection.select_all(sql)
       if records_array.present?
         records_array.first["count"]
@@ -299,6 +308,15 @@ module Decidim
 
     def self.is_data_ultima_superata(initiative_id)
       sql = "select id from decidim_initiatives WHERE id = #{initiative_id} and NOW() >= signature_last_day"
+      result = ActiveRecord::Base.connection.select_value(sql)
+      if result.present?
+        return true
+      end
+      return false
+    end
+
+    def self.is_mail_chiusura_mandata(initiative_id)
+      sql = "select id from decidim_initiatives WHERE id = #{initiative_id} and mail_chiusura_mandata = true"
       result = ActiveRecord::Base.connection.select_value(sql)
       if result.present?
         return true

@@ -160,7 +160,8 @@ module Admin
               affected_users: [componente.author],
               )
         end
-
+        componente.mail_chiusura_mandata = true
+        componente.save
         respond_to do |format|
           format.js
         end

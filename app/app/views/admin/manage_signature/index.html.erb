@@ -42,12 +42,20 @@
   </tbody>
 
 </table>
+<% if @component.is_mail_chiusura_mandata(@component_id) %>
+  <p>E' già stata inviata una mail di chiusura per questa proposta</p>
+<%end %>
 <div class="button--double form-general-submit">
   <% if @component.is_data_fine_petizione_superata(@component_id) %>
     <%= link_to "Scarica firme inserite", "/admin/offline_signatures/pdf/create/#{@component_id}/#{@component_type}", class: "button" %>
     <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
       <% if @component_type == 'referendum' %>
         <%= link_to "Carica firme validate", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
+        <%= form_with(url: "/admin/signatures/" + @component_id + "/referendum/send_notifications", method: "post") do %>
+
+          <%= submit_tag "Invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+
       <% else %>
         <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
 

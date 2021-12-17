@@ -26,9 +26,17 @@ module Decidim
             end
 
             on(:invalid) do
-              flash.now[:alert] = I18n.t("decidim.initiatives.admin.initiatives_type_scopes.create.error")
+              #flash.now[:alert] = I18n.t("decidim.initiatives.admin.initiatives_type_scopes.create.error")
+              if @form != nil
+                e = ""
+                @form.errors.each do |key, value|
+                  e = value.to_s
+                end
+                flash.now[:alert] = e
+              end
               render :new
             end
+
           end
         end
 
@@ -49,10 +57,23 @@ module Decidim
               redirect_to edit_initiatives_type_path(initiative_type_scope.type)
             end
 
+            #on(:invalid) do
+            #  flash.now[:alert] = I18n.t("decidim.initiatives.admin.initiatives_type_scopes.update.error")
+            #  render :edit
+            #end
+
             on(:invalid) do
-              flash.now[:alert] = I18n.t("decidim.initiatives.admin.initiatives_type_scopes.update.error")
+              if @form != nil
+                e = ""
+                @form.errors.each do |key, value|
+                  e = value.to_s
+                end
+                flash.now[:alert] = e
+              end
               render :edit
             end
+
+
           end
         end
 

@@ -15,7 +15,7 @@ module Decidim
       end
 
       def email_intro
-        return 'daidaidaidaidaidaidaida'
+        return 'online votes: ' + @resource.get_online_votes().to_s
       end
 
       def email_outro

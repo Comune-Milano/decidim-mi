@@ -172,8 +172,8 @@ module Decidim
         @link = initiative_url(initiative, host: @organization.host)
 
         with_user(user) do
-          @body = "Manca una settimana prima della chiusura della raccolta firme per la petizione #{initiative.title}."
-          @subject = "Scadenza imminente per la raccolta firme (#{initiative.title})"
+          @body = "Manca una settimana prima della chiusura della raccolta firme per la petizione #{translated_attribute(initiative.title)}."
+          @subject = "Scadenza imminente per la raccolta firme (#{translated_attribute(initiative.title)})"
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
         end
       end
