@@ -10,7 +10,10 @@
             <%= t(".deleted") %>
           </span>
         <% else %>
-          <%= initiative.author_name %>
+          <%= initiative.author.nickname %>
+          <% if initiative.author.admin? %>
+            <img src="/stellina.png" />
+          <% end %>
         <% end %>
       </span>
     </div>
@@ -22,8 +25,11 @@
             <%= image_tag m.user.avatar_url %>
           </span>
           <span class="author__name">
-            <%= m.user.name %>
+            <%= m.user.nickname %>
           </span>
+          <% if m.user.admin? %>
+            <img src="/stellina.png" />
+          <% end %>
         </div>
       <% end %>
     <% end %>
