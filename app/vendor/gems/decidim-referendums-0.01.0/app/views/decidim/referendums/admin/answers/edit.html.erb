@@ -11,7 +11,7 @@
         <%= f.translated :editor, :answer, autofocus: true, rows: 15 %>
       </div>
 
-      <div class="row column">
+      <div class="row column" style="display: none">
         <%= f.text_field :answer_url %>
       </div>
 
@@ -33,3 +33,14 @@
     <%= f.submit t(".answer") %>
   </div>
 <% end %>
+
+<%= javascript_tag do -%>
+
+  var labels = document.getElementsByTagName('label');
+  for (var i = 0; i < labels.length; i++) {
+  if (labels[i].innerHTML == "Answer") {
+  labels[i].innerHTML = "<%= t('.answer') %>";
+  }
+  }
+
+<% end -%>

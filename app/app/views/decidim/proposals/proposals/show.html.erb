@@ -1,16 +1,16 @@
 <% add_decidim_meta_tags({
-  description: present(@proposal).body,
-  title: present(@proposal).title,
-  url: proposal_url(@proposal.id)
-}) %>
+                             description: present(@proposal).body,
+                             title: present(@proposal).title,
+                             url: proposal_url(@proposal.id)
+                         }) %>
 
 <%
-edit_link(
-  resource_locator(@proposal).edit,
-  :edit,
-  :proposal,
-  proposal: @proposal
-)
+  edit_link(
+      resource_locator(@proposal).edit,
+      :edit,
+      :proposal,
+      proposal: @proposal
+  )
 %>
 
 <%= render partial: "voting_rules" %>
@@ -24,8 +24,8 @@ edit_link(
 <%= emendation_announcement_for @proposal %>
 
 <div class="row column view-header">
-   <% if @proposal.emendation? %>
-  <h2 class="heading2"><%= t(".changes_at_title", title: present(@proposal.amendable).title(links: true, html_escape: true)) %></h2>
+  <% if @proposal.emendation? %>
+    <h2 class="heading2"><%= t(".changes_at_title", title: present(@proposal.amendable).title(links: true, html_escape: true)) %></h2>
   <% else %>
     <h2 class="heading2"><%= present(@proposal).title(links: true, html_escape: true) %></h2>
   <% end %>
@@ -36,9 +36,19 @@ edit_link(
 <div class="row">
   <div class="columns section view-side mediumlarge-4 mediumlarge-push-8 large-3 large-push-9">
 
+
+
     <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
-	    <% if @proposal.amendable? && allowed_to?(:edit, :proposal, proposal: @proposal) %>
-		    <%= link_to t(".edit_proposal"), edit_proposal_path(@proposal), class: "button secondary hollow expanded button-sc button--icon follow-button" %>
+      <% if @proposal.amendable? && allowed_to?(:edit, :proposal, proposal: @proposal) %>
+
+        <form action="/edit_not_allowed" method="get" data-remote="true">
+          <input type="hidden" name="url" value="<%= request.env['REQUEST_URI'] %>" />
+          <input type="hidden" name="proposal_id" value="<%= @proposal.id %>" />
+          <input type="submit" value="<%= t(".edit_proposal") %>" class="button secondary hollow expanded button-sc button--icon follow-button" />
+        </form>
+        <%#= link_to t(".edit_proposal"), edit_proposal_path(@proposal), class: "button secondary hollow expanded button-sc button--icon follow-button" %>
+
+
       <% else %>
         <%= amend_button_for @proposal %>
 
@@ -81,7 +91,7 @@ edit_link(
     <%= cell "decidim/proposals/proposal_link_to_rejected_emendation", @proposal %>
   </div>
   <div class="columns mediumlarge-8 mediumlarge-pull-4">
-     <div class="section">
+    <div class="section">
       <% if @proposal.emendation? && @proposal.versions.nil? %>
         <%= cell("decidim/diff", @proposal.versions.last) %>
       <% elsif not ["section","subsection"].include? @proposal.participatory_text_level %>
@@ -112,79 +122,79 @@ edit_link(
 
 <%=
   render partial: "decidim/shared/flag_modal", locals: {
-    reportable: @proposal,
-    form: @report_form,
-    url: decidim.report_path(sgid: @proposal.to_sgid.to_s)
+      reportable: @proposal,
+      form: @report_form,
+      url: decidim.report_path(sgid: @proposal.to_sgid.to_s)
   }
 %>
 
 
 <style>
-/* The Modal (background) */
-.modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
-  left: 0;
-  top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
-}
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
 
-/* Modal Content */
-.modal-content {
-  background-color: #fefefe;
-  margin: auto;
-  padding: 20px;
-  border: 1px solid #888;
-  width: 80%;
-}
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+  }
 
-.modal-content {
-  border-radius: 8px;
-}
+  .modal-content {
+    border-radius: 8px;
+  }
 
-.modal-content h2 {
-  color: #d6012e !important;
-}
+  .modal-content h2 {
+    color: #d6012e !important;
+  }
 
-.modal-content center input[type="submit"] {
-  background: #d6012e;
-  color: #ffffff;
-  border: none;
-  padding: 15px 30px !important;
-  cursor: pointer;
-  white-space: pre-wrap !important;
-}
+  .modal-content center input[type="submit"] {
+    background: #d6012e;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px !important;
+    cursor: pointer;
+    white-space: pre-wrap !important;
+  }
 
-.modal-content center input[type="submit"]:hover {
-  background: #e01b45;
-}
+  .modal-content center input[type="submit"]:hover {
+    background: #e01b45;
+  }
 
-.modal-content center input[type="submit"]:active {
-  background: #ad1434;
-  border: none !important;
-  box-shadow: none !important;
-}
+  .modal-content center input[type="submit"]:active {
+    background: #ad1434;
+    border: none !important;
+    box-shadow: none !important;
+  }
 
-/* The Close Button */
-.close {
-  color: #aaaaaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
-}
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
 
-.close:hover,
-.close:focus {
-  color: #000;
-  text-decoration: none;
-  cursor: pointer;
-}
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
 </style>
 
 <!-- The Modal -->
@@ -221,3 +231,22 @@ edit_link(
     </center>
   </div>
 </div>
+
+<div id="myModal4" class="modal">
+  <div class="modal-content" style="width: 40%">
+    <center>
+      <h2 style="color: #CCCC00; font-size: 24px">Attenzione: la proposta non può essere modificata perché ha ottenuto dei supporti.</h2>
+      <div style="height: 30px"></div>
+      <button class="button card__button button--sc" onclick="edit_not_allowed_hide()">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+
+<%= javascript_tag do -%>
+
+  function edit_not_allowed_hide() {
+    document.getElementById('myModal4').style.display = 'none';
+  }
+
+<% end -%>

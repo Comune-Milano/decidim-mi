@@ -313,9 +313,9 @@ en:
           email_subject: Referendum endorsed by %{author_nickname}
           notification_title: The <a href="%{resource_path}">%{resource_title}</a> referendum was endorsed by <a href="%{author_path}">%{author_name} %{author_nickname}</a>.
         signature_referendum_author_event:
-          email_intro: "la tua firma per il referendum:"
-          email_outro: è stata registrata con successo. </br> Grazie, lo Staff di Milano Partecipa.
-          email_subject: Referendum firmato!
+          email_intro: "Your signature of referendum:"
+          email_outro: has been recorded. </br> Thank you, The Staff of Milano Partecipa.
+          email_subject: Referendum Signed!
           notification_title:
       index:
         title: Referendums

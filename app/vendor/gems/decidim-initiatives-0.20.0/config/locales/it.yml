@@ -67,7 +67,7 @@ it:
       actions:
         new_initiative_type: Nuovo tipo di petizione
       menu:
-        initiatives: petizioni
+        initiatives: Petizioni
         initiatives_types: Tipi di petizione
         initiatives_offline_signatures: Firme
         offline_signatures_upload: Caricamento firme offline
@@ -104,7 +104,7 @@ it:
             time_and_date: Ora e data
             timestamp: timestamp
       titles:
-        initiatives: petizioni
+        initiatives: Petizioni
         initiatives_types: Tipi di petizione
     events:
       initiatives:
@@ -326,7 +326,7 @@ it:
           email_subject: Petizione firmata!
           notification_title:
       index:
-        title: petizioni
+        title: Petizioni
       initiative_signatures:
         fill_personal_data:
           continue: Continua
@@ -477,7 +477,7 @@ it:
           new:
             file: "file .csv con dati di posta elettronica"
             info: 'Deve essere un file in formato CSV con sole 4 colonne avendo cura di lasciare il codice fiscale come ultimo campo:'
-            submit: Caricare un file
+            submit: Carica il file
             title: Carica firme offline
         authorizations:
           new:
@@ -524,7 +524,7 @@ it:
           new:
             file: "file .csv con dati di posta elettronica"
             info: 'Deve essere un file in formato CSV con una sola colonna con l''indirizzo email:'
-            submit: Caricare un file
+            submit: Carica il file
             title: Carica firme offline
         authorizations:
           new:

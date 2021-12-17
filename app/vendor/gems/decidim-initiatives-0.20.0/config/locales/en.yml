@@ -313,9 +313,9 @@ en:
           email_subject: Petition endorsed by %{author_nickname}
           notification_title: The <a href="%{resource_path}">%{resource_title}</a> petition was endorsed by <a href="%{author_path}">%{author_name} %{author_nickname}</a>.
         signature_initiative_author_event:
-          email_intro: "la tua firma per la petizione:"
-          email_outro: è stata registrata con successo. </br> Grazie, lo Staff di Milano Partecipa.
-          email_subject: Petizione firmata!
+          email_intro: "Your signature of petition:"
+          email_outro: has been recorded. </br> Thank you, The Staff of Milano Partecipa.
+          email_subject: Petition Signed!
           notification_title:
       index:
         title: Petitions

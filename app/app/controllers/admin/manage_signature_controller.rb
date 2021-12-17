@@ -6,7 +6,16 @@ module Admin
     include Decidim::Initiatives
 
     #helper Decidim::Initiatives::InitiativeHelper
-    #layout "decidim/admin/initiative"
+
+    before_action :set_layout
+
+    def set_layout
+      if params[:type] == 'petizione'
+        self.class.layout "decidim/admin/initiatives"
+      else
+        self.class.layout "decidim/admin/referendums"
+      end
+    end
 
     def index
       @component_id = params[:id]
