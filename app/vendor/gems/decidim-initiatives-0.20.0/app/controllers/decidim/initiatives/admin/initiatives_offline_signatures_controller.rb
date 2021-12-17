@@ -30,12 +30,13 @@ module Decidim
           CreateOfflineSignatureData.call(@form, current_organization) do
             on(:ok) do
               flash[:notice] = t(".success", count: @form.data.values.count, errors: @form.data.errors.count)
-              redirect_to '/admin/initiatives_offline_signatures/pdf/' + params[:id] , notice: "Le firme sono state caricate correttamente."
+              redirect_to '/admin/offline_signatures/pdf/' + params[:id] + '/petizione', notice: "Le firme sono state caricate correttamente."
             end
 
-            on(:invalid) do
-              flash[:alert] = t(".error")
-              redirect_to '/admin/initiatives_offline_signatures/pdf/' + params[:id]
+            on(:invalid) do |_form,error|
+              flash[:error] = "Il formato del file non è corretto, utilizzare solo file .csv" if error == 'error2'
+              flash[:error] = t(".error") if error == "error1"
+              redirect_to '/admin/offline_signatures/pdf/' + params[:id] + '/petizione'
             end
           end
           #redirect_to initiatives_offline_signatures_path(:id => @form.id.to_s)

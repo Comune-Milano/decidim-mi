@@ -18,8 +18,8 @@ module Decidim
         #
         # Returns nothing.
         def call
-          return broadcast(:invalid) unless @form.file
-          return broadcast(:invalid) unless @form.file.path.to_s.end_with?(".csv")
+          return broadcast(:invalid, @form, "error1") unless @form.file
+          return broadcast(:invalid, @form, "error2") unless @form.file.path.to_s.end_with?(".csv")
 
           CsvSignatureDatum.insert_all(@organization, @form.data.values,@form.id,current_user.id)
           #RemoveDuplicatesJob.perform_later(@organization)

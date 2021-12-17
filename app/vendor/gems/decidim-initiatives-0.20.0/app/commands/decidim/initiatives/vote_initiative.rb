@@ -68,7 +68,6 @@ module Decidim
 
       def send_notification
         return if vote.user_group.present?
-        Rails.logger.info("lazio merda4")
         Decidim::EventsManager.publish(
             event: "decidim.events.initiatives.initiative_endorsed",
             event_class: Decidim::Initiatives::EndorseInitiativeEvent,

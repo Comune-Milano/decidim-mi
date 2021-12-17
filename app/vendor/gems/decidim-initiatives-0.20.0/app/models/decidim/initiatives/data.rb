@@ -20,12 +20,14 @@ module Decidim
           @errors = []
 
           CSV.foreach(@file) do |row|
-            if row.first.include? ';'
-              values << row.first.split(';')
-            else
-              values << row
-            end
+            if !row.blank?
+              if row.first.include? ';'
+                values << row.first.split(';')
+              else
+                values << row
+              end
               #process_row(row)
+            end
           end
         end
 

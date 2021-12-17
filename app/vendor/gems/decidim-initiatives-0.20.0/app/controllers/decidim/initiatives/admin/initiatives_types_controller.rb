@@ -79,11 +79,12 @@ module Decidim
             notice: I18n.t("decidim.initiatives.admin.initiatives_types.destroy.success")
           }
         end
+
         # GET /admin/signatures_upload
-        def edit
-          enforce_permission_to :create, :initiative_type
-          @form = initiative_type_form.instance
-        end
+        #def edit
+        #  enforce_permission_to :create, :initiative_type
+        #  @form = initiative_type_form.instance
+        #end
 
         private
 

@@ -277,7 +277,7 @@ module Decidim
     def is_gestione_firme_icona_visibile(user, initiative)
       return true if user.admin?
       if user.role?("initiative_manager")
-        sql = "select true from decidim_initiatives WHERE id = #{initiative.id} and NOW() > signature_last_day"
+        sql = "select true from decidim_initiatives WHERE id = #{initiative.id} and NOW() >= signature_last_day"
         #result = ActiveRecord::Base.connection.select_value(sql)
         #if result.to_s == ""
         # return true
@@ -298,7 +298,7 @@ module Decidim
     end
 
     def self.is_data_ultima_superata(initiative_id)
-      sql = "select id from decidim_initiatives WHERE id = #{initiative_id} and NOW() > signature_last_day"
+      sql = "select id from decidim_initiatives WHERE id = #{initiative_id} and NOW() >= signature_last_day"
       result = ActiveRecord::Base.connection.select_value(sql)
       if result.present?
         return true
@@ -318,7 +318,7 @@ module Decidim
     end
 
     def check_pdf(initiative_id)
-      sql = "SELECT attachment FROM public.pdf_signeds where component_id = #{initiative_id};"
+      sql = "SELECT attachment FROM public.pdf_signeds where component_id = #{initiative_id} and component_type = 'petizione';"
       records_array = ActiveRecord::Base.connection.select_all(sql)
       true if records_array.present?
     end

@@ -35,13 +35,14 @@
     ...
       <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
     ATTENZIONE: il caricamento delle firme andrà a sostituire tutte le firme offline già caricate!
+        Fare una copia di backup del file scaricato prima di validare le firme!
         <% end %>
     </pre>
     <%= form_tag initiatives_offline_signatures_path(:id => @initiatives_id.to_s), multipart: true, class: "form" do %>
       <%= label_tag :name, t("admin.new.file", scope: "decidim.initiatives.csv_census") %>
        <%= file_field_tag 'file', accept: 'text/csv'  %>
       <%= submit_tag t("admin.new.submit", scope: "decidim.initiatives.csv_census"), class: "button" %>
-      <%= link_to "Torna indietro", "/admin/initiatives_offline_signatures/pdf/" + @initiatives_id.to_s, class: "button" %>
+      <%= link_to "Torna indietro", "/admin/offline_signatures/pdf/" + @initiatives_id.to_s + "/petizione", class: "button" %>
     <% end %>
 
   </div>

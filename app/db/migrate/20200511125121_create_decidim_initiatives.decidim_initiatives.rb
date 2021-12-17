@@ -14,7 +14,7 @@ class CreateDecidimInitiatives < ActiveRecord::Migration[5.1]
                   name: "index_decidim_initiatives_on_decidim_organization_id"
                 }
 
-      # Text search indexes for initiatives.
+      # Text search indexes for referendums.
       t.index :title, name: "decidim_initiatives_title_search"
       t.index :description, name: "decidim_initiatives_description_search"
 

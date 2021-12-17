@@ -16,6 +16,6 @@
     <%#= f.label :attachment %>
     <%= f.file_field :attachment %>
     <%= f.submit "Carica", class: "button btn btn-primary" %>
-    <%= link_to "Torna indietro", "/admin/initiatives_offline_signatures/pdf/" + params[:id], class: "button" %>
+    <%= link_to "Torna indietro", "/admin/offline_signatures/pdf/" + params[:id] + "/" +params[:type], class: "button" %>
   <% end %>
 </div>

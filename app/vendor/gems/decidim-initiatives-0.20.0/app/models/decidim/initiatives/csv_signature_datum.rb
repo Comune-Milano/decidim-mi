@@ -40,9 +40,15 @@ module Decidim
 
             end
 
-          if !value[4].nil? && stato == 'ok'
+          if checkFirmaOnline(initiatives_id,codice_fiscale)
+            stato = "firmato online"
+          end
+
+          if !value[4].nil? && stato == 'ok' && (@current_user.admin? || @current_user.role?("initiative_manager"))
             firma_validata = true
           end
+
+
 
           create!(
               :initiatives_id => initiatives_id,
@@ -70,6 +76,18 @@ module Decidim
         sql = "Delete from public.decidim_initiatives_csv_signature_data where initiatives_id = #{initiatives_id};"
         records_array = ActiveRecord::Base.connection.execute(sql)
         #inside(initiatives_id).delete_all
+      end
+
+      def self.checkFirmaOnline(initiatives_id,codice_fiscale)
+        user = Decidim::User.find_by(codice_fiscale: codice_fiscale)
+        result = 0
+        if user
+          sql = "Select count(id) from decidim_initiatives_votes where decidim_initiative_id = #{initiatives_id} and decidim_author_id = '#{user.id}';"
+          records_array = ActiveRecord::Base.connection.execute(sql)
+          result = records_array.first["count"]
+
+        end
+        return true if result > 0
       end
     end
   end

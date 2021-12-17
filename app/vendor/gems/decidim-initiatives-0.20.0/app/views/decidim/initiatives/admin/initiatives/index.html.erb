@@ -143,7 +143,7 @@
               <% if initiative.closed?  && initiative.state == 'published'%>
 	        <%# if allowed_to? :edit, :initiative, initiative: initiative %>
 	        <% if initiative.is_gestione_firme_icona_visibile(current_user, initiative) %>
-	          <%= icon_link_to "pencil", "/admin/initiatives_offline_signatures/pdf/" + initiative.id.to_s, "Gestione firme", class: "action-icon--edit" %>
+	          <%= icon_link_to "pencil", "/admin/offline_signatures/pdf/" + initiative.id.to_s + "/petizione", "Gestione firme", class: "action-icon--edit" %>
 	        <% else %>
 	          <%= icon "pencil", scope: "decidim.admin", class: "action-icon action-icon--disabled" %>
 	        <% end %>

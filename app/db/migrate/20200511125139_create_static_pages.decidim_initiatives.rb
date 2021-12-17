@@ -12,10 +12,10 @@ class CreateStaticPages < ActiveRecord::Migration[5.1]
 
   def change
     Organization.find_each do |organization|
-      StaticPage.find_or_create_by!(slug: "initiatives") do |page|
+      StaticPage.find_or_create_by!(slug: "referendums") do |page|
         page.decidim_organization_id = organization.id
-        page.title = localized_attribute(organization, "initiatives", :title)
-        page.content = localized_attribute(organization, "initiatives", :content)
+        page.title = localized_attribute(organization, "referendums", :title)
+        page.content = localized_attribute(organization, "referendums", :content)
       end
     end
   end

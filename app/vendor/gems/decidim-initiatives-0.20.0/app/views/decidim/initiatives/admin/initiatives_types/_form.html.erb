@@ -13,6 +13,7 @@
     </div>
 
     <div class="row column" style="display: none">
+      <%#= form.select :signature_type, form.object.signature_type_options %>
       <%= form.select :signature_type, form.object.signature_type_options, selected: 'online' %>
     </div>
 
