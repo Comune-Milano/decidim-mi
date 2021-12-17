@@ -1,34 +1,71 @@
-<% add_decidim_meta_tags(title: t("participatory_processes.index.title", scope: "decidim")) %>
+<%= render partial: "decidim/shared/component_announcement" %>
 
-<%
-edit_link(
-  decidim_admin_participatory_processes.participatory_processes_path,
-  :read,
-  :process_list
-)
-%>
-
-<%= participatory_space_wrapper do %>
-  <% if promoted_participatory_processes.any? %>
-    <section id="highlighted-processes" class="row section">
-      <h1 class="section-heading"><%= t("participatory_processes.index.promoted_processes", scope: "layouts.decidim") %></h1>
-      <%= render partial: "promoted_process", collection: promoted_participatory_processes, as: :promoted_process %>
-    </section>
-  <% end %>
-
-  <section id="processes-grid" class="section row collapse">
-    <div class="processes-grid-order-by">
-      <%= render partial: "order_by_processes" %>
+<div class="row columns">
+  <div class="title-action">
+    <h2 id="debates-count" class="title-action__title section-heading">
+      <%= render partial: "count" %>
+    </h2>
+    <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+      <% if current_settings.creation_enabled? && current_component.participatory_space.can_participate?(current_user) %>
+        <%= action_authorized_link_to :create, new_debate_path, class: "title-action__action button small", data: { "redirect_url" => new_debate_path } do %>
+          <%= t(".new_debate") %>
+          <%= icon "plus" %>
+        <% end %>
+      <% end %>
+    <% end %>
+    </a>
+  </div>
+</div>
+<div class="row">
+  <div class="columns mediumlarge-4 large-3">
+    <%= render partial: "filters_small_view" %>
+    <div class="card card--secondary show-for-mediumlarge">
+      <%= render partial: "filters" %>
     </div>
-    <%= render partial: "decidim/shared/participatory_space_filters/show" %>
-    <p class="loading"><%= t(".loading") %></p>
-    <div class="row small-up-1 medium-up-2 large-up-3 card-grid">
-      <%= render(collection) %>
+  </div>
+  <div id="debates" class="columns mediumlarge-8 large-9">
+    <%= render partial: "debates" %>
+  </div>
+</div>
+
+<!-- Login modal -->
+
+<div class="reveal" id="loginModal" data-reveal style="width: 450px">
+  <div class="reveal__header">
+    <h3 class="reveal__title ciao" style="font-size: 24px">Per proseguire clicca su ACCEDI</h3>
+    <button class="close-button" data-close aria-label="Close modal"
+            type="button">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="row">
+
+    <!--
+
+    <div class="columns medium-8 medium-centered" style="display:none">
+          <div>
+            <div class="field">
+            </div>
+            <div class="field">
+            </div>
+          </div>
+          <div class="actions">
+          </div>
+          <p class="text-center">
+          </p>
+        <p class="text-center">
+        </p>
     </div>
-  </section>
-<% end %>
-<%= javascript_include_tag "decidim/participatory_processes/filters" %>
-<%= javascript_include_tag "decidim/filters" %>
+
+    -->
+    <div>
+      <a class="button expanded" href="/users/auth/saml">Accedi</a>
+    </div>
+  </div>
+
+</div>
+
+<%= javascript_include_tag("decidim/filters") %>
 
 <style>
 
