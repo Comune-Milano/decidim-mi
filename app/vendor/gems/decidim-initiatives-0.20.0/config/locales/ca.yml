@@ -1,4 +1,38 @@
 ca:
+  stampa:
+    pet_stringa_1: Sol·licitud d’admissió al procediment de petició dels ciutadans
+    pet_stringa_2: DNI/NIE
+    pet_stringa_3: Dades personals del representant
+    pet_stringa_4: Nom i cognom
+    pet_stringa_5: Domicili
+    pet_stringa_6: Ciutat
+    pet_stringa_7: Provincia
+    pet_stringa_8: CP
+    pet_stringa_9: Tel
+    pet_stringa_10: Email
+    pet_stringa_11: En representació de la comissió promotora
+    pet_stringa_12: DNI/NIE/NIF
+    pet_stringa_13: MEMBRES DE LA COMISSIÓ PROMOTORA DE LA INICIATIVA
+    pet_stringa_14: Nom persona o entiat membre
+    pet_stringa_15: DNI/NIE/NIF
+    pet_stringa_16: Domicili
+    pet_stringa_17: SOL·LICITEN QUE SIGUI ADMESA A TRÀMIT LA PETICIÓ CIUTADANA QUE PORTA EL TÍTOL DE
+    pet_stringa_18: TIPUS DE PETICIÓ
+    pet_stringa_19: DEFINICIÓ DE LA PETICIÓ
+    pet_stringa_20: EXPOSICIÓ DE MOTIUS
+    pet_stringa_21: EN CAS DE CONSULTA, ESPECIFICAR
+    pet_stringa_22: Pregunta que es proposa votar
+    pet_stringa_23: Ambit (ciutat o districte/s)
+    pet_stringa_24: DOCUMENTACIÓ QUE S'APORTA (MARCAR EL QUE CORRESPONGUI)
+    pet_stringa_25: Memòria explicativa de les raons que aconsellen la peticitio
+    pet_stringa_26: Modelo de Pliego de firmas
+    pet_stringa_27: Acta signada dels òrgans de direcció de les entitats membres de la Comissió Promotora
+    pet_stringa_28: Relació inicial de persones fedetàries i DNI/NIE de les mateixes
+    pet_stringa_29: Declaració jurada de les persones fedetàries
+    pet_stringa_30: Sol·licitud de permís d'ocupació de via pública per a la recollida de signatures
+    pet_stringa_31: Lloc i data de la sol·licitud
+    pet_stringa_32: Signatura
+    pet_stringa_33: Les dades personals recollides serán incorporades i tractades en el sistema informàtic de l'Ajuntament de Barcelona i només es podràn cedir de conformitat amb la Llei Orgànica 15/1999, del 13 de desembre, de Protecció de Dades de Caràcter Personal, podent la persona interessada exercir els drets d'accés, rectificació, cancel·lació i oposició, tal com estableix l'article 5 de l'esmentada llei.
   activemodel:
     attributes:
       initiative:

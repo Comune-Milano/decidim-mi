@@ -1,4 +1,38 @@
 es:
+  stampa:
+    stringa_1: Solicitud de admisión al procedimiento de referendum ciudadano
+    stringa_2: DNI/NIE
+    stringa_3: Datos personales de la persona representante
+    stringa_4: Nombre y apellido
+    stringa_5: Domicilio
+    stringa_6: Ciudad
+    stringa_7: Provincia
+    stringa_8: CP
+    stringa_9: Tel
+    stringa_10: Email
+    stringa_11: En representación de la comisión promotora
+    stringa_12: DNI/NIE/NIF
+    stringa_13: MIEMBROS DEL COMITÉ PROMOCIONAL DE REFERENDUM
+    stringa_14: Nombre del miembro o miembro de la entidad
+    stringa_15: DNI/NIE/NIF
+    stringa_16: Domicilio
+    stringa_17: SOLICITE QUE SE ADMITE EL REFERENDUM CIUDADANO AL TÍTULO DE
+    stringa_18: TIPO DE REFERENDUM
+    stringa_19: DEFINICIÓN DE REFERENDUM
+    stringa_20: EXPOSICIÓN DE MOTIVOS
+    stringa_21: EN CAS DE CONSULTA, ESPECIFICAR
+    stringa_22: Pregunta que se propone votar
+    stringa_23: Ámbito (ciudad o distrito / s)
+    stringa_24: DOCUMENTACIÓN QUE APORTA (MARCAR LO QUE CORRESPONDA)
+    stringa_25: Memoria explicativa de las razones que aconsejan el referendum
+    stringa_26: Modelo de Pliego de firmas
+    stringa_27: Acta firmada de los órganos de dirección de las entidades miembros de la Comisión Promotora
+    stringa_28: Relación inicial de personas FEDETO y DNI / NIE de las mismas
+    stringa_29: Declaración jurada de las personas FEDETO
+    stringa_30: Solicitud de permiso de ocupación de vía pública para la recogida de firmas
+    stringa_31: Lugar y fecha de la solicitud
+    stringa_32: Firma
+    stringa_33: Los datos personales recogidos serán incorporados y tratados en el sistema informático del Ayuntamiento de Barcelona y sólo se podrán ceder de conformidad con la Ley Orgánica 15/1999, de 13 de diciembre, de Protección de Datos de Carácter Personal, pudiendo el interesado ejercer los derechos de acceso, rectificación, cancelación y oposición, tal como establece el artículo 5 de la citada ley.
   activemodel:
     attributes:
       referendum:

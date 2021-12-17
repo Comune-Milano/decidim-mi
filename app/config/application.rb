@@ -12,6 +12,7 @@ module DecidimMilano
     #config.realtive_url_root = '/decidim'
     #config.assets.prefix = "/decidim/test"
     config.realtive_url_root = '/'
+    config.autoload_paths << "#{Rails.root}/lib"
     #config.assets.prefix = "/test"
    
     # Initialize configuration defaults for originally generated Rails version.

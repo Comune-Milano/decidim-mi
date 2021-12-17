@@ -1,5 +1,39 @@
 ---
 en:
+  stampa:
+    pet_stringa_1: Application for admission to the citizens' petition procedure
+    pet_stringa_2: DNI/NIE
+    pet_stringa_3: Personal data of the representative
+    pet_stringa_4: Name and surname
+    pet_stringa_5: Domicile
+    pet_stringa_6: City
+    pet_stringa_7: Province
+    pet_stringa_8: CP
+    pet_stringa_9: Tel
+    pet_stringa_10: Email
+    pet_stringa_11: Representing the promotion committee
+    pet_stringa_12: DNI/NIE/NIF
+    pet_stringa_13: MEMBERS OF THE PETITION PROMOTIONAL COMMITTEE
+    pet_stringa_14: Name of member or entity member
+    pet_stringa_15: DNI/NIE/NIF
+    pet_stringa_16: Domicile
+    pet_stringa_17: REQUEST THAT THE CITIZEN PETITION BEING ADMITTED TO THE TITLE OF
+    pet_stringa_18: TYPE OF PETITION
+    pet_stringa_19: DEFINITION OF THE PETITION
+    pet_stringa_20: MOTIVATION
+    pet_stringa_21: IN CASE OF CONSULTATION, SPECIFY
+    pet_stringa_22: Question proposed to vote
+    pet_stringa_23: Scope (city or district / s)
+    pet_stringa_24: DOCUMENTATION PROVIDED (MARK WHICH CORRESPONDS)
+    pet_stringa_25: Explanatory report of the reasons that advise the petition
+    pet_stringa_26: Signature Sheet Model
+    pet_stringa_27: Minutes signed by the management bodies of the member bodies of the Promotion Committee
+    pet_stringa_28: Initial report of FEDETO persons and their DNI / NIE
+    pet_stringa_29: Sworn declaration of the federal people
+    pet_stringa_30: Request for permission to occupy a public road to collect signatures
+    pet_stringa_31: Place and date of the application
+    pet_stringa_32: Signature
+    pet_stringa_33: The personal data collected will be incorporated and processed in the computer system of Barcelona City Council and may only be transferred in accordance with Organic Law 15/1999, of 13 December, on the Protection of Personal Data, and the person concerned may to exercise the rights of access, rectification, cancellation and opposition, as established in article 5 of the aforementioned law.
   activemodel:
     attributes:
       initiative:

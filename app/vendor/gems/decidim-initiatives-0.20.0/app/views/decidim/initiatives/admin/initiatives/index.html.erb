@@ -47,7 +47,7 @@
   </div>
   <div class="card-section">
     <div class="table-scroll">
-      <table class="table-list">
+      <table class="table-list" style="width: 97%">
         <thead>
         <tr>
           <th><%= t("models.initiatives.fields.id", scope: "decidim.admin") %></th>
@@ -59,7 +59,7 @@
           <th><%= "CSV" %></th>
           <th><%= "Aperta" %></th>
           <th><%= t("models.initiatives.fields.created_at", scope: "decidim.admin") %></th>
-	  <th><%= t("activemodel.attributes.initiative.signature_last_day") %></th>
+          <th><%= t("activemodel.attributes.initiative.signature_last_day") %></th>
           <th class="actions"><%= t ".actions_title" %></th>
         </tr>
         </thead>
@@ -106,9 +106,9 @@
             <td><%= l initiative.created_at, format: :short %></td>
             <td>
               <% if initiative.signature_last_day != nil %>
-	        <%= l initiative.signature_last_day, format: "%d/%m/%Y" %>
+                <%= l initiative.signature_last_day, format: "%d/%m/%Y" %>
               <% else %>
-	        -
+                -
               <% end %>
             </td>
             <td class="table-list__actions">
@@ -122,7 +122,7 @@
               <% end %>
               <% if !current_user.role?("initiative_manager") %>
                 <% if allowed_to? :edit, :initiative, initiative: initiative %>
-                  <%= icon_link_to "pencil",
+                  <%= icon_link_to "cog",
                                    decidim_admin_initiatives.edit_initiative_path(initiative.to_param),
                                    t("actions.configure", scope: "decidim.admin"),
                                    class: "action-icon--edit" %>
@@ -141,14 +141,25 @@
                                  class: "action-icon--print" %>
               <% end %>
               <% if initiative.closed?  && initiative.state == 'published'%>
-	        <%# if allowed_to? :edit, :initiative, initiative: initiative %>
-	        <% if initiative.is_gestione_firme_icona_visibile(current_user, initiative) %>
-	          <%= icon_link_to "pencil", "/admin/offline_signatures/pdf/" + initiative.id.to_s + "/petizione", "Gestione firme", class: "action-icon--edit" %>
-	        <% else %>
-	          <%= icon "pencil", scope: "decidim.admin", class: "action-icon action-icon--disabled" %>
-	        <% end %>
+                <%# if allowed_to? :edit, :initiative, initiative: initiative %>
+                <% if initiative.is_gestione_firme_icona_visibile(current_user, initiative) %>
+
+                  <%= link_to "/admin/offline_signatures/pdf/" + initiative.id.to_s + "/petizione" do %>
+                    <span data-tooltip="true" data-disable-hover="false" data-click-open="false" title="Gestione firme" aria-describedby="cqsnro-tooltip" data-yeti-box="cqsnro-tooltip" data-toggle="cqsnro-tooltip" data-resize="cqsnro-tooltip" class="has-tip">
+                    <%= image_tag('pen-nib-solid-1.svg', :title=>"Gestione firme", "data-svg-fallback" => image_path('/pen-nib-solid-1.svg')) %>
+                    </span>
+                  <% end %>
+                <% else %>
+                  <%#= icon "pencil", scope: "decidim.admin", class: "action-icon action-icon--disabled" %>
+                  <span data-tooltip="true" data-disable-hover="false" data-click-open="false" title="Gestione firme" aria-describedby="cqsnro-tooltip" data-yeti-box="cqsnro-tooltip" data-toggle="cqsnro-tooltip" data-resize="cqsnro-tooltip" class="has-tip">
+                  <%= image_tag('pen-nib-solid-1-disabled.svg', :title=>"Gestione firme", "data-svg-fallback" => image_path('/pen-nib-solid-1-disabled.svg')) %>
+                  </span>
+                <% end %>
               <% else %>
-	        <%= icon "pencil", scope: "decidim.admin", class: "action-icon action-icon--disabled" %>
+                <%#= icon "pencil", scope: "decidim.admin", class: "action-icon action-icon--disabled" %>
+                <span data-tooltip="true" data-disable-hover="false" data-click-open="false" title="Gestione firme" aria-describedby="cqsnro-tooltip" data-yeti-box="cqsnro-tooltip" data-toggle="cqsnro-tooltip" data-resize="cqsnro-tooltip" class="has-tip">
+                <%= image_tag('pen-nib-solid-1-disabled.svg', :title=>"Gestione firme", "data-svg-fallback" => image_path('/pen-nib-solid-1-disabled.svg')) %>
+                </span>
               <% end %>
 
             </td>

@@ -1,76 +1,94 @@
-<div class="referendum-letterhead">
+<div class="initiative-letterhead" style="background-color: #d6012e; padding: 15px; color: white">
   <% if current_organization.logo.present? %>
     <%= image_tag current_organization.logo.url, title: current_organization.name %>
   <% end %>
-
-  <%= current_organization.name %>
 </div>
 
-<div class="referendum-print-title">
-  Sol·licitud d'admissió a tràmit iniciativa ciutadana
+<div class="initiative-print-title">
+  <%= t("stampa.stringa_1") %>
 </div>
 
 <div class="print-table">
   <div class="print-table-header">
-    Dades personals persona representant
+    <%= t("stampa.stringa_3") %>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell">
-      <div class="cell-header">DNI/NIE</div>
-      <div class="cell-content"></div>
-    </div>
-  </div>
-
-  <div class="print-table-row">
-    <div class="print-table-cell">
-      <div class="cell-header">Nom i cognoms</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_2") %>
+      </div>
       <div class="cell-content"></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell">
-      <div class="cell-header">Domicili</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_4") %>
+      </div>
+      <div class="cell-content"></div>
+    </div>
+  </div>
+
+  <div class="print-table-row">
+    <div class="print-table-cell">
+      <div class="cell-header">
+        <%= t("stampa.stringa_5") %>
+      </div>
       <div class="cell-content"></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell w33">
-      <div class="cell-header">Població</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_6") %>
+      </div>
       <div class="cell-content"></div>
     </div>
     <div class="print-table-cell w33">
-      <div class="cell-header">Provincia</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_7") %>
+      </div>
       <div class="cell-content"></div>
     </div>
     <div class="print-table-cell w33">
-      <div class="cell-header">CP</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_8") %>
+      </div>
       <div class="cell-content"></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell w33">
-      <div class="cell-header">Tel</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_9") %>
+      </div>
       <div class="cell-content"></div>
     </div>
 
     <div class="print-table-cell">
-      <div class="cell-header">Email</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_10") %>
+      </div>
       <div class="cell-content"><%= current_referendum.author.email %></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell w66">
-      <div class="cell-header">En representació de la comissió promotora</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_11") %>
+      </div>
       <div class="cell-content">&nbsp;</div>
     </div>
 
     <div class="print-table-cell">
-      <div class="cell-header">DNI/NIE/NIF</div>
+      <div class="cell-header">
+        <%= t("stampa.stringa_12") %>
+      </div>
       <div class="cell-content">&nbsp;</div>
     </div>
   </div>
@@ -78,13 +96,13 @@
 <br><br>
 <div class="print-table">
   <div class="print-table-header">
-    Membres de la comissió promotora de la iniciativa
+    <%= t("stampa.stringa_13") %>
   </div>
 
   <div class="print-table-row">
-    <div class="print-table-cell w33">Nom persona o entiat membre</div>
-    <div class="print-table-cell w33">DNI/NIE/NIF</div>
-    <div class="print-table-cell w33">Domicili</div>
+    <div class="print-table-cell w33"><%= t("stampa.stringa_14") %></div>
+    <div class="print-table-cell w33"><%= t("stampa.stringa_15") %></div>
+    <div class="print-table-cell w33"><%= t("stampa.stringa_16") %></div>
   </div>
 
   <% 4.times do %>
@@ -96,85 +114,82 @@
   <% end %>
 </div>
 
-<h2 class="print-section-title">Sol·liciten que sigui admesa a tràmit la Iniciativa Ciutadana que porta el títol de:</h2>
+<h2 class="print-section-title"><%= t("stampa.stringa_17") %>:</h2>
 <%= translated_attribute(current_referendum.title) %>
 
-<h2 class="print-section-title">Tipus de la Iniciativa:</h2>
+<h2 class="print-section-title"><%= t("stampa.stringa_18") %>:</h2>
 <%= translated_attribute(current_referendum.type.title) %>
 
-<h2 class="print-section-title">Definició de la Iniciativa:</h2>
+<h2 class="print-section-title"><%= t("stampa.stringa_19") %>:</h2>
 <%= decidim_sanitize translated_attribute(current_referendum.description) %>
 
-<h2 class="print-section-title">Exposició de motius:</h2>
+<h2 class="print-section-title"><%= t("stampa.stringa_20") %>:</h2>
 <br><br><br><br><br>
 
-<h2 class="print-section-title page-break">En cas de Consulta, especificar:</h2>
+<h2 class="print-section-title page-break"><%= t("stampa.stringa_21") %></h2>
 <ul>
-  <li>Pregunta que es proposa votar</li>
-  <li>Ambit: (ciutat o districte/s)</li>
+  <li><%= t("stampa.stringa_22") %></li>
+  <li><%= t("stampa.stringa_23") %></li>
 </ul>
 
 <div class="print-table">
   <div class="print-table-header">
-    Documentació que s'aporta (marcar el que correspongui)
+    <%= t("stampa.stringa_24") %>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content">Memòria explicativa de les raons que aconsellen la iniciativa</div>
+      <div class="cell-content"><%= t("stampa.stringa_25") %></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content"><div class="cell-content">Model de Plec de signatures</div></div>
+      <div class="cell-content"><div class="cell-content"><%= t("stampa.stringa_26") %></div></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content">Acta signada dels òrgans de direcció de les entitats membres de la Comissió Promotora</div>
+      <div class="cell-content"><%= t("stampa.stringa_27") %></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content">Relació inicial de persones fedetàries i DNI/NIE de les mateixes</div>
+      <div class="cell-content"><%= t("stampa.stringa_28") %></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content">Declaració jurada de les persones fedetàries</div>
+      <div class="cell-content"><%= t("stampa.stringa_29") %></div>
     </div>
   </div>
 
   <div class="print-table-row">
     <div class="print-table-cell checkbox-cell"></div>
     <div class="print-table-cell">
-      <div class="cell-content">Sol·licitud de permís d'ocupació de via pública per a la recollida de signatures</div>
+      <div class="cell-content"><%= t("stampa.stringa_30") %></div>
     </div>
   </div>
 </div>
 <br>
 <div class="print-table no-border">
   <div class="print-table-row no-border">
-    <div class="print-table-cell w50 no-border" style="font-weight: bold">Lloc i data de la sol·licitud</div>
-    <div class="print-table-cell w50 no-border" style="font-weight: bold">Signatura</div>
+    <div class="print-table-cell w50 no-border" style="font-weight: bold"><%= t("stampa.stringa_31") %></div>
+    <div class="print-table-cell w50 no-border" style="font-weight: bold"><%= t("stampa.stringa_32") %></div>
   </div>
 </div>
 
-<p class="print-referendum-legal-text">
-Les dades personals recollides serán incorporades i tractades en el sistema informàtic de l'Ajuntament
-de Barcelona i només es podràn cedir de conformitat amb la Llei Orgànica 15/1999, del 13 de desembre,
-de Protecció de Dades de Caràcter Personal, podent la persona interessada exercir els drets d'accés,
-rectificació, cancel·lació i oposició, tal com estableix l'article 5 de l'esmentada llei.
+<p class="print-initiative-legal-text">
+  <%= t("stampa.stringa_33") %>
 </p>
 
 <a href="#" onclick="window.print();return false;" class="button expanded"><%= t ".print" %></a>
-<%= stylesheet_link_tag "decidim/referendums/print-referendum", media: "all" %>
+<%= stylesheet_link_tag "decidim/initiatives/print-initiative", media: "all" %>

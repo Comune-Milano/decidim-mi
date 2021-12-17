@@ -1,5 +1,39 @@
 ---
 en:
+  stampa:
+    stringa_1: Application for admission to the citizens' referendum procedure
+    stringa_2: DNI/NIE
+    stringa_3: Personal data of the representative
+    stringa_4: Name and surname
+    stringa_5: Domicile
+    stringa_6: City
+    stringa_7: Province
+    stringa_8: CP
+    stringa_9: Tel
+    stringa_10: Email
+    stringa_11: Representing the promotion committee
+    stringa_12: DNI/NIE/NIF
+    stringa_13: MEMBERS OF THE REFERENDUM PROMOTIONAL COMMITTEE
+    stringa_14: Name of member or entity member
+    stringa_15: DNI/NIE/NIF
+    stringa_16: Domicile
+    stringa_17: REQUEST THAT THE CITIZEN REFERENDUM BEING ADMITTED TO THE TITLE OF
+    stringa_18: TYPE OF REFERENDUM
+    stringa_19: DEFINITION OF THE REFERENDUM
+    stringa_20: MOTIVATION
+    stringa_21: IN CASE OF CONSULTATION, SPECIFY
+    stringa_22: Question proposed to vote
+    stringa_23: Scope (city or district / s)
+    stringa_24: DOCUMENTATION PROVIDED (MARK WHICH CORRESPONDS)
+    stringa_25: Explanatory report on the reasons for recommending the referendum
+    stringa_26: Signature Sheet Model
+    stringa_27: Minutes signed by the management bodies of the member bodies of the Promotion Committee
+    stringa_28: Initial report of FEDETO persons and their DNI / NIE
+    stringa_29: Sworn declaration of the federal people
+    stringa_30: Request for permission to occupy a public road to collect signatures
+    stringa_31: Place and date of the application
+    stringa_32: Signature
+    stringa_33: The personal data collected will be incorporated and processed in the computer system of Barcelona City Council and may only be transferred in accordance with Organic Law 15/1999, of 13 December, on the Protection of Personal Data, and the person concerned may to exercise the rights of access, rectification, cancellation and opposition, as established in article 5 of the aforementioned law.
   activemodel:
     attributes:
       referendum:

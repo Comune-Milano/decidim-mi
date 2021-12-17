@@ -1,4 +1,38 @@
 it:
+  stampa:
+    stringa_1: Domanda di ammissione alla procedura di referendum dei cittadini
+    stringa_2: DNI/NIE
+    stringa_3: Dati personali della persona rappresentante
+    stringa_4: Nome e cognome
+    stringa_5: Domicilio
+    stringa_6: Città
+    stringa_7: Provincia
+    stringa_8: CAP
+    stringa_9: Tel
+    stringa_10: Email
+    stringa_11: In rappresentanza del comitato promotore
+    stringa_12: DNI/NIE/NIF
+    stringa_13: MEMBRI DEL COMITATO PROMOZIONALE DEL REFERENDUM
+    stringa_14: Nome del membro o membro dell'entità
+    stringa_15: DNI/NIE/NIF
+    stringa_16: Domicilio
+    stringa_17: CHIEDONO CHE IL REFERENDUM CITTADINO SIA AMMESSO AL TITOLO DI
+    stringa_18: TIPO DI REFERENDUM
+    stringa_19: DEFINIZIONE DEL REFERENDUM
+    stringa_20: MOTIVAZIONE
+    stringa_21: IN CASO DI CONSULTAZIONE, SPECIFICARE
+    stringa_22: Domanda che si propone di votare
+    stringa_23: Ambito (città o distretto / i)
+    stringa_24: DOCUMENTAZIONE FORNITA (CONTRASSEGNA QUALE CORRISPONDE)
+    stringa_25: Relazione esplicativa dei motivi che consigliano il referendum
+    stringa_26: Campione di firma
+    stringa_27: Verbali firmati degli organi di gestione degli enti membri del Comitato di promozione
+    stringa_28: Rapporto iniziale delle persone FEDETO e del loro DNI / NIE
+    stringa_29: Dichiarazione giurata del popolo federale
+    stringa_30: Domanda di permesso di circolazione pubblica per la raccolta delle firme
+    stringa_31: Luogo e data della domanda
+    stringa_32: Firma
+    stringa_33: I dati personali raccolti saranno incorporati ed elaborati nel sistema informatico del Comune di Barcellona e potranno essere trasferiti solo in conformità con la Legge Organica 15/1999, del 13 dicembre, sulla protezione dei dati personali, e la persona interessata può esercitare i diritti di accesso, rettifica, cancellazione e opposizione, così come stabiliti dall'articolo 5 della predetta legge.
   activemodel:
     attributes:
       referendum:

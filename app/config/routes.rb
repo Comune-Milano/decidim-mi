@@ -45,6 +45,8 @@ Rails.application.routes.draw do
   get 'change_status' => 'emendation_change_status#edit'
 
   get 'edit_not_allowed' => 'edit_not_allowed#check'
+
+  get 'pluto' => "auriga#test"
   
 
   

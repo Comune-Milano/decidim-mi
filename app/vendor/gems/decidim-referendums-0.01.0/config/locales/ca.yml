@@ -1,4 +1,38 @@
 ca:
+  stampa:
+    stringa_1: Sol·licitud d’admissió al procediment de referendum dels ciutadans
+    stringa_2: DNI/NIE
+    stringa_3: Dades personals del representant
+    stringa_4: Nom i cognom
+    stringa_5: Domicili
+    stringa_6: Ciutat
+    stringa_7: Provincia
+    stringa_8: CP
+    stringa_9: Tel
+    stringa_10: Email
+    stringa_11: En representació de la comissió promotora
+    stringa_12: DNI/NIE/NIF
+    stringa_13: MEMBRES DE LA COMISSIÓ PROMOTORA DE LA INICIATIVA
+    stringa_14: Nom persona o entiat membre
+    stringa_15: DNI/NIE/NIF
+    stringa_16: Domicili
+    stringa_17: SOL·LICITEN QUE SIGUI ADMESA A TRÀMIT EL REFERENDUM CIUTADANO QUE PORTA EL TÍTOL DE
+    stringa_18: TIPUS DE REFERENDUM
+    stringa_19: DEFINICIÓ DE REFERENDUM
+    stringa_20: EXPOSICIÓ DE MOTIUS
+    stringa_21: EN CAS DE CONSULTA, ESPECIFICAR
+    stringa_22: Pregunta que es proposa votar
+    stringa_23: Ambit (ciutat o districte/s)
+    stringa_24: DOCUMENTACIÓ QUE S'APORTA (MARCAR EL QUE CORRESPONGUI)
+    stringa_25: Memòria explicativa de les raons que aconsellen el referendum
+    stringa_26: Modelo de Pliego de firmas
+    stringa_27: Acta signada dels òrgans de direcció de les entitats membres de la Comissió Promotora
+    stringa_28: Relació inicial de persones fedetàries i DNI/NIE de les mateixes
+    stringa_29: Declaració jurada de les persones fedetàries
+    stringa_30: Sol·licitud de permís d'ocupació de via pública per a la recollida de signatures
+    stringa_31: Lloc i data de la sol·licitud
+    stringa_32: Signatura
+    stringa_33: Les dades personals recollides serán incorporades i tractades en el sistema informàtic de l'Ajuntament de Barcelona i només es podràn cedir de conformitat amb la Llei Orgànica 15/1999, del 13 de desembre, de Protecció de Dades de Caràcter Personal, podent la persona interessada exercir els drets d'accés, rectificació, cancel·lació i oposició, tal com estableix l'article 5 de l'esmentada llei.
   activemodel:
     attributes:
       referendum:
