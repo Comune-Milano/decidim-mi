@@ -39,3 +39,5 @@ public/uploads_old
 
 Dockerfile
 docker-compose.yml
+
+/app/controllers/sso_login_test_controller.rb
