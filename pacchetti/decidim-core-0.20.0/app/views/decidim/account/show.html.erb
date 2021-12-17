@@ -2,13 +2,13 @@
   <%= decidim_form_for(@account, url: account_path, method: :put, html: { autocomplete: "nope" }) do |f| %>
     <input autocomplete="off" name="hidden" type="password" style="display:none;">
 
-    <div class="columns large-4" style="display: none">
+    <div class="columns large-4">
       <%= f.upload :avatar %>
     </div>
 
-    <div class="columns large-3">
+    <!--<div class="columns large-3">
         <img src="/assets/decidim/default-avatar-ff9cda3baf31339d38e9f694ffe1ccf14f00bda2c8d217c292977d4a7c727cc6.svg">
-    </div>
+    </div>-->
 
     <div class="columns large-8 end">
       <%#= f.text_field :name %>
