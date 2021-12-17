@@ -410,6 +410,7 @@ es:
             roles:
               admin: Administradora
               user_manager: Administradora de participantes
+              initiative_manager: Validador
           name: Participante
         user_group:
           fields:
@@ -455,6 +456,7 @@ es:
           participants: 'participantes '
           segmented_to: 'Segmentado para %{subject}: '
           title: Boletines
+          nuova_newsletter: Nuevo boletín
         new:
           save: Guardar
           title: Nuevo boletín

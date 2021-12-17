@@ -412,6 +412,7 @@ en:
             roles:
               admin: Admin
               user_manager: Participant manager
+              initiative_manager: Validator
           name: Participant
         user_group:
           fields:
@@ -457,6 +458,7 @@ en:
           participants: 'participants '
           segmented_to: 'Segmented to %{subject}: '
           title: Newsletters
+          nuova_newsletter: New newsletter
         new:
           save: Save
           title: New newsletter

@@ -410,6 +410,7 @@ ca:
             roles:
               admin: Administradora
               user_manager: Administradora de participants
+              initiative_manager: Validador
           name: Participant
         user_group:
           fields:
@@ -455,6 +456,7 @@ ca:
           participants: 'participants '
           segmented_to: 'Segmentat a %{subject}: '
           title: Butlletins
+          nuova_newsletter: Nou butlletí
         new:
           save: Desar
           title: Nou butlletí

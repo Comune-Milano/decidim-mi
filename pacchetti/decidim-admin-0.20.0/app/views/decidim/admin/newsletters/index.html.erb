@@ -3,7 +3,8 @@
     <h2 class="card-title">
       <%= t ".title" %>
       <% if allowed_to? :create, :newsletter %>
-        <%= link_to t("actions.new", scope: "decidim.admin", name: t("models.newsletter.name", scope: "decidim.admin").downcase), ["new", "newsletter"], class: "button tiny button--title new" %>
+        <%#= link_to t("actions.new", scope: "decidim.admin", name: t("models.newsletter.name", scope: "decidim.admin").downcase), ["new", "newsletter"], class: "button tiny button--title new" %>
+        <%= link_to t(".nuova_newsletter"), ["new", "newsletter"], class: "button tiny button--title new" %>
       <% end %>
     </h2>
   </div>

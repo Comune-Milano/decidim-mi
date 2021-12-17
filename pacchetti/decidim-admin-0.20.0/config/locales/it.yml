@@ -410,6 +410,7 @@ it:
             roles:
               admin: Amministratore
               user_manager: Gestore utente
+              initiative_manager: Validatore
           name: Utente
         user_group:
           fields:
@@ -458,6 +459,7 @@ it:
         new:
           save: Salva
           title: Nuova newsletter
+          nuova_newsletter: Nuova newsletter
         select_recipients_to_deliver:
           all_spaces: Tutti
           all_users_help: Invia newsletter a tutti gli utenti confermati.
