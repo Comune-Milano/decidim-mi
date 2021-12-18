@@ -93,5 +93,22 @@ namespace :decidim_referendums do
     end
   end
 
+  ############### CR DICEMBRE
+  desc "Controlla se la data corrente è uguale a un giorno dopo la scadenza del referendum"
+  task check_day_after_end: :environment do
+    Decidim::Referendums::CheckDayAfterEnd.new.each do |referendum|
+      user = Decidim::User.find_by(id: referendum.author.id)
+      Decidim::Referendums::ReferendumsMailer.notify_one_day_after(referendum, user).deliver
+    end
+  end
+
+  desc "Controlla se la data corrente è uguale a una settimana prima della scadenza del referendum"
+  task check_one_week_before_end: :environment do
+    Decidim::Referendums::CheckOneWeekBeforeEnd.new.each do |referendum|
+      user = Decidim::User.find_by(id: referendum.author.id)
+      Decidim::Referendums::ReferendumsMailer.notify_one_week_before_end_referendum(referendum, user).deliver
+    end
+  end
+
 
 end
