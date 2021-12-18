@@ -9,10 +9,10 @@
       <%# if !current_user.nil? && (!current_user.admin? && !current_user.role?("initiative_manager")) %>
       <% if @component.is_data_ultima_superata(@component_id) %>
         <% if current_user.admin? %>
-          <p>La petizione è chiusa.</p>
+          <p>La proposta è chiusa.</p>
         <% else %>
           <% if !current_user.role?("initiative_manager") %>
-            <p>La Petizione è stata chiusa e non è quindi possibile apportare modifiche</p>
+            <p>La proposta è stata chiusa e non è quindi possibile apportare modifiche</p>
           <% end %>
         <% end %>
       <% end %>
@@ -49,21 +49,12 @@
   <% if @component.is_data_fine_petizione_superata(@component_id) %>
     <%= link_to "Scarica firme inserite", "/admin/offline_signatures/pdf/create/#{@component_id}/#{@component_type}", class: "button" %>
     <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
-      <% if @component_type == 'referendum' %>
-        <%= link_to "Carica firme validate", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
-        <%= form_with(url: "/admin/signatures/" + @component_id + "/referendum/send_notifications", method: "post") do %>
-
-          <%= submit_tag "Invia mail di chiusura", class: "button force-margin-right" %>
+      <% if !@component.is_mail_chiusura_mandata(@component_id) && @component.is_data_ultima_superata(@component_id) %>
+        <% if @component_type == 'referendum' %>
+          <%= link_to "Carica firme validate", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
+        <% else %>
+          <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
         <% end %>
-
-      <% else %>
-        <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
-
-        <%= form_with(url: "/admin/signatures/" + @component_id + "/petizione/send_notifications", method: "post") do %>
-
-          <%= submit_tag "Invia mail di chiusura", class: "button force-margin-right" %>
-        <% end %>
-
       <% end %>
     <% else %>
       <% if !@component.is_data_ultima_superata(@component_id) %>
@@ -82,19 +73,5 @@
     <%= link_to "Torna indietro", "/admin/initiatives", class: "button" %>
   <% end %>
 </div>
-
-
-<div id="myModal-manda-notifica" class="modal modal-custom" >
-  <div class="modal-content">
-    <div id="myModal-manda-notifica-content" style="margin-bottom: 15px"></div>
-    <input type="button" onclick="closeModalNotifica()" value="Chiudi" class="button btn btn-primary"/>
-  </div>
-</div>
-
-<%= javascript_tag do -%>
-  function closeModalNotifica() {
-  $('#myModal-manda-notifica').hide();
-  }
-<% end %>
 
 
