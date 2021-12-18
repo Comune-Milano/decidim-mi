@@ -20,21 +20,22 @@ module Decidim
         def call
           return broadcast(:invalid, @form, "error1") unless @form.file
           return broadcast(:invalid, @form, "error2") unless @form.file.path.to_s.end_with?(".csv")
-
-          if current_user.admin? || current_user.role?("initiative_manager")
+		  if current_user.admin? || current_user.role?("initiative_manager")
             return broadcast(:invalid, @form, "error3") unless check_numero_firme(@form.id,  @form.data.values.count)
           end
 
           if current_user.admin? || current_user.role?("initiative_manager")
             CsvSignatureDatum.clear(params[:id])
           end
-          CsvSignatureDatum.insert_all(@organization, @form.data.values,@form.id,current_user.id)
+
+          clean = CsvSignatureDatum.insert_all(@organization, @form.data.values,@form.id,current_user.id)
+          return broadcast(:invalid, @form, "error4") unless clean
           #RemoveDuplicatesJob.perform_later(@organization)
           #RemoveDuplicatesOfflineJob.perform_later(@form.data.values,@form.id)
           return broadcast(:ok)
         end
-
-        def check_numero_firme(referendum_id, values_count)
+		
+		def check_numero_firme(referendum_id, values_count)
           sql = "Select count(decidim_referendums_csv_signature_data.id) from decidim_referendums_csv_signature_data
         where decidim_referendums_csv_signature_data.referendums_id = #{referendum_id};"
           records_array = ActiveRecord::Base.connection.select_all(sql)
@@ -45,6 +46,7 @@ module Decidim
 
           end
         end
+
       end
     end
   end

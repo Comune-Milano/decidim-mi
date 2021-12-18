@@ -9,10 +9,10 @@
   <!--<li><%#= link_to translated_attribute(resource.type.title), initiatives_path(filter: { type: [resource.type.id] }) %></li>
   <li><%#= link_to translated_attribute(resource.scope_name), initiatives_path(filter: { scope_id: [resource.scope&.id] }) %></li> -->
 
-  <li><a href="?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Btype%5D%5B%5D=<%=tipo[0]["id"] %>&order=random">
+  <li><a href="<%= initiatives_path %>?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Btype%5D%5B%5D=<%=tipo[0]["id"] %>&order=random">
     <%= translated_attribute(tipo[0]["title"]) %></a>
   </li>
 
-  <li><a href="?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Bscope_id%5D%5B%5D=<%=ambito[0]["id"] %>&order=random">
+  <li><a href="<%= initiatives_path %>?utf8=✓&filter%5Bsearch_text%5D=&filter%5Bstate%5D=&filter%5Bstate%5D=open&filter%5Bauthor%5D=&filter%5Bauthor%5D=any&filter%5Bscope_id%5D%5B%5D=<%=ambito[0]["id"] %>&order=random">
     <%= translated_attribute(ambito[0]["name"]) %></a></li>
 </ul>

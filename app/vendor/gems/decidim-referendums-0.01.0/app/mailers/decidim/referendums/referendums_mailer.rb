@@ -19,8 +19,8 @@ module Decidim
 
         with_user(referendum.author) do
           @subject = I18n.t(
-            "decidim.referendums.referendums_mailer.creation_subject",
-            title: translated_attribute(referendum.title)
+              "decidim.referendums.referendums_mailer.creation_subject",
+              title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{referendum.author.name} <#{referendum.author.email}>", subject: @subject)
@@ -28,24 +28,35 @@ module Decidim
       end
 
       # Notify changes in state
-      def notify_state_change(referendum, user)
+      def notify_state_change(referendum, user, state)
         return if user.email.blank?
 
         @organization = referendum.organization
 
         with_user(user) do
           @subject = I18n.t(
-            "decidim.referendums.referendums_mailer.status_change_for",
-            title: translated_attribute(referendum.title)
+              "decidim.referendums.referendums_mailer.status_change_for",
+              title: translated_attribute(referendum.title)
           )
 
-          @body = I18n.t(
-            "decidim.referendums.referendums_mailer.status_change_body_for",
-            title: translated_attribute(referendum.title),
-            state: I18n.t(referendum.state, scope: "decidim.referendums.admin_states")
-          )
+          if state.to_s == "published"
+            stato = "pubblicato"
+          elsif state.to_s == "discarded"
+            stato = "scartato"
+          elsif state.to_s == "rejected"
+            stato = "rifiutato"
+          elsif state.to_s = "accepted"
+            stato = "accettato"
+          end
 
-          @link = referendum_url(referendum, host: @organization.host)
+          @link2 = referendum_url(referendum, host: @organization.host)
+          @body = "Il referendum "+translated_attribute(referendum.title)+" è stato "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+
+          if state.to_s == "published" || state.to_s == "accepted"
+            @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"
+          else
+            @body += "<br /><br />Lo Staff di Milano Partecipa"
+          end
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
         end
@@ -60,12 +71,12 @@ module Decidim
 
         with_user(user) do
           @subject = I18n.t(
-            "decidim.referendums.referendums_mailer.technical_validation_for",
-            title: translated_attribute(referendum.title)
+              "decidim.referendums.referendums_mailer.technical_validation_for",
+              title: translated_attribute(referendum.title)
           )
           @body = I18n.t(
-            "decidim.referendums.referendums_mailer.technical_validation_body_for",
-            title: translated_attribute(referendum.title)
+              "decidim.referendums.referendums_mailer.technical_validation_body_for",
+              title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
@@ -147,14 +158,14 @@ module Decidim
 
         with_user(user) do
           @body = I18n.t(
-            "decidim.referendums.referendums_mailer.progress_report_body_for",
-            title: translated_attribute(referendum.title),
-            percentage: referendum.percentage
+              "decidim.referendums.referendums_mailer.progress_report_body_for",
+              title: translated_attribute(referendum.title),
+              percentage: referendum.percentage
           )
 
           @subject = I18n.t(
-            "decidim.referendums.referendums_mailer.progress_report_for",
-            title: translated_attribute(referendum.title)
+              "decidim.referendums.referendums_mailer.progress_report_for",
+              title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)

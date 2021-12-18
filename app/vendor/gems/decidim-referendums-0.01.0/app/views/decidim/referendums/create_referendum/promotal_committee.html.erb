@@ -19,3 +19,16 @@
     <%= render partial: "share_committee_link" %>
   </div>
 </div>
+
+
+<script>
+
+    $('ul li').each(function(i) {
+        if($(this).text() == 'Referendum') {
+            $(this).removeClass();
+            $(this).addClass("main-nav__link main-nav__link--active");
+            return false;
+        }
+    });
+
+</script>

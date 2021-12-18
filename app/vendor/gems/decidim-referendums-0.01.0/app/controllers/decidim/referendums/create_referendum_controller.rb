@@ -89,6 +89,26 @@ module Decidim
             else
               redirect_to wizard_path(:finish)
             end
+
+            # prendo l'id nella tabella decidim_referendums_type_scopes con gli id del tipo e dell'area
+            # per aggiornare il campo scoped_type_id dell'iniziativa
+            tid = @form.type_id
+            dai = params[:area_id]
+            #Rails.logger.info "\n\n"+tid.to_s+"\n\n"
+            #Rails.logger.info "\n\n"+dai.to_s+"\n\n"
+            begin
+              new_scoped_type = Decidim::ReferendumsTypeScope.select(:id).where(["decidim_referendums_types_id = ? and decidim_areas_id = ?", tid, dai])
+              referendum.scoped_type_id = new_scoped_type[0]["id"]
+              referendum.save!
+            rescue ActiveRecord::RecordNotFound
+              flash.now[:alert] = I18n.t("referendums.update.error", scope: "decidim.referendums.admin")
+              render :edit, layout: "decidim/admin/referendum"
+            end
+
+            ########################################################
+
+
+
           end
 
           on(:invalid) do |referendum|
@@ -98,14 +118,15 @@ module Decidim
         end
       end
 
+
       def finish_step(_parameters)
         render_wizard
       end
 
       def similar_referendums
         @similar_referendums ||= Decidim::Referendums::SimilarReferendums
-                                 .for(current_organization, @form)
-                                 .all
+                                     .for(current_organization, @form)
+                                     .all
       end
 
       def build_form(klass, parameters)
@@ -138,7 +159,7 @@ module Decidim
         return false unless referendum_type.promoting_committee_enabled?
 
         minimum_committee_members = referendum_type.minimum_committee_members ||
-                                    Decidim::Referendums.minimum_committee_members
+            Decidim::Referendums.minimum_committee_members
         minimum_committee_members.present? && minimum_committee_members.positive?
       end
     end

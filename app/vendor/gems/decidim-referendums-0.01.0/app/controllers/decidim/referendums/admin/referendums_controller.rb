@@ -22,14 +22,14 @@ module Decidim
           @query = params[:q]
           @state = params[:state]
           @referendums = ManageableReferendums
-                         .for(
-                           current_organization,
-                           current_user,
-                           @query,
-                           @state
-                         )
-                         .page(params[:page])
-                         .per(15)
+                             .for(
+                                 current_organization,
+                                 current_user,
+                                 @query,
+                                 @state
+                             )
+                             .page(params[:page])
+                             .per(15)
         end
 
         # GET /admin/referendums/:id
@@ -41,10 +41,10 @@ module Decidim
         def edit
           enforce_permission_to :edit, :referendum, referendum: current_referendum
           @form = form(Decidim::Referendums::Admin::ReferendumForm)
-                  .from_model(
-                    current_referendum,
-                    referendum: current_referendum
-                  )
+                      .from_model(
+                          current_referendum,
+                          referendum: current_referendum
+                      )
 
           render layout: "decidim/admin/referendum"
         end
@@ -55,12 +55,30 @@ module Decidim
 
           params[:id] = params[:slug]
           @form = form(Decidim::Referendums::Admin::ReferendumForm)
-                  .from_params(params, referendum: current_referendum)
+                      .from_params(params, referendum: current_referendum)
 
           UpdateReferendum.call(current_referendum, @form, current_user) do
             on(:ok) do |referendum|
               flash[:notice] = I18n.t("referendums.update.success", scope: "decidim.referendums.admin")
               redirect_to edit_referendum_path(referendum)
+
+              #ULTIMO CAMPO DA AGGIORNARE (LUCA)
+              if current_referendum.state != "published"
+                tid = @form.type_id
+                dai = @form.decidim_areas_id
+                #Rails.logger.info "\n\n"+tid.to_s+"\n\n"
+                #Rails.logger.info "\n\n"+dai.to_s+"\n\n"
+                begin
+                  new_scoped_type = Decidim::ReferendumsTypeScope.select(:id).where(["decidim_referendums_types_id = ? and decidim_areas_id = ?", tid, dai])
+                  referendum.scoped_type_id = new_scoped_type[0]["id"]
+                  referendum.save!
+                rescue ActiveRecord::RecordNotFound
+                  flash.now[:alert] = I18n.t("referendums.update.error", scope: "decidim.referendums.admin")
+                  render :edit, layout: "decidim/admin/referendum"
+                end
+              end
+              ########################################################
+
             end
 
             on(:invalid) do
@@ -69,6 +87,7 @@ module Decidim
             end
           end
         end
+
 
         # POST /admin/referendums/:id/publish
         def publish
@@ -122,10 +141,10 @@ module Decidim
           SendReferendumToTechnicalValidation.call(current_referendum, current_user) do
             on(:ok) do
               redirect_to edit_referendum_path(current_referendum), flash: {
-                notice: I18n.t(
-                  "success",
-                  scope: %w(decidim referendums admin referendums edit)
-                )
+                  notice: I18n.t(
+                      "success",
+                      scope: %w(decidim referendums admin referendums edit)
+                  )
               }
             end
           end
@@ -154,9 +173,9 @@ module Decidim
           @votes = current_referendum.votes.votes
 
           output = render_to_string(
-            pdf: "votes_#{current_referendum.id}",
-            layout: "decidim/admin/referendums_votes",
-            template: "decidim/referendums/admin/referendums/export_pdf_signatures.pdf.erb"
+              pdf: "votes_#{current_referendum.id}",
+              layout: "decidim/admin/referendums_votes",
+              template: "decidim/referendums/admin/referendums/export_pdf_signatures.pdf.erb"
           )
           output = pdf_signature_service.new(pdf: output).signed_pdf if pdf_signature_service
 

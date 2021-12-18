@@ -1,3 +1,23 @@
+
+<% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
+
+  <% if current_referendum.is_data_ultima_superata_model(current_referendum.id) %>
+    <% if (current_referendum.state != 'accepted' && current_referendum.state != 'rejected') %>
+      <div id="form-chiusura-container">
+        <%= form_with(url: "/admin/signatures/" + current_referendum.id.to_s() + "/referendum/accept_send_notifications", method: "post") do %>
+
+          <%= submit_tag "Accetta la proposta e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+
+        <%= form_with(url: "/admin/signatures/" + current_referendum.id.to_s() + "/referendum/reject_send_notifications", method: "post") do %>
+
+          <%= submit_tag "Rifiuta la proposta e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>
+
 <%= decidim_form_for @form, html: { class: "form edit_referendum" } do |f| %>
   <%= render partial: "form", object: f %>
   <div class="button--double form-general-submit">
@@ -28,22 +48,6 @@
                   data: { confirm: t(".confirm") } %>
     <% end %>
 
-    <% if allowed_to? :accept, :referendum, referendum: current_referendum %>
-        <%= link_to t(".accept"),
-                    accept_referendum_path(current_referendum),
-                    method: :post,
-                    class: "button hollow",
-                    data: { confirm: t(".confirm") } %>
-    <% end %>
-
-    <% if allowed_to? :reject, :referendum, referendum: current_referendum %>
-        <%= link_to t(".reject"),
-                    reject_referendum_path(current_referendum),
-                    method: :delete,
-                    class: "button alert",
-                    data: { confirm: t(".confirm") } %>
-    <% end %>
-
     <% if allowed_to? :discard, :referendum, referendum: current_referendum %>
       <%= link_to t(".discard"),
                   discard_referendum_path(current_referendum),
@@ -67,3 +71,20 @@
     <%# end %>
    </div>
 <% end %>
+
+
+<div id="myModal-manda-notifica" class="modal modal-custom" >
+  <div class="modal-content">
+    <div id="myModal-manda-notifica-content" style="margin-bottom: 15px"></div>
+    <input type="button" onclick="closeModalNotifica()" value="Chiudi" class="button btn btn-primary"/>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+  function closeModalNotifica() {
+  $('#form-chiusura-container').hide();
+  $('#myModal-manda-notifica').hide();
+  location.href = '/admin/referendums';
+  }
+<% end %>
+

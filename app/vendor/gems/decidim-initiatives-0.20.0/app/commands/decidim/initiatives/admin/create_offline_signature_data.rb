@@ -29,7 +29,8 @@ module Decidim
             CsvSignatureDatum.clear(params[:id])
           end
 
-          CsvSignatureDatum.insert_all(@organization, @form.data.values,@form.id,current_user.id)
+          clean = CsvSignatureDatum.insert_all(@organization, @form.data.values,@form.id,current_user.id)
+          return broadcast(:invalid, @form, "error4") unless clean
           #RemoveDuplicatesJob.perform_later(@organization)
           #RemoveDuplicatesOfflineJob.perform_later(@form.data.values,@form.id)
           return broadcast(:ok)
@@ -37,7 +38,7 @@ module Decidim
 
         def check_numero_firme(initiative_id, values_count)
           sql = "Select count(decidim_initiatives_csv_signature_data.id) from decidim_initiatives_csv_signature_data
-        where decidim_initiatives_csv_signature_data.initiative_id = #{initiative_id};"
+        where decidim_initiatives_csv_signature_data.initiatives_id = #{initiative_id};"
           records_array = ActiveRecord::Base.connection.select_all(sql)
           if(values_count == records_array.rows[0][0])
             return true

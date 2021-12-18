@@ -28,7 +28,7 @@ module Decidim
       end
 
       # Notify changes in state
-      def notify_state_change(initiative, user)
+      def notify_state_change(initiative, user, state)
         return if user.email.blank?
 
         @organization = initiative.organization
@@ -39,13 +39,24 @@ module Decidim
               title: translated_attribute(initiative.title)
           )
 
-          @body = I18n.t(
-              "decidim.initiatives.initiatives_mailer.status_change_body_for",
-              title: translated_attribute(initiative.title),
-              state: I18n.t(initiative.state, scope: "decidim.initiatives.admin_states")
-          )
+          if state.to_s == "published"
+            stato = "pubblicata"
+          elsif state.to_s == "discarded"
+            stato = "scartata"
+          elsif state.to_s == "rejected"
+            stato = "rifiutata"
+          elsif state.to_s = "accepted"
+            stato = "accettata"
+          end
 
-          @link = initiative_url(initiative, host: @organization.host)
+          @link2 = initiative_url(initiative, host: @organization.host)
+          @body = "La petizione "+translated_attribute(initiative.title)+" è stata "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+
+          if state.to_s == "published" || state.to_s == "accepted"
+            @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"
+          else
+            @body += "<br /><br />Lo Staff di Milano Partecipa"
+          end
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
         end

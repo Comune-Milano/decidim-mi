@@ -68,8 +68,9 @@ module Decidim
 
       def scoped_type
         ReferendumsTypeScope.find_by(
-          decidim_referendums_types_id: form.type_id,
-          decidim_scopes_id: form.scope_id
+            decidim_referendums_types_id: form.type_id,
+            #decidim_scopes_id: form.scope_id
+            decidim_areas_id: form.area_id
         )
       end
 

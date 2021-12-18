@@ -22,18 +22,20 @@ module Decidim
 
       def self.insert_all(organization, values, initiatives_id, current_user_id)
         @current_user = User.find_by(id: current_user_id)
-
+		clean_insert = true
         #values.each { |value| create(email: value, organization: organization) }
         values.each { |value|
+			begin
           firma_validata = false
           codice_fiscale = value[3]
+		  
           stato = 'ok'
-
+		  
           if @current_user.admin? || @current_user.role?("initiative_manager")
             stato = value[4] if !value[4].nil?
           end
 
-          if codice_fiscale.match(/^[a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1}$/).nil?
+          if codice_fiscale == nil || codice_fiscale.match(/^[a-zA-Z]{6}[0-9]{2}[abcdehlmprstABCDEHLMPRST]{1}[0-9]{2}([a-zA-Z]{1}[0-9]{3})[a-zA-Z]{1}$/).nil?
             stato = 'formato_codice_fiscale_non_valido'
           elsif !check_codicefiscale?(codice_fiscale, initiatives_id)
             stato = 'duplicato'
@@ -61,7 +63,11 @@ module Decidim
               :organization => organization,
               :validazione => firma_validata
           )
+		  rescue StandardError => e
+		  clean_insert = false
+		  end
         }
+		return clean_insert
 
       end
 

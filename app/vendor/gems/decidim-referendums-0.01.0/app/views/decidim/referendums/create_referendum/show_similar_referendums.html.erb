@@ -6,8 +6,9 @@
 <% end %>
 <div class="row column">
   <div class="callout secondary">
-    <%= t(".compare_help") %>
-    <%= link_to t(".more_information"), decidim.page_path("referendums"), target: "_blank" %>.
+    <%#= t(".compare_help") %>
+    Se uno dei referendum che vedi qui giù è simile a quello che vuoi proporre tu, ti incoraggiamo a supportarlo. La tua proposta avrà più possibilità di conseguire l’obiettivo.
+    <%= link_to t(".more_information"), "https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione", target: "_blank" %>.
   </div>
 </div>
 <br>
@@ -25,20 +26,35 @@
 <%= javascript_tag nonce: true do -%>
   var slides = document.getElementsByClassName("success card__text--status");
   for (var i = 0; i < slides.length; i++) {
-    if(slides.item(i).innerHTML == "published") {
-      slides.item(i).innerHTML = "Pubblicato";
-    }
-    if(slides.item(i).innerHTML == "accepted") {
-      slides.item(i).innerHTML = "Accettato";
-    }
+  if(slides.item(i).innerHTML == "published") {
+  slides.item(i).innerHTML = "Pubblicato";
+  }
+  if(slides.item(i).innerHTML == "accepted") {
+  slides.item(i).innerHTML = "Accettato";
+  }
   }
   var slides2 = document.getElementsByClassName("alert card__text--status");
   for (var i = 0; i < slides2.length; i++) {
-    if(slides2.item(i).innerHTML == "discarded") {
-      slides2.item(i).innerHTML = "Scartato";
-    }
-    if(slides2.item(i).innerHTML == "rejected") {
-      slides2.item(i).innerHTML = "Rifiutato";
-    }
+  if(slides2.item(i).innerHTML == "discarded") {
+  slides2.item(i).innerHTML = "Scartato";
+  }
+  if(slides2.item(i).innerHTML == "rejected") {
+  slides2.item(i).innerHTML = "Rifiutato";
+  }
   }
 <% end -%>
+
+
+<script>
+
+    $('ul li').each(function(i) {
+        if($(this).text() == 'Referendum') {
+            $(this).removeClass();
+            $(this).addClass("main-nav__link main-nav__link--active");
+            return false;
+        }
+    });
+
+    $(".large-6").css("width", "75%");
+
+</script>

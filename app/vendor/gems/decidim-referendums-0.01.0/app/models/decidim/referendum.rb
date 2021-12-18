@@ -314,6 +314,15 @@ module Decidim
       return false
     end
 
+    def is_data_ultima_superata_model(referendum_id)
+      sql = "select id from decidim_referendums WHERE id = #{referendum_id} and NOW() > signature_last_day"
+      result = ActiveRecord::Base.connection.select_value(sql)
+      if result.present?
+        return true
+      end
+      return false
+    end
+
     def self.is_mail_chiusura_mandata(referendum_id)
       sql = "select id from decidim_referendums WHERE id = #{referendum_id} and mail_chiusura_mandata = true"
       result = ActiveRecord::Base.connection.select_value(sql)

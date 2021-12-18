@@ -46,10 +46,16 @@ module Decidim
         end
       end
 
+      ####################################################################
+
       def notify_validating_result
+
+        # questo metodo manda al mailer lo stato di pubblicata o scartata
+        #aggiunto terzo argomento: initiative.state
+
         initiative.committee_members.approved.each do |committee_member|
           Decidim::Initiatives::InitiativesMailer
-              .notify_state_change(initiative, committee_member.user)
+              .notify_state_change(initiative, committee_member.user, initiative.state)
               .deliver_later
         end
 
@@ -58,21 +64,27 @@ module Decidim
             .deliver_later
       end
 
+      ######################################################################
+
       def notify_support_result
+
+        # questo metodo manda al mailer lo stato di rifiutata o accettata
+        #aggiunto terzo argomento: initiative.state
+
         initiative.followers.each do |follower|
           Decidim::Initiatives::InitiativesMailer
-              .notify_state_change(initiative, follower)
+              .notify_state_change(initiative, follower, initiative.state)
               .deliver_later
         end
 
         initiative.committee_members.approved.each do |committee_member|
           Decidim::Initiatives::InitiativesMailer
-              .notify_state_change(initiative, committee_member.user)
+              .notify_state_change(initiative, committee_member.user, initiative.state)
               .deliver_later
         end
 
         Decidim::Initiatives::InitiativesMailer
-            .notify_state_change(initiative, initiative.author)
+            .notify_state_change(initiative, initiative.author, initiative.state)
             .deliver_later
       end
     end
