@@ -44,8 +44,10 @@ module Decidim
           user.update!(officialized_at: nil, officialized_as: nil)
           user.update!(officialized_until: nil)
           user.update!(form_inviato: false)
+
         end
       end
+
     end
   end
 end
