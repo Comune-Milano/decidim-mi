@@ -9,7 +9,7 @@ class AurigaController < ApplicationController
     ss = Decidim::Ws::Auriga.new(Dir.pwd + '/app/controllers/wsdl/auriga/admin--Auriga-Login2.0.wsdl', ':none', ':TLSv1')
     #ss = Decidim::Ws::Auriga.new('https://your_secret_server_url/webservices/SSWebService.asmx?WSDL', ':none', ':TLSv1')
 
-    token = Rails.configuration.token_autenticazione_servizi
+    token = "1d78a2e1-a921-3a78-aadf-a48b28bf0955"
     codApplicazione = "PARTECIPAZIONI"
     istanzaApplicazione = "TEST"
     userName = "user-partecipazioni"

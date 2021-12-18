@@ -14,26 +14,40 @@ module Decidim
     before_action :ensure_profile_holder_is_a_user, only: [:groups, :following]
 
     def show
-        return redirect_to profile_timeline_path(nickname: params[:nickname]) if profile_holder == current_user
-        return redirect_to profile_members_path if profile_holder.is_a?(Decidim::UserGroup)
-        return redirect_to profile_activity_path(nickname: params[:nickname]) if !current_admin.nil? && current_user.admin?
-        #redirect_to '/decidim', flash: { warning: "Attenzione! Non hai i permessi per visualizzare il profilo dei partecipanti!" }
-        redirect_back(fallback_location: root_path)
+      #return redirect_to profile_timeline_path(nickname: params[:nickname]) if profile_holder == current_user
+      #return redirect_to profile_members_path if profile_holder.is_a?(Decidim::UserGroup)
+      #redirect_to profile_activity_path(nickname: params[:nickname])
+      return redirect_to profile_timeline_path(nickname: params[:nickname]) if profile_holder == current_user
+      return redirect_to profile_members_path if profile_holder.is_a?(Decidim::UserGroup)
+      return redirect_to profile_activity_path(nickname: params[:nickname]) if current_user != nil && current_user.admin?
+      redirect_back(fallback_location: root_path)
     end
 
     def following
-      @content_cell = "decidim/following"
-      render :show
+      if current_user != nil && (current_user.admin? || current_user.nickname == params[:nickname])	    
+        @content_cell = "decidim/following"
+        render :show
+      else
+        redirect_to root_path	      
+      end
     end
 
     def followers
-      @content_cell = "decidim/followers"
-      render :show
+      if current_user != nil && (current_user.admin? || current_user.nickname == params[:nickname])	    
+        @content_cell = "decidim/followers"
+        render :show
+      else
+        redirect_to root_path	      
+      end
     end
 
     def badges
-      @content_cell = "decidim/badges"
-      render :show
+      if current_user != nil && (current_user.admin? || current_user.nickname == params[:nickname])	    
+	      @content_cell = "decidim/badges"
+	      render :show
+      else
+        redirect_to root_path	      
+      end
     end
 
     def groups
@@ -51,8 +65,8 @@ module Decidim
     end
 
     def activity
-      @content_cell = "decidim/user_activity"
-      render :show
+      @content_cell = "decidim/user_activity"        
+      render :show   
     end
 
     private

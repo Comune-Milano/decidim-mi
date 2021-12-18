@@ -59,12 +59,12 @@ module Decidim
             officialized_until: @until,
             officialized_as: form.officialized_as
           )
-          # CR DICEMBRE
+
+	  # CR DICEMBRE
           UserMailer.with(user: form.user).notify_officialize_user.deliver_later
-
-        end
+	
+	end
       end
-
     end
   end
 end

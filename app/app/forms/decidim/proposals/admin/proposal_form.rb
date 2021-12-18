@@ -22,6 +22,7 @@ module Decidim
         attribute :suggested_hashtags, Array[String]
         attribute :photos, Array[String]
         attribute :add_photos, Array
+        #attribute :testo_originale, Boolean
 
         validates :title, :body, presence: true
         validates :title, length: { maximum: 150 }
@@ -36,6 +37,10 @@ module Decidim
         validate :notify_missing_attachment_if_errored
 
         delegate :categories, to: :current_component
+
+        #def testo_originale
+        #  return testo_originale?
+        #end
 
         def map_model(model)
           return unless model.categorization

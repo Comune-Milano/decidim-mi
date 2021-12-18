@@ -12,7 +12,8 @@ module Decidim
           @drafts = Proposal.where(component: current_component).order(:position)
           participatory_text = Decidim::Proposals::ParticipatoryText.find_by(component: current_component)
           @import = form(Admin::ImportParticipatoryTextForm).from_model(participatory_text)
-          @preview_form = form(Admin::PreviewParticipatoryTextForm).instance
+          @participatory_text_exists = !participatory_text.blank?
+	  @preview_form = form(Admin::PreviewParticipatoryTextForm).instance
           @preview_form.from_models(@drafts)
         end
 
