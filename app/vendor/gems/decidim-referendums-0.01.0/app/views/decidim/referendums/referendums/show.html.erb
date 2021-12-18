@@ -42,7 +42,7 @@
         <% end %>
 
 
-        <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+        <%# if current_user != nil && (current_user.admin? || current_user.officialized?) %>
           <div style="text-align: center; font-size: .875rem; margin: .5rem 0 1rem; color: #8c838a">
             <% data_ultima_superata = current_referendum.is_offline_signature_date_passed(current_referendum.id) %>
             <%# if data_ultima_superata %>
@@ -58,7 +58,7 @@
             </div>
           <% end %>
           <%= render partial: "interactions" %>
-        <% end %>
+        <%# end %>
 
 
       </div>

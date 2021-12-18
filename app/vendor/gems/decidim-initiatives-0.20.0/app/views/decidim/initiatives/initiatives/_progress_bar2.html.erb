@@ -1,7 +1,7 @@
 <%= cell(
       "decidim/progress_bar",
-      current_initiative.supports_count,
-      total: current_initiative.supports_required + current_initiative.offline_signature_count(current_initiative.id),
+      current_initiative.supports_count + current_initiative.offline_signature_count(current_initiative.id),
+      total: current_initiative.supports_required,
       units_name: "totale_firme",
       #"decidim.initiatives.initiatives.votes_count.count",
       element_id: "initiative-#{current_initiative.id}-votes-count",

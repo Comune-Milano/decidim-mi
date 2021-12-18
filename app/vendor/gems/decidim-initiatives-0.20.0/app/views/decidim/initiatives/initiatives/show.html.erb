@@ -41,7 +41,7 @@ edit_link(
           <%= render partial: "progress_bar" %>
         <% end %>
 
-        <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+        <%# if current_user != nil && (current_user.admin? || current_user.officialized?) %>
           <div style="text-align: center; font-size: .875rem; margin: .5rem 0 1rem; color: #8c838a">
             <% data_ultima_superata = current_initiative.is_offline_signature_date_passed(current_initiative.id) %>
             <%# if data_ultima_superata %>
@@ -57,7 +57,7 @@ edit_link(
             </div>
           <% end %>
           <%= render partial: "interactions" %>
-        <% end %>
+        <%# end %>
 
       </div>
     </div>
