@@ -10,7 +10,7 @@
       vote_label,
       initiative_initiative_signatures_path(initiative_slug: current_initiative.slug),
       remote: true,
-      data: { disable: true },
+      data: { confirm: "Sei sicuro?", disable: true },
       class: "button expanded light button--sc"
     ) %>
   <% end %>

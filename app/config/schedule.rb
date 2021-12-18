@@ -34,5 +34,11 @@ every '* 9 * * *' do
   ###### CR
   rake "decidim_initiatives:check_one_week_before_end_signs"
   rake "decidim_referendums:check_one_week_before_end_signs"
+  ###### CR DICEMBRE 2020
+  # apri le righe sotto quando hai finito
+  rake "decidim_initiatives:check_day_after_end"
+  rake "decidim_referendums:check_day_after_end"
+  rake "decidim_initiatives:check_one_week_before_end"
+  rake "decidim_referendums:check_one_week_before_end"
   #command "/usr/bin/my_great_command"
 end

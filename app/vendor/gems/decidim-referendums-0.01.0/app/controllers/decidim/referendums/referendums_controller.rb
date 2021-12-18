@@ -36,6 +36,10 @@ module Decidim
       # GET /referendums/:id
       def show
         enforce_permission_to :read, :referendum, referendum: current_referendum
+
+        # 4 è rifiutato e 5 è accettato
+        @is_closed = Decidim::Referendum.where("id = #{current_referendum.id } and (state = 4 or state = 5)").present?
+
       end
 
       # GET /referendums/:id/signature_identities

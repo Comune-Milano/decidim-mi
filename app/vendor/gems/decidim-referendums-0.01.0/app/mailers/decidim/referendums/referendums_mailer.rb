@@ -188,6 +188,35 @@ module Decidim
         end
       end
 
+      ######################## CR DICEMBRE
+
+      # Notifica una settiamana prima della scadenza della petizione
+      def notify_one_week_before_end_referendum(referendum, user)
+        return if user.email.blank?
+
+        @organization = referendum.organization
+        @link = referendum_url(referendum, host: @organization.host)
+
+        with_user(user) do
+          @body = "Manca una settimana prima della chiusura del referendum #{translated_attribute(referendum.title)}."
+          @subject = "Chiusura imminente del referendum (#{translated_attribute(referendum.title)})"
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+      # Notifica un giorno dopo la scadenza del referendum
+      def notify_one_day_after(referendum, user)
+        return if user.email.blank?
+
+        @organization = referendum.organization
+        @link = referendum_url(referendum, host: @organization.host)
+
+        with_user(user) do
+          @body = "Si avvisa che il referendum #{translated_attribute(referendum.title)} \u00E8 scaduto."
+          @subject = "Chiusura referendum (#{translated_attribute(referendum.title)})"
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
 
 
 

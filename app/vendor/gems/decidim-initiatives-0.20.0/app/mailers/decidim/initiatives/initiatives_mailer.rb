@@ -189,6 +189,37 @@ module Decidim
         end
       end
 
+      ######################## CR DICEMBRE
+
+      # Notifica una settiamana prima della scadenza della petizione
+      def notify_one_week_before_end_petizione(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @body = "Manca una settimana prima della chiusura della petizione #{translated_attribute(initiative.title)}."
+          @subject = "Chiusura imminente della petizione (#{translated_attribute(initiative.title)})"
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+      # Notifica un giorno dopo la scadenza della petizione
+      def notify_one_day_after(initiative, user)
+        return if user.email.blank?
+
+        @organization = initiative.organization
+        @link = initiative_url(initiative, host: @organization.host)
+
+        with_user(user) do
+          @body = "Si avvisa che la petizione #{translated_attribute(initiative.title)} \u00E8 scaduta."
+          @subject = "Chiusura petizione (#{translated_attribute(initiative.title)})"
+          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+        end
+      end
+
+
     end
   end
 end

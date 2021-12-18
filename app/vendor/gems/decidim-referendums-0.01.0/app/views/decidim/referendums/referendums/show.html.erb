@@ -34,20 +34,33 @@
   <div class="columns section view-side mediumlarge-4 mediumlarge-push-8 large-3 large-push-9">
     <div class="card">
       <div class="card__content">
-        <%= render partial: "progress_bar" %>
-        <div style="text-align: center; font-size: .875rem; margin: .5rem 0 1rem; color: #8c838a">
-          <% data_ultima_superata = current_referendum.is_offline_signature_date_passed(current_referendum.id) %>
-          <% if data_ultima_superata %>
-            <%= t("activemodel.attributes.referendum.signatures_offline") %>:
-            <%= current_referendum.offline_signature_count(current_referendum.id) %>
-          <% end %>
-        </div>
-        <% if current_referendum.votes_enabled? %>
-          <div id="referendum-<%= current_referendum.id %>-vote-cabin">
-            <%= render partial: "vote_cabin", locals: {referendum: current_referendum} %>
-          </div>
+
+        <% if @is_closed %>
+          <%= render partial: "progress_bar2" %>
+        <% else %>
+          <%= render partial: "progress_bar" %>
         <% end %>
-        <%= render partial: "interactions" %>
+
+
+        <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+          <div style="text-align: center; font-size: .875rem; margin: .5rem 0 1rem; color: #8c838a">
+            <% data_ultima_superata = current_referendum.is_offline_signature_date_passed(current_referendum.id) %>
+            <%# if data_ultima_superata %>
+            <%#= t("activemodel.attributes.referendum.signatures_offline") %>
+            <%#= current_referendum.offline_signature_count(current_referendum.id) %>
+            <% if @is_closed %>
+              DI CUI <%= current_referendum.offline_signature_count(current_referendum.id) %> SONO FIRME OFFLINE
+            <% end %>
+          </div>
+          <% if current_referendum.votes_enabled? %>
+            <div id="referendum-<%= current_referendum.id %>-vote-cabin">
+              <%= render partial: "vote_cabin", locals: { referendum: current_referendum } %>
+            </div>
+          <% end %>
+          <%= render partial: "interactions" %>
+        <% end %>
+
+
       </div>
     </div>
 

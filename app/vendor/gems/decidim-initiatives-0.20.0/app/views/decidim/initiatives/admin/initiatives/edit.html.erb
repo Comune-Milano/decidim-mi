@@ -4,15 +4,25 @@
   <% if current_initiative.is_data_ultima_superata_model(current_initiative.id) %>
     <% if (current_initiative.state != 'accepted' && current_initiative.state != 'rejected') %>
       <div id="form-chiusura-container">
-      <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/accept_send_notifications", method: "post") do %>
+        <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/accept_send_notifications_municipale", method: "post") do %>
 
-        <%= submit_tag "Accetta la proposta e invia mail di chiusura", class: "button force-margin-right" %>
-      <% end %>
+          <%= submit_tag "Accetta la proposta MUNICIPALE e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
 
-      <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/reject_send_notifications", method: "post") do %>
+        <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/accept_send_notifications_comunale", method: "post") do %>
 
-        <%= submit_tag "Rifiuta la proposta e invia mail di chiusura", class: "button force-margin-right" %>
-      <% end %>
+          <%= submit_tag "Accetta la proposta COMUNALE e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+
+        <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/reject_send_notifications_municipale", method: "post") do %>
+
+          <%= submit_tag "Rifiuta la proposta MUNICIPALE e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
+
+        <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/reject_send_notifications_comunale", method: "post") do %>
+
+          <%= submit_tag "Rifiuta la proposta COMUNALE e invia mail di chiusura", class: "button force-margin-right" %>
+        <% end %>
       </div>
     <% end %>
   <% end %>
@@ -89,9 +99,9 @@
 
 <%= javascript_tag do -%>
   function closeModalNotifica() {
-    $('#form-chiusura-container').hide();
-    $('#myModal-manda-notifica').hide();
-    location.href = '/admin/initiatives';
+  $('#form-chiusura-container').hide();
+  $('#myModal-manda-notifica').hide();
+  location.href = '/admin/initiatives';
   }
 <% end %>
 

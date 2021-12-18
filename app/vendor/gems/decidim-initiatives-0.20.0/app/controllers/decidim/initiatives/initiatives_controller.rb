@@ -36,6 +36,10 @@ module Decidim
       # GET /initiatives/:id
       def show
         enforce_permission_to :read, :initiative, initiative: current_initiative
+
+        # 4 è rifiutato e 5 è accettato
+        @is_closed = Decidim::Initiative.where("id = #{current_initiative.id } and (state = 4 or state = 5)").present?
+
       end
 
       # GET /initiatives/:id/signature_identities
