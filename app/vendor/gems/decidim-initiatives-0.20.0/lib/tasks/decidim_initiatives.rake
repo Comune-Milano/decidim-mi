@@ -92,4 +92,21 @@ namespace :decidim_initiatives do
     end
   end
 
+  ############## CR DICEMBRE
+  desc "Controlla se la data corrente è uguale a un giorno dopo la scadenza della petizione"
+  task check_day_after_end: :environment do
+    Decidim::Initiatives::CheckDayAfterEnd.new.each do |initiative|
+      user = Decidim::User.find_by(id: initiative.author.id)
+      Decidim::Initiatives::InitiativesMailer.notify_one_day_after(initiative, user).deliver
+    end
+  end
+
+  desc "Controlla se la data corrente è uguale a una settimana prima della scadenza della petizione"
+  task check_one_week_before_end: :environment do
+    Decidim::Initiatives::CheckOneWeekBeforeEnd.new.each do |initiative|
+      user = Decidim::User.find_by(id: initiative.author.id)
+      Decidim::Initiatives::InitiativesMailer.notify_one_week_before_end_petizione(initiative, user).deliver
+    end
+  end
+
 end
