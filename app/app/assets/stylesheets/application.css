@@ -477,3 +477,6 @@ div[id^="flagModalComment"] {
     cursor: pointer;
 }
 
+#form-chiusura-container {
+    text-align: center;
+}

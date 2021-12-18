@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
 
-  post 'admin/signatures/:id/:type/send_notifications', :to => 'admin/manage_signature#send_notification_custom', :as =>'send_signature_notification'
+  post 'admin/signatures/:id/:type/reject_send_notifications', :to => 'admin/manage_signature#reject_send_notification_custom', :as =>'reject_send_signature_notification'
+
+  post 'admin/signatures/:id/:type/accept_send_notifications', :to => 'admin/manage_signature#accept_send_notification_custom', :as =>'accept_send_signature_notification'
 
   get 'admin/download/pdf_signeds/:id', :to => 'admin/pdf_signeds#download',  :as => 'pdf_signeds_download'
 
