@@ -1,8 +1,10 @@
 Rails.application.routes.draw do
 
-  post 'admin/signatures/:id/:type/reject_send_notifications', :to => 'admin/manage_signature#reject_send_notification_custom', :as =>'reject_send_signature_notification'
+  post 'admin/signatures/:id/:type/reject_send_notifications_municipale', :to => 'admin/manage_signature#reject_send_notification_custom_municipale', :as =>'reject_send_signature_notification_municipale'
+  post 'admin/signatures/:id/:type/reject_send_notifications_comunale', :to => 'admin/manage_signature#reject_send_notification_custom_comunale', :as =>'reject_send_signature_notification_comunale'
 
-  post 'admin/signatures/:id/:type/accept_send_notifications', :to => 'admin/manage_signature#accept_send_notification_custom', :as =>'accept_send_signature_notification'
+  post 'admin/signatures/:id/:type/accept_send_notifications_municipale', :to => 'admin/manage_signature#accept_send_notification_custom_municipale', :as =>'accept_send_signature_notification_municipale'
+  post 'admin/signatures/:id/:type/accept_send_notifications_comunale', :to => 'admin/manage_signature#accept_send_notification_custom_comunale', :as =>'accept_send_signature_notification_comunale'
 
   get 'admin/download/pdf_signeds/:id', :to => 'admin/pdf_signeds#download',  :as => 'pdf_signeds_download'
 
