@@ -8,11 +8,10 @@
       <% if defined? @component.settings.testo_originale %>
         <% @testo_originale = @component.settings.testo_originale %>
       <% else %>
-        <% @testo_originale = "false" %>
+	<% @testo_originale = "false" %>
       <% end %>
-
     <% end %>
-    
+
     <% key = key.to_sym %>
     
     <% if amendable.amendable_fields.include?(key) %>
@@ -46,13 +45,11 @@
         </div>
       <% end %>
 
-      
       <% if form.object.errors[key].present? %>
         <% form.object.errors.full_messages_for(key).each do |message| %>
           <small class="form-error is-visible"><%= message %></small>
         <% end %>
       <% end %>
-      
     
     <% end %>
     

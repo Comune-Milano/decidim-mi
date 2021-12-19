@@ -1,18 +1,18 @@
 <!-- app/views/decidim/participatory_processes/participatory_processes -->
 <% add_decidim_meta_tags({
-  image_url: current_participatory_space.hero_image.url,
-  description: translated_attribute(current_participatory_space.short_description),
-  url: participatory_process_url(current_participatory_space),
-  twitter_handler: current_organization.twitter_handler
-}) %>
+                             image_url: current_participatory_space.hero_image.url,
+                             description: translated_attribute(current_participatory_space.short_description),
+                             url: participatory_process_url(current_participatory_space),
+                             twitter_handler: current_organization.twitter_handler
+                         }) %>
 
 <%
-edit_link(
-  resource_locator(current_participatory_space).edit,
-  :update,
-  :process,
-  process: current_participatory_space
-)
+  edit_link(
+      resource_locator(current_participatory_space).edit,
+      :update,
+      :process,
+      process: current_participatory_space
+  )
 %>
 
 <%= participatory_space_floating_help %>
@@ -203,9 +203,9 @@ edit_link(
     <span class="close">&times;</span>
     <form id="form_0" data-remote="true" action="/sender" method="post">
       <h2 style="color: #CCCC00">Ciao. Non risulti residente nel Comune di Milano.</h2>
-      <p style="font-size: large">Se sei un City User, ti chiediamo di auto-certificare il tuo rapporto continuativo con la città. Clicca sul bottone rosso INVIA.<br />Riceverai il link per l’auto-certificazione all’indirizzo email con cui hai eseguito l’accesso. Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a>.</p>
+      <p style="font-size: large">Se sei un City User, ti chiediamo di auto-certificare il tuo rapporto continuativo con la città.<br/> Per visualizzare il link di accesso al modulo di auto-certificazione, ti chiediamo di confermare la tua richiesta cliccando sul bottone rosso <b>CONTINUA</b>.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a>.</p>
       <center>
-        <input type="submit" id="send-button" value="INVIA" style="padding: 10px" />
+        <input type="submit" id="send-button" value="CONTINUA" style="padding: 10px" />
         <div id="waiting-div" style="display: none" style='margin-bottom: 8px'><br /><img src="/gear.gif" style="width: 30px"><br /></div>
       </center>
     </form>
@@ -215,8 +215,7 @@ edit_link(
 <div id="myModal2" class="modal">
   <div class="modal-content">
     <center>
-      <h2 style="color: #CCCC00">Ciao.</h2><p>La tua richiesta di partecipare è in attesa di essere autorizzata.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa. Grazie.</p>
-
+<h2 style="color: #CCCC00">Ciao.</h2><p>La tua richiesta di partecipare è in attesa di essere autorizzata.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa.<br/>Ti ricordiamo se non hai già provveduto di compilare il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br/>Grazie.</p>
 
       <div style="height: 30px"></div>
       <button id="button-close" class="button card__button button--sc">Chiudi</button>
@@ -227,8 +226,7 @@ edit_link(
 <div id="myModal3" class="modal">
   <div class="modal-content">
     <center>
-      <h2 style="color: #CCCC00">Grazie.</h2><p>Abbiamo ricevuto la tua richiesta. Ti invieremo una mail con il link all'autocertificazione.<br />Segui le istruzioni, compila il modulo e invia.</p>
-
+<h2 style="color: #CCCC00">Grazie.</h2><p>Per completare la tua richiesta ti chiediamo di compilare anche il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa. Grazie.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a></p>
       <div style="height: 30px"></div>
       <button id="button-close3" class="button card__button button--sc">Chiudi</button>
     </center>
@@ -253,4 +251,5 @@ edit_link(
   });
   });
 <% end -%>
+
 

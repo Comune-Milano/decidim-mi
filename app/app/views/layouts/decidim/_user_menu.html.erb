@@ -1,5 +1,4 @@
 <li><%= link_to t(".profile"), decidim.account_path %></li>
-<!--<li><%#= link_to t(".profile"), "/notifications_settings" %></li>-->
 <% if current_user.nickname.present? && !current_user.managed? %>
   <li><%= link_to t(".public_profile"), decidim.profile_path(current_user.nickname) %></li>
 <% end %>
@@ -8,4 +7,8 @@
 <% if allowed_to? :read, :admin_dashboard %>
   <li><%= link_to t(".admin_dashboard"), decidim_admin.root_path %></li>
 <% end %>
-<li><%= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link" %></li>
+<li>
+	<%#= link_to t(".sign_out"), decidim.destroy_user_session_path, method: :delete, class: "sign-out-link" %>
+<%= link_to t(".sign_out"), "/logout/slo", class: "sign-out-link" %>
+</li>
+

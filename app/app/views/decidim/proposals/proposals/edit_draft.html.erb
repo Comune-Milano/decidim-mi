@@ -10,7 +10,7 @@
           <%= render partial: "edit_form_fields", locals: { form: form } %>
 
 	  <div class="row column flex-center">
-		  ciao
+		  
             <%= link_to t(".discard"), destroy_draft_proposal_path(@proposal), method: :delete, data: { confirm: t(".discard_confirmation") } %>
 
             <%= form.submit t(".send"), class: "button  button--nomargin small", data: { disable: true } %>

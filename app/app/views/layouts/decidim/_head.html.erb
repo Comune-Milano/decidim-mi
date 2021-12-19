@@ -1,5 +1,7 @@
 <%= csrf_meta_tags %>
 
+
+
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <% available_locales.each do |locale| %>
   <link rel="alternate" href="<%= url_for(request.parameters.merge(locale: locale)) %>" hreflang="<%= locale %>">
@@ -20,8 +22,9 @@
 <%= favicon %>
 <%= stylesheet_link_tag    "application", media: "all" %>
 <%= organization_colors %>
+<%= render partial: "layouts/decidim/head_extra" %>
 <%= javascript_include_tag "application" %>
 <%= foundation_datepicker_locale_tag %>
 
-<%= render partial: "layouts/decidim/head_extra" %>
+
 <%== current_organization.header_snippets if Decidim.enable_html_header_snippets %>

@@ -13,8 +13,8 @@
 <!DOCTYPE html>
 <html lang="<%= I18n.locale %>" class="no-js">
   <head>
-    <title><%= decidim_page_title %></title>
-    <%= render partial: "layouts/decidim/head" %>
+	  <title><%= decidim_page_title %></title>
+	  <%= render partial: "layouts/decidim/head" %>
   </head>
 
   <body>
@@ -30,5 +30,8 @@
     <%= render partial: "decidim/shared/authorization_modal" %>
     <%= render partial: "decidim/shared/disable_user_modal" %>
 
+    <script type="text/javascript">
+	    _satellite.pageBottom();
+    </script>
   </body>
 </html>

@@ -7,9 +7,10 @@
     <div class="card-section">
       <div class="row column">
         <%= f.hidden_field :user_id %>
-        <%= f.translated :text_field, :officialized_as, label: t(".badge") %>
+	<%#= f.translated :text_field, :officialized_as, label: t(".badge") %>
+	<%= f.translated :text_field, :officialized_as, label: "Motivo" %>
         
-        <label for="officialized_until">Periodo di ufficializzazione</label>
+        <label for="officialized_until">Periodo</label>
         <select id="officialized_until" name="officialized_until">
           <!-- <option value="0">Per sempre</option> -->
           <option value="1">Per un anno</option>
@@ -20,6 +21,7 @@
   </div>
 
   <div class="button--double form-general-submit">
-    <%= f.submit t(".officialize") %>
+	  <%#= f.submit t(".officialize") %>
+	   <%= f.submit "Accetta richiesta" %>
   </div>
 <% end %>
