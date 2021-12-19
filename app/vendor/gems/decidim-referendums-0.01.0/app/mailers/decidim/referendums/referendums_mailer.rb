@@ -19,8 +19,8 @@ module Decidim
 
         with_user(referendum.author) do
           @subject = I18n.t(
-              "decidim.referendums.referendums_mailer.creation_subject",
-              title: translated_attribute(referendum.title)
+            "decidim.referendums.referendums_mailer.creation_subject",
+            title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{referendum.author.name} <#{referendum.author.email}>", subject: @subject)
@@ -28,29 +28,29 @@ module Decidim
       end
 
       # Notify changes in state
-      def notify_state_change(referendum, user, state)
+      def notify_state_change(referendum, user)
         return if user.email.blank?
 
         @organization = referendum.organization
 
         with_user(user) do
           @subject = I18n.t(
-              "decidim.referendums.referendums_mailer.status_change_for",
-              title: translated_attribute(referendum.title)
+            "decidim.referendums.referendums_mailer.status_change_for",
+            title: translated_attribute(referendum.title)
           )
 
-          if state.to_s == "published"
+	  if state.to_s == "published"
             stato = "pubblicato"
           elsif state.to_s == "discarded"
             stato = "scartato"
           elsif state.to_s == "rejected"
             stato = "rifiutato"
-          elsif state.to_s = "accepted"
+          elsif state.to_s == "accepted"
             stato = "accettato"
           end
 
-          @link2 = referendum_url(referendum, host: @organization.host)
-          @body = "Il referendum "+translated_attribute(referendum.title)+" è stato "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+	  @link2 = referendum_url(referendum, host: @organization.host)
+          @body = "Il referendum "+translated_attribute(referendum.title)+" è stato "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"          
 
           if state.to_s == "published" || state.to_s == "accepted"
             @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"
@@ -58,7 +58,9 @@ module Decidim
             @body += "<br /><br />Lo Staff di Milano Partecipa"
           end
 
-          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+			if state.to_s != 'accepted' && state.to_s != 'rejected'
+				mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+			end
         end
       end
 
@@ -71,12 +73,12 @@ module Decidim
 
         with_user(user) do
           @subject = I18n.t(
-              "decidim.referendums.referendums_mailer.technical_validation_for",
-              title: translated_attribute(referendum.title)
+            "decidim.referendums.referendums_mailer.technical_validation_for",
+            title: translated_attribute(referendum.title)
           )
           @body = I18n.t(
-              "decidim.referendums.referendums_mailer.technical_validation_body_for",
-              title: translated_attribute(referendum.title)
+            "decidim.referendums.referendums_mailer.technical_validation_body_for",
+            title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
@@ -158,14 +160,14 @@ module Decidim
 
         with_user(user) do
           @body = I18n.t(
-              "decidim.referendums.referendums_mailer.progress_report_body_for",
-              title: translated_attribute(referendum.title),
-              percentage: referendum.percentage
+            "decidim.referendums.referendums_mailer.progress_report_body_for",
+            title: translated_attribute(referendum.title),
+            percentage: referendum.percentage
           )
 
           @subject = I18n.t(
-              "decidim.referendums.referendums_mailer.progress_report_for",
-              title: translated_attribute(referendum.title)
+            "decidim.referendums.referendums_mailer.progress_report_for",
+            title: translated_attribute(referendum.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)

@@ -1,7 +1,7 @@
 <div class="card">
   <div class="card-divider">
     <h2 class="card-title">
-      <%#= t ".title" %>
+    <%#= t ".title" %>
       AMBITI TERRITORIALI PER QUESTO TIPO DI PETIZIONE
       <%#= link_to t("actions.new", scope: "decidim.admin", name: t("models.initiatives_type_scope.name", scope: "decidim.admin")), %>
       <%= link_to "NUOVO AMBITO PER QUESTO TIPO DI PETIZIONE",
@@ -23,7 +23,7 @@
         </tr>
         </thead>
         <tbody>
-        <!-- CAMBIATO LUCA -->
+         <!-- CAMBIATO LUCA -->
         <% initiative_type_areas = Decidim::InitiativesTypeScope.where(:decidim_initiatives_types_id => initiative_type.id).all %>
         <% initiative_type_areas.each do |a| %>
           <tr>
@@ -40,7 +40,7 @@
         <% end %>
 
         <%# initiative_type.scopes.each do |s| %>
-        <!--<tr>
+          <!--<tr>
             <td><%#= translated_attribute(s.scope_name) %></td>
             <td class="text-right"><%#= s.supports_required %></td>
             <td class="table-list__actions">

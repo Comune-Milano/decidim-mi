@@ -2,7 +2,7 @@
 <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
 
   <% if current_initiative.is_data_ultima_superata_model(current_initiative.id) %>
-    <% if (current_initiative.state != 'accepted' && current_initiative.state != 'rejected') %>
+    <% if (current_initiative.state == 'published') %>
       <div id="form-chiusura-container">
         <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/accept_send_notifications_municipale", method: "post") do %>
 

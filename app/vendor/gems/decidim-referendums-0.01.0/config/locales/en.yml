@@ -1,7 +1,7 @@
 ---
 en:
   _type: Type
-  _decidim_scopes: Decidim scopes
+  _decidim_scope: Scope
   _supports_required: Supports required
   stampa:
     stringa_1: Application for admission to the citizens' referendum procedure
@@ -473,7 +473,6 @@ en:
         end_signature_upload: Inserimento firme referendum %{title}
         start_signature_upload: Inserimento firme referendum %{title}
         validation_signature_started: Validazione firme referendum %{title}
-
       last_activity:
         new_referendum: New referendum
       pages:

@@ -1,9 +1,10 @@
 <%= cell(
-      "decidim/progress_bar",
-      current_referendum.supports_count + current_referendum.offline_signature_count(current_referendum.id),
-      total: current_referendum.supports_required,
-      units_name: "totale_firme",
-      element_id: "referendum-#{current_referendum.id}-votes-count",
-      subtitle_text: "",
-      small: false
-    ) %>
+  "decidim/progress_bar",
+  current_referendum.supports_count + current_referendum.offline_signature_count(current_referendum.id),
+  total: current_referendum.supports_required,
+  units_name: "totale_firme",
+  element_id: "referendum-#{current_referendum.id}-votes-count",
+  subtitle_text: "",
+  small: false
+) %>
+

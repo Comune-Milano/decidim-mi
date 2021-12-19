@@ -2,6 +2,7 @@ it:
   totale_firme: "TOTALE FIRME"
   _type: Tipo
   _decidim_scopes: Ambiti
+  _decidim_scope: Ambito
   _supports_required: Supporti richiesti
   stampa:
     pet_stringa_1: Domanda di ammissione alla procedura di petizione dei cittadini
@@ -73,7 +74,7 @@ it:
         extra_fields_legal_information: Informazioni legali sulla raccolta di dati personali
         minimum_committee_members: Minimo dei membri del comitato
         online_signature_enabled: Firma online abilitata
-        promoting_committee_enabled: Abilita la commissione promozionale
+        promoting_committee_enabled: Abilita la raccolta preliminare di firme
         title: Titolo
         undo_online_signatures_enabled: Consenti agli utenti di annullare le loro firme online
         validate_sms_code_on_votes: Aggiungi il passaggio di convalida del codice SMS al processo di firma
@@ -225,7 +226,7 @@ it:
               accepted: Accettato
               all: Tutti
               created: Creato
-              discarded: Discarded
+              discarded: Scartata
               published: Pubblicato
               rejected: Respinto
               validating: Convalida tecnica
@@ -290,7 +291,7 @@ it:
       admin_states:
         accepted: Accettato
         created: Creato
-        discarded: Discarded
+        discarded: Scartata
         published: Pubblicato
         rejected: Respinto
         validating: Convalida tecnica
@@ -337,7 +338,8 @@ it:
           back: Indietro
           choose_html: Voglio creare uno <strong>%{title}</strong>
           more_information: "(Maggiori informazioni)"
-          select: Voglio promuovere questa petizione
+          #select: Voglio promuovere questa petizione
+          select: Voglio creare questo tipo di petizione
           select_initiative_type_help: Le petizioni dei cittadini sono un mezzo attraverso il quale la cittadinanza può intervenire in modo che il Consiglio comunale possa intraprendere azioni in difesa dell'interesse generale che rientrano nei campi di giurisdizione municipale. Quale petizione vuoi lanciare?
         share_committee_link:
           continue: Continua
@@ -698,12 +700,18 @@ it:
           information: Informazione
       initiative_creation_header:
         back: Indietro
-        fill_data: Creare
-        finish: finire
-        previous_form: Inizio
-        promotal_committee: Comitato promotore
-        select_initiative_type: Scegliere
-        show_similar_initiatives: Confronta
+        #fill_data: Creare
+        fill_data: Crea la petizione
+        #finish: finire
+        finish: Invia la petizione
+        #previous_form: Inizio
+        previous_form: Formula la petizione
+        #promotal_committee: Comitato promotore
+        promotal_committee: Definisci il Comitato promotore
+        #select_initiative_type: Scegliere
+        select_initiative_type: Scegliere il tipo di petizione
+        #show_similar_initiatives: Confronta
+        show_similar_initiatives: Confrontala con le petizioni in corso
         step: Passaggio %{current} di %{total}
         title: Crea una nuova petizione
       initiative_header:
@@ -722,6 +730,6 @@ it:
       initiatives:
         initiative:
           check: Controlla
-          check_and_support: Guardalo e firmalo
+          check_and_support: Leggi e firma
         no_initiatives_yet:
           no_initiatives_yet: Nessuna petizione ancora!

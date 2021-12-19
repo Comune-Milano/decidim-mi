@@ -2,10 +2,145 @@
   <h2 id="initiatives-count" class="title-action__title section-heading">
     <%= render partial: "count" %>
   </h2>
-  <% if allowed_to? :create, :initiative %>
-    <%= link_to create_initiative_path(:select_initiative_type), class: "title-action__action button small" do %>
-        <%= t(".new_initiative") %>
-        <%= icon "plus" %>
+
+  <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+    <% if allowed_to? :create, :initiative %>
+      <%= link_to create_initiative_path(:select_initiative_type), class: "title-action__action button small" do %>
+          <%= t(".new_initiative") %>
+          <%= icon "plus" %>
+      <% end %>
     <% end %>
+  <% elsif current_user == nil %>
+	<button onclick="showModal()" class="title-action__action button small"><%= t(".new_initiative") %><%= icon "plus" %></button>
+  <% elsif current_user != nil && !current_user.officialized? && !current_user.form_inviato? %>
+      <button onclick="document.getElementById('myModal').style.display = 'block';" class="title-action__action button small"><%= t(".new_initiative") %><%= icon "plus" %></button>
+  <% elsif current_user != nil && !current_user.officialized? && current_user.form_inviato? %>
+      <button onclick="document.getElementById('myModal3').style.display = 'block';" class="title-action__action button small"><%= t(".new_initiative") %><%= icon "plus" %></button>
   <% end %>
 </div>
+
+<div id='login' class="reveal-overlay" style="display: none;"><div class="reveal" id="login2" style="width: 450px; display: none; top: 45px; padding: 15px" tabindex="-1">
+  <div class="reveal__header">
+    <h3 class="reveal__title" style="font-size: 24px">Per proseguire clicca su ACCEDI</h3>
+    <button id="close-button" onclick="closeModal()"  class="close-button" data-close="" aria-label="Close modal" type="button">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+    <div class="row">
+
+      <!--
+
+      <div class="columns medium-8 medium-centered" style="display:none">
+            <div>
+              <div class="field">
+              </div>
+              <div class="field">
+              </div>
+            </div>
+            <div class="actions">
+            </div>
+            <p class="text-center">
+            </p>
+          <p class="text-center">
+          </p>
+      </div>
+
+      -->
+      <div>
+         <center>
+         <a class="button expanded" style="color: white; width: 90%" href="/users/auth/saml">Accedi</a>
+        </center>
+      </div>
+    </div>
+</div>
+</div>
+
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+
+  <div class="modal-content">
+    <span id="button-close1" class="close">&times;</span>
+    <form id="form_0" data-remote="true" action="/sender" method="post">
+      <h2 style="color: #CCCC00">Ciao. Non risulti residente nel Comune di Milano.</h2>
+      <p style="font-size: large">Se sei un City User, ti chiediamo di auto-certificare il tuo rapporto continuativo con la città.<br/> Per visualizzare il link di accesso al modulo di auto-certificazione, ti chiediamo di confermare la tua richiesta cliccando sul bottone rosso <b>CONTINUA</b>.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a>.</p>
+<center>
+        <input type="submit" id="send-button" value="CONTINUA" style="padding: 10px" />
+        <div id="waiting-div" style="display: none" style='margin-bottom: 8px'><br /><img src="/gear.gif" style="width: 30px"><br /></div>
+      </center>
+    </form>
+  </div>
+</div>
+
+<div id="myModal2" class="modal">
+  <div class="modal-content">
+    <center>
+<h2 style="color: #CCCC00">Ciao.</h2><p>La tua richiesta di partecipare è in attesa di essere autorizzata.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa.<br/>Ti ricordiamo se non hai già provveduto di compilare il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br/>Grazie.</p>
+
+
+      <div style="height: 30px"></div>
+      <button id="button-close2" class="button card__button button--sc">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+<div id="myModal3" class="modal">
+  <div class="modal-content">
+    <center>
+<h2 style="color: #CCCC00">Grazie.</h2><p>Per completare la tua richiesta ti chiediamo di compilare anche il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa. Grazie.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a></p>
+
+      <div style="height: 30px"></div>
+      <button id="button-close3" class="button card__button button--sc">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+<div id="myModal4" class="modal">
+  <div class="modal-content" style="width: 40%">
+    <center>
+      <h2 style="color: #CCCC00; font-size: 24px">Questa proposta non può essere modificata perché contiene dei <%= link_to "commenti", "/pages/proposte" %> e/o <%= link_to "supporti", "/pages/proposte" %></h2>
+      <div style="height: 30px"></div>
+      <button class="button card__button button--sc" onclick="edit_not_allowed_hide()">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+<%= javascript_tag do -%>
+
+  function edit_not_allowed_hide() {
+    document.getElementById('myModal4').style.display = 'none';
+  }
+
+  document.getElementById('button-close1').onclick = function() {
+    document.getElementById('myModal').style.display = 'none';
+  }
+
+  document.getElementById('button-close2').onclick = function() {
+    document.getElementById('myModal2').style.display = 'none';
+  }
+
+
+  document.getElementById('button-close3').onclick = function() {
+    document.getElementById('myModal3').style.display = 'none';
+  }
+
+  $(document).ready(function() {
+	  $("#send-button").click( function() {
+	  $("#waiting-div").show();
+	  $("#send-button").hide();
+
+	  });
+  });
+
+function showModal() {
+   document.getElementById('login').style.display = 'block';
+   document.getElementById('login2').style.display = 'block';
+}
+
+        function closeModal() {
+                document.getElementById('login2').style.display = 'none';
+                document.getElementById('login').style.display = 'none';
+
+        }
+
+<% end -%>
+

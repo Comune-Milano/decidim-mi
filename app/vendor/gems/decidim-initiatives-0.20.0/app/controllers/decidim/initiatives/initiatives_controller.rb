@@ -36,18 +36,16 @@ module Decidim
       # GET /initiatives/:id
       def show
         enforce_permission_to :read, :initiative, initiative: current_initiative
-
-        # 4 è rifiutato e 5 è accettato
+	# 4 è rifiutato e 5 è accettato
         @is_closed = Decidim::Initiative.where("id = #{current_initiative.id } and (state = 4 or state = 5)").present?
-
       end
 
       # GET /initiatives/:id/signature_identities
       def signature_identities
         @voted_groups = InitiativesVote
-                            .supports
-                            .where(initiative: current_initiative, author: current_user)
-                            .pluck(:decidim_user_group_id)
+                        .supports
+                        .where(initiative: current_initiative, author: current_user)
+                        .pluck(:decidim_user_group_id)
         render layout: false
       end
 
@@ -73,19 +71,19 @@ module Decidim
 
       def default_filter_params
         {
-            search_text: "",
-            state: "open",
-            type: "all",
-            author: "any",
-            decidim_areas_id: nil
-            #scope_id: nil
+          search_text: "",
+          state: "open",
+          type: "all",
+          author: "any",
+          decidim_areas_id: nil
+          #scope_id: nil
         }
       end
 
       def context_params
         {
-            organization: current_organization,
-            current_user: current_user
+          organization: current_organization,
+          current_user: current_user
         }
       end
 

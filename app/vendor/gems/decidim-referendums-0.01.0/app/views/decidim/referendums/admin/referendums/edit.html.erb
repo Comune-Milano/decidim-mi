@@ -2,7 +2,7 @@
 <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
 
   <% if current_referendum.is_data_ultima_superata_model(current_referendum.id) %>
-    <% if (current_referendum.state != 'accepted' && current_referendum.state != 'rejected') %>
+    <% if (current_referendum.state == 'published') %>
       <div id="form-chiusura-container">
         <%= form_with(url: "/admin/signatures/" + current_referendum.id.to_s() + "/referendum/accept_send_notifications_municipale", method: "post") do %>
           <%= submit_tag "Accetta la proposta MUNICIPALE e invia mail di chiusura", class: "button force-margin-right" %>

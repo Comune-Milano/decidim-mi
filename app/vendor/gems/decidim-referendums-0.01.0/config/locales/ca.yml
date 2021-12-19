@@ -1,6 +1,6 @@
 ca:
   _type: Tipus
-  _decidim_scopes: Ambits
+  _decidim_scope: Ambit
   _supports_required: Suports necessaris
   stampa:
     stringa_1: Sol·licitud d’admissió al procediment de referendum dels ciutadans

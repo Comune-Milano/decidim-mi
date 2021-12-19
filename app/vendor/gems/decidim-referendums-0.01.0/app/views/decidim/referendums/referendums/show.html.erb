@@ -1,18 +1,18 @@
 <% add_decidim_meta_tags({
-                             image_url: current_referendum.type.banner_image.url,
-                             description: translated_attribute(current_referendum.description),
-                             title: translated_attribute(current_referendum.title),
-                             url: referendum_url(current_referendum.id),
-                             twitter_handler: current_organization.twitter_handler
-                         }) %>
+  image_url: current_referendum.type.banner_image.url,
+  description: translated_attribute(current_referendum.description),
+  title: translated_attribute(current_referendum.title),
+  url: referendum_url(current_referendum.id),
+  twitter_handler: current_organization.twitter_handler
+}) %>
 
 <%
-  edit_link(
-      resource_locator(current_participatory_space).edit,
-      :update,
-      :referendum,
-      referendum: current_participatory_space
-  )
+edit_link(
+  resource_locator(current_participatory_space).edit,
+  :update,
+  :referendum,
+  referendum: current_participatory_space
+)
 %>
 
 <%= participatory_space_floating_help %>
@@ -35,7 +35,7 @@
     <div class="card">
       <div class="card__content">
 
-        <% if @is_closed %>
+	<% if @is_closed %>
           <%= render partial: "progress_bar2" %>
         <% else %>
           <%= render partial: "progress_bar" %>
@@ -63,7 +63,7 @@
 
       </div>
     </div>
-
+    
     <% if current_user %>
       <div class="card text-center">
         <div class="card__content">
@@ -83,31 +83,143 @@
         <h2 class="heading2">
           <%= translated_attribute(current_referendum.title) %>
         </h2>
-        <%= render partial: "author", locals: {referendum: current_referendum} %>
+        <%= render partial: "author", locals: { referendum: current_referendum } %>
       </div>
       <br>
       <div class="row column">
-        <%= render partial: "referendum_badge", locals: {referendum: current_referendum} %>
+        <%= render partial: "referendum_badge", locals: { referendum: current_referendum } %>
         <%= decidim_sanitize translated_attribute(current_referendum.description) %>
-        <%= render partial: "tags", locals: {resource: current_referendum} %>
+        <%= render partial: "tags", locals: { resource: current_referendum } %>
       </div>
 
-      <%= render partial: "result", locals: {referendum: current_referendum} %>
+      <%= render partial: "result", locals: { referendum: current_referendum } %>
     </div>
 
     <%= attachments_for current_referendum %>
 
-    <%= render partial: "supports", locals: {referendum: current_referendum} %>
+    <%= render partial: "supports", locals: { referendum: current_referendum } %>
   </div>
 </div>
 
-<%= comments_for current_referendum if current_referendum.published? %>
-
+<% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
+  <%= comments_for current_referendum if current_referendum.published? %>
+<% end %>
 
 
 <%= javascript_tag nonce: true do -%>
   $("svg").css("fill", "white");
 <% end -%>
+
+
+
+<style>
+
+  /* The Modal (background) */
+  .modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    padding-top: 100px; /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: rgb(0,0,0); /* Fallback color */
+    background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  }
+
+  /* Modal Content */
+  .modal-content {
+    background-color: #fefefe;
+    margin: auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 60%;
+  }
+
+  .modal-content {
+    border-radius: 8px;
+  }
+
+  .modal-content h2 {
+    color: #d6012e !important;
+  }
+
+  .modal-content center input[type="submit"] {
+    background: #d6012e;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px !important;
+    cursor: pointer;
+    white-space: pre-wrap !important;
+  }
+
+  .modal-content center input[type="submit"]:hover {
+    background: #e01b45;
+  }
+
+  .modal-content center input[type="submit"]:active {
+    background: #ad1434;
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  /* The Close Button */
+  .close {
+    color: #aaaaaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+  }
+
+  .close:hover,
+  .close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+  }
+</style>
+
+<!-- The Modal -->
+<div id="myModal" class="modal">
+  <!-- Modal content -->
+
+  <div class="modal-content">
+    <span class="close">&times;</span>
+    <form id="form_0" data-remote="true" action="/sender" method="post">
+      <h2 style="color: #CCCC00">Ciao. Non risulti residente nel Comune di Milano.</h2>
+      <p style="font-size: large">Se sei un City User, ti chiediamo di auto-certificare il tuo rapporto continuativo con la città.<br/> Per visualizzare il link di accesso al modulo di auto-certificazione, ti chiediamo di confermare la tua richiesta cliccando sul bottone rosso <b>CONTINUA</b>.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a>.</p>
+<center>
+        <input type="submit" id="send-button" value="CONTINUA" style="padding: 10px" />
+        <div id="waiting-div" style="display: none" style='margin-bottom: 8px'><br /><img src="/gear.gif" style="width: 30px"><br /></div>
+      </center>
+    </form>
+  </div>
+</div>
+
+<div id="myModal2" class="modal">
+  <div class="modal-content">
+    <center>
+<h2 style="color: #CCCC00">Ciao.</h2><p>La tua richiesta di partecipare è in attesa di essere autorizzata.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa.<br/>Ti ricordiamo se non hai già provveduto di compilare il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br/>Grazie.</p>
+
+
+      <div style="height: 30px"></div>
+      <button id="button-close" class="button card__button button--sc">Chiudi</button>
+    </center>
+  </div>
+</div>
+
+<div id="myModal3" class="modal">
+  <div class="modal-content">
+    <center>
+<h2 style="color: #CCCC00">Grazie.</h2><p>Per completare la tua richiesta ti chiediamo di compilare anche il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa. Grazie.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a></p>
+
+      <div style="height: 30px"></div>
+      <button id="button-close3" class="button card__button button--sc">Chiudi</button>
+    </center>
+  </div>
+</div>
 
 
 <div id="myModal-risposta-referendum" class="modal-custom" style="display:none">
@@ -126,3 +238,23 @@
   }
 
 <% end %>
+
+<%= javascript_tag do -%>
+
+  document.getElementById('button-close').onclick = function() {
+  document.getElementById('myModal2').style.display = 'none';
+  }
+
+  document.getElementById('button-close3').onclick = function() {
+  document.getElementById('myModal3').style.display = 'none';
+  }
+
+  $(document).ready(function() {
+  $("#send-button").click( function() {
+  $("#waiting-div").show();
+  $("#send-button").hide();
+
+  });
+  });
+<% end -%>
+

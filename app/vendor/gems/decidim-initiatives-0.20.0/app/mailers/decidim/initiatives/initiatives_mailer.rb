@@ -19,8 +19,8 @@ module Decidim
 
         with_user(initiative.author) do
           @subject = I18n.t(
-              "decidim.initiatives.initiatives_mailer.creation_subject",
-              title: translated_attribute(initiative.title)
+            "decidim.initiatives.initiatives_mailer.creation_subject",
+            title: translated_attribute(initiative.title)
           )
 
           mail(to: "#{initiative.author.name} <#{initiative.author.email}>", subject: @subject)
@@ -35,30 +35,31 @@ module Decidim
 
         with_user(user) do
           @subject = I18n.t(
-              "decidim.initiatives.initiatives_mailer.status_change_for",
-              title: translated_attribute(initiative.title)
+            "decidim.initiatives.initiatives_mailer.status_change_for",
+            title: translated_attribute(initiative.title)
           )
-
-          if state.to_s == "published"
+	  
+	  if state.to_s == "published"
             stato = "pubblicata"
-          elsif state.to_s == "discarded"
+	  elsif state.to_s == "discarded"
             stato = "scartata"
-          elsif state.to_s == "rejected"
-            stato = "rifiutata"
-          elsif state.to_s = "accepted"
-            stato = "accettata"
+	  elsif state.to_s == "rejected"
+	    stato = "rifiutata"
+	  elsif state.to_s == "accepted"
+	    stato = "accettata"  
           end
 
-          @link2 = initiative_url(initiative, host: @organization.host)
-          @body = "La petizione "+translated_attribute(initiative.title)+" è stata "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+ 	  @link2 = initiative_url(initiative, host: @organization.host)
+	  @body = "La petizione "+translated_attribute(initiative.title)+" è stata "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
 
-          if state.to_s == "published" || state.to_s == "accepted"
+	  if state.to_s == "published" || state.to_s == "accepted"
             @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"
-          else
-            @body += "<br /><br />Lo Staff di Milano Partecipa"
-          end
-
-          mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+	  else
+            @body += "<br /><br />Lo Staff di Milano Partecipa"		 
+	  end
+		if state.to_s != 'accepted' && state.to_s != 'rejected'
+			mail(to: "#{user.name} <#{user.email}>", subject: @subject)
+		end
         end
       end
 
@@ -71,12 +72,12 @@ module Decidim
 
         with_user(user) do
           @subject = I18n.t(
-              "decidim.initiatives.initiatives_mailer.technical_validation_for",
-              title: translated_attribute(initiative.title)
+            "decidim.initiatives.initiatives_mailer.technical_validation_for",
+            title: translated_attribute(initiative.title)
           )
           @body = I18n.t(
-              "decidim.initiatives.initiatives_mailer.technical_validation_body_for",
-              title: translated_attribute(initiative.title)
+            "decidim.initiatives.initiatives_mailer.technical_validation_body_for",
+            title: translated_attribute(initiative.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
@@ -158,14 +159,14 @@ module Decidim
 
         with_user(user) do
           @body = I18n.t(
-              "decidim.initiatives.initiatives_mailer.progress_report_body_for",
-              title: translated_attribute(initiative.title),
-              percentage: initiative.percentage
+            "decidim.initiatives.initiatives_mailer.progress_report_body_for",
+            title: translated_attribute(initiative.title),
+            percentage: initiative.percentage
           )
 
           @subject = I18n.t(
-              "decidim.initiatives.initiatives_mailer.progress_report_for",
-              title: translated_attribute(initiative.title)
+            "decidim.initiatives.initiatives_mailer.progress_report_for",
+            title: translated_attribute(initiative.title)
           )
 
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)

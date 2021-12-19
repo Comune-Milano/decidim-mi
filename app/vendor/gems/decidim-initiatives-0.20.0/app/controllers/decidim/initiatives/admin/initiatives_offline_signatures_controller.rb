@@ -34,7 +34,7 @@ module Decidim
             on(:invalid) do |_form,error|
 			  flash[:error] = "Le firme sono state caricate ma potrebbe esserci un problema su una o pi? righe" if error == 'error4'
 			  flash[:error] = "Il numero di firme caricate non corrisponde a quelle attualmente registrate" if error == 'error3'
-              flash[:error] = "Il formato del file non è corretto, utilizzare solo file .csv" if error == 'error2'
+              flash[:error] = "Il formato del file non ? corretto, utilizzare solo file .csv" if error == 'error2'
               flash[:error] = t(".error") if error == "error1"
               redirect_to '/admin/offline_signatures/pdf/' + params[:id] + '/petizione'
             end

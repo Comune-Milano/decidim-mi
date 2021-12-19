@@ -21,7 +21,7 @@ module Decidim
         attribute :signature_last_day, Decidim::Attributes::LocalizedDate
         attribute :hashtag, String
         attribute :offline_votes, Integer
-        attribute :state, String
+        attribute :state, String        
 
         validates :title, :description, presence: true
         #validates :signature_type, presence: true, if: :signature_type_updatable?
@@ -31,13 +31,13 @@ module Decidim
         #validates :signature_end_date, date: { after: :signature_start_date }, if: lambda { |form|
         #  form.signature_start_date.present? && form.signature_end_date.present?
         #}
-
+        
         validates :decidim_areas_id, presence: true    #aggiunto luca
 
         validates :offline_votes,
                   numericality: {
-                      only_integer: true,
-                      greater_than: 0
+                    only_integer: true,
+                    greater_than: 0
                   }, allow_blank: true
 
         def map_model(model)

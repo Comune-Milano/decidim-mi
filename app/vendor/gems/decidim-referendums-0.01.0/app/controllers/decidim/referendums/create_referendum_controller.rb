@@ -125,8 +125,8 @@ module Decidim
 
       def similar_referendums
         @similar_referendums ||= Decidim::Referendums::SimilarReferendums
-                                     .for(current_organization, @form)
-                                     .all
+                                 .for(current_organization, @form)
+                                 .all
       end
 
       def build_form(klass, parameters)
@@ -159,7 +159,7 @@ module Decidim
         return false unless referendum_type.promoting_committee_enabled?
 
         minimum_committee_members = referendum_type.minimum_committee_members ||
-            Decidim::Referendums.minimum_committee_members
+                                    Decidim::Referendums.minimum_committee_members
         minimum_committee_members.present? && minimum_committee_members.positive?
       end
     end

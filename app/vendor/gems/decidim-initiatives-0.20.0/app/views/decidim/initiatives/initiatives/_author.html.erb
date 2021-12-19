@@ -11,7 +11,7 @@
           </span>
         <% else %>
           <%= initiative.author.nickname %>
-          <% if initiative.author.admin? %>
+	  <% if initiative.author.admin? %>
             <img src="/stellina.png" />
           <% end %>
         <% end %>
@@ -27,7 +27,7 @@
           <span class="author__name">
             <%= m.user.nickname %>
           </span>
-          <% if m.user.admin? %>
+	  <% if m.user.admin? %>
             <img src="/stellina.png" />
           <% end %>
         </div>

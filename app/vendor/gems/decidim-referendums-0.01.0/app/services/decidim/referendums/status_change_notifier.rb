@@ -34,15 +34,15 @@ module Decidim
 
       def notify_referendum_creation
         Decidim::Referendums::ReferendumsMailer
-            .notify_creation(referendum)
-            .deliver_later
+          .notify_creation(referendum)
+          .deliver_later
       end
 
       def notify_validating_referendum
         referendum.organization.admins.each do |user|
           Decidim::Referendums::ReferendumsMailer
-              .notify_validating_request(referendum, user)
-              .deliver_later
+            .notify_validating_request(referendum, user)
+            .deliver_later
         end
       end
 
@@ -51,18 +51,18 @@ module Decidim
 
       def notify_validating_result
 
-        # questo metodo manda al mailer lo stato di pubblicata o scartata
+	# questo metodo manda al mailer lo stato di pubblicata o scartata
         #aggiunto terzo argomento: referendum.state
 
         referendum.committee_members.approved.each do |committee_member|
           Decidim::Referendums::ReferendumsMailer
-              .notify_state_change(referendum, committee_member.user, referendum.state)
-              .deliver_later
+	    .notify_state_change(referendum, committee_member.user, referendum.state)
+            .deliver_later
         end
 
         Decidim::Referendums::ReferendumsMailer
-            .notify_state_change(referendum, referendum.author)
-            .deliver_later
+          .notify_state_change(referendum, referendum.author)
+          .deliver_later
       end
 
       ###########################################################################
@@ -74,19 +74,19 @@ module Decidim
 
         referendum.followers.each do |follower|
           Decidim::Referendums::ReferendumsMailer
-              .notify_state_change(referendum, follower, referendum.state)
-              .deliver_later
+	    .notify_state_change(referendum, follower, referendum.state)
+            .deliver_later
         end
 
         referendum.committee_members.approved.each do |committee_member|
           Decidim::Referendums::ReferendumsMailer
-              .notify_state_change(referendum, committee_member.user, referendum.state)
-              .deliver_later
+            .notify_state_change(referendum, committee_member.user, referendum.state)
+            .deliver_later
         end
 
         Decidim::Referendums::ReferendumsMailer
-            .notify_state_change(referendum, referendum.author, referendum.state)
-            .deliver_later
+          .notify_state_change(referendum, referendum.author, referendum.state)
+          .deliver_later
       end
     end
   end

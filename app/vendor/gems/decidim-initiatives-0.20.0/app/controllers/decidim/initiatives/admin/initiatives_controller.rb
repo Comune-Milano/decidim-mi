@@ -23,14 +23,14 @@ module Decidim
           @query = params[:q]
           @state = params[:state]
           @initiatives = ManageableInitiatives
-                             .for(
-                                 current_organization,
-                                 current_user,
-                                 @query,
-                                 @state
-                             )
-                             .page(params[:page])
-                             .per(15)
+                         .for(
+                           current_organization,
+                           current_user,
+                           @query,
+                           @state
+                         )
+                         .page(params[:page])
+                         .per(15)
         end
 
         # GET /admin/initiatives/:id
@@ -42,10 +42,10 @@ module Decidim
         def edit
           enforce_permission_to :edit, :initiative, initiative: current_initiative
           @form = form(Decidim::Initiatives::Admin::InitiativeForm)
-                      .from_model(
-                          current_initiative,
-                          initiative: current_initiative
-                      )
+                  .from_model(
+                    current_initiative,
+                    initiative: current_initiative
+                  )
 
           render layout: "decidim/admin/initiative"
         end
@@ -56,7 +56,7 @@ module Decidim
 
           params[:id] = params[:slug]
           @form = form(Decidim::Initiatives::Admin::InitiativeForm)
-                      .from_params(params, initiative: current_initiative)
+                  .from_params(params, initiative: current_initiative)
 
           UpdateInitiative.call(current_initiative, @form, current_user) do
             on(:ok) do |initiative|
@@ -96,7 +96,7 @@ module Decidim
           PublishInitiative.call(current_initiative, current_user) do
             on(:ok) do
               i = Decidim::Initiative.find(current_initiative.id)
-              i.signature_last_day = i.signature_end_date + 30.days
+              i.signature_last_day = i.signature_end_date
               i.save!
               redirect_to decidim_admin_initiatives.edit_initiative_path(current_initiative)
             end
@@ -142,10 +142,10 @@ module Decidim
           SendInitiativeToTechnicalValidation.call(current_initiative, current_user) do
             on(:ok) do
               redirect_to edit_initiative_path(current_initiative), flash: {
-                  notice: I18n.t(
-                      "success",
-                      scope: %w(decidim initiatives admin initiatives edit)
-                  )
+                notice: I18n.t(
+                  "success",
+                  scope: %w(decidim initiatives admin initiatives edit)
+                )
               }
             end
           end
@@ -174,9 +174,9 @@ module Decidim
           @votes = current_initiative.votes.votes
 
           output = render_to_string(
-              pdf: "votes_#{current_initiative.id}",
-              layout: "decidim/admin/initiatives_votes",
-              template: "decidim/initiatives/admin/initiatives/export_pdf_signatures.pdf.erb"
+            pdf: "votes_#{current_initiative.id}",
+            layout: "decidim/admin/initiatives_votes",
+            template: "decidim/initiatives/admin/initiatives/export_pdf_signatures.pdf.erb"
           )
           output = pdf_signature_service.new(pdf: output).signed_pdf if pdf_signature_service
 

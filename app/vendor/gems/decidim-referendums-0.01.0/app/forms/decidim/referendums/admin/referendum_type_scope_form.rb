@@ -15,12 +15,12 @@ module Decidim
         validates :supports_required,
                   presence: true,
                   numericality: {
-                      only_integer: true,
-                      greater_than: 0
+                    only_integer: true,
+                    greater_than: 0
                   }
 
         validates :decidim_areas_id, presence: true
-
+       
       end
     end
   end

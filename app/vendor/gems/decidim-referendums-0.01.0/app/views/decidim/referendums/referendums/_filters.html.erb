@@ -44,7 +44,7 @@
         <% end %>
       </select>
 
-    </fieldset>
+      </fieldset>
   </div>
 
   <div class="filters__section">
@@ -63,7 +63,9 @@
     <center><%= link_to "Pulisci i filtri di ricerca", referendums_path %></center>
   </div>
 
-  <%#= scopes_picker_field form, :scope_id, root: nil %>
+
+<%#= scopes_picker_field form, :scope_id, root: nil %>
 
   <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
 <% end %>
+

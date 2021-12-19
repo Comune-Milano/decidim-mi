@@ -36,11 +36,11 @@
 
 <%= javascript_tag do -%>
 
-  var labels = document.getElementsByTagName('label');
-  for (var i = 0; i < labels.length; i++) {
-  if (labels[i].innerHTML == "Answer") {
-  labels[i].innerHTML = "<%= t('.answer') %>";
-  }
-  }
+var labels = document.getElementsByTagName('label');
+for (var i = 0; i < labels.length; i++) {
+    if (labels[i].innerHTML == "Answer") {
+         labels[i].innerHTML = "<%= t('.answer') %>";
+    }
+}
 
 <% end -%>

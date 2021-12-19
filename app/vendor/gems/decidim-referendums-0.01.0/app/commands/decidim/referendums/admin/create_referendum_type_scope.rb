@@ -25,7 +25,7 @@ module Decidim
           decidim_areas_id = form.decidim_areas_id
           dummy = Decidim::ReferendumsTypeScope.where("decidim_referendums_types_id = ? and decidim_areas_id = ?", type_id.to_s, decidim_areas_id.to_s).present?
           if dummy == true
-            form.errors.add("", "Errore: l'ambito è già stato scelto.")
+            form.errors.add("", "Errore: ambito presente.")
             return broadcast(:invalid)
           end
 
@@ -49,10 +49,10 @@ module Decidim
 
         def create_referendum_type_scope
           referendum_type = ReferendumsTypeScope.new(
-              decidim_scopes_id: form.decidim_areas_id,              # <-- AGGIUNTO LUCA
-              supports_required: form.supports_required,
-              decidim_areas_id: form.decidim_areas_id,
-              decidim_referendums_types_id: form.context.type_id
+            decidim_scopes_id: form.decidim_areas_id,              # <-- AGGIUNTO LUCA
+            supports_required: form.supports_required,
+            decidim_areas_id: form.decidim_areas_id,
+            decidim_referendums_types_id: form.context.type_id
           )
 
           return referendum_type unless referendum_type.valid?
@@ -60,7 +60,6 @@ module Decidim
           referendum_type.save
           referendum_type
         end
-
       end
     end
   end

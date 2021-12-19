@@ -307,26 +307,27 @@ module Decidim
     end
 
     def is_gestione_firme_icona_visibile(user, referendum)
-      return true if user.admin?
-      if user.role?("initiative_manager")
+      if user.admin? or user.role?("initiative_manager")
         sql = "select true from decidim_referendums WHERE id = #{referendum.id} and NOW() > signature_last_day"
-        #result = ActiveRecord::Base.connection.select_value(sql)
-        #if result.to_s == ""
-        # return true
-        #end
-      else
-        sql = "select id from decidim_referendums WHERE id = #{referendum.id} and NOW() BETWEEN signature_end_date AND signature_last_day"
-        #result = ActiveRecord::Base.connection.select_value(sql)
-        #if result.to_s == "true"
-        #  return true
-        #end
+        result = ActiveRecord::Base.connection.select_value(sql)
+        if result.present?
+          return true
+        else
+          return false
+        end
       end
-      result = ActiveRecord::Base.connection.select_value(sql)
-      if result.present?
-        return true
-      else
-        return false
-      end
+      return false
+      #if user.role?("initiative_manager")
+      #  sql = "select true from decidim_referendums WHERE id = #{referendum.id} and NOW() > signature_last_day"
+      #else
+      #  sql = "select id from decidim_referendums WHERE id = #{referendum.id} and NOW() BETWEEN signature_end_date AND signature_last_day"
+      #end
+      #result = ActiveRecord::Base.connection.select_value(sql)
+      #if result.present?
+      #  return true
+      #else
+      #  return false
+      #end
     end
 
     def self.is_data_ultima_superata(referendum_id)

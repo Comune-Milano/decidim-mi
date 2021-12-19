@@ -36,6 +36,7 @@
     <% if request.env['PATH_INFO'].end_with?('edit') %>
       <%= render partial: "referendum_type_scopes", locals: { referendum_type: current_referendum_type } %>
     <% end %>
+
     <div class="row column">
       <%= form.translated :editor, :extra_fields_legal_information %>
     </div>

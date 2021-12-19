@@ -14,7 +14,7 @@ module Decidim
         translatable_attribute :description, String
         attribute :type_id, Integer
         attribute :decidim_scope_id, Integer
-        attribute :decidim_areas_id, Integer     # AGGIUNTO LUCA
+ attribute :decidim_areas_id, Integer     # AGGIUNTO LUCA
 
         attribute :signature_type, String
         attribute :signature_start_date, Decidim::Attributes::LocalizedDate
@@ -22,23 +22,23 @@ module Decidim
         attribute :signature_last_day, Decidim::Attributes::LocalizedDate
         attribute :hashtag, String
         attribute :offline_votes, Integer
-        attribute :state, String
+        attribute :state, String        
 
         validates :title, :description, presence: true
-        #        validates :signature_type, presence: true, if: :signature_type_updatable?
+#        validates :signature_type, presence: true, if: :signature_type_updatable?
         validates :signature_start_date, presence: true, if: ->(form) { form.context.referendum.published? }
         validates :signature_end_date, presence: true, if: ->(form) { form.context.referendum.published? }
         validates :signature_last_day, presence: true, if: ->(form) { form.context.referendum.published? }
-        #        validates :signature_end_date, date: { after: :signature_start_date }, if: lambda { |form|
-        #          form.signature_start_date.present? && form.signature_end_date.present?
-        #        }
+#        validates :signature_end_date, date: { after: :signature_start_date }, if: lambda { |form|
+#          form.signature_start_date.present? && form.signature_end_date.present?
+#        }
 
-        validates :decidim_areas_id, presence: true    #aggiunto luca
+ validates :decidim_areas_id, presence: true    #aggiunto luca
 
         validates :offline_votes,
                   numericality: {
-                      only_integer: true,
-                      greater_than: 0
+                    only_integer: true,
+                    greater_than: 0
                   }, allow_blank: true
 
         def map_model(model)
@@ -58,10 +58,10 @@ module Decidim
         end
 
         def scoped_type_id
-          return
-          #          return unless type && decidim_scope_id
+            return
+#          return unless type && decidim_scope_id
 
-          #          type.scopes.find_by!(decidim_scopes_id: decidim_scope_id).id
+#          type.scopes.find_by!(decidim_scopes_id: decidim_scope_id).id
         end
 
         private

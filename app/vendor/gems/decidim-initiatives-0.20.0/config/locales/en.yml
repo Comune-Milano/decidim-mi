@@ -1,7 +1,7 @@
 ---
 en:
   _type: Type
-  _decidim_scopes: Decidim scopes
+  _decidim_scope: Scope
   _supports_required: Supports required
   stampa:
     pet_stringa_1: Application for admission to the citizens' petition procedure
@@ -470,8 +470,9 @@ en:
         end_signature_upload_body_for: Ciao %{author_name},<br /> Ti ricordiamo che sono scaduti i termini per il caricamento delle firme offline per la petizione %{title}.
         start_signature_upload_body_for: Ciao %{author_name},<br /> Da oggi e fino a %{end_date} è possibile caricare le firme per la petizione %{title}.
         validation_signature_started: Validazione firme petizione %{title}
-        end_signature_upload: Validazione firme petizione %{title}
+        end_signature_upload: Inserimento firme petizione %{title}
         start_signature_upload: Inserimento firme petizione %{title}
+        technical_validation_for: The petition %{title} has requested its technical validation.
       last_activity:
         new_initiative: New petition
       pages:

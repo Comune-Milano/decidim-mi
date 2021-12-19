@@ -18,16 +18,17 @@
 </div>
 
 <script>
-    var label2 = "Firme richieste";
-    var abbr = "abbr title";
+  var label2 = "Firme richieste";
+  var abbr = "abbr title";
 </script>
 <%= javascript_tag nonce: true do %>
   var labels = document.getElementsByTagName('label');
   for(var i = 0; i < labels.length; i++) {
-  if(labels[i].htmlFor == 'initiatives_type_scope_supports_required') {
-  var label_content = labels[i].innerHTML.split(abbr);
-  label_content[0] = label2;
-  labels[i].innerHTML = label_content[0] + "<" + abbr + label_content[1];
-  }
+    if(labels[i].htmlFor == 'initiatives_type_scope_supports_required') {
+        var label_content = labels[i].innerHTML.split(abbr);
+        label_content[0] = label2;
+        labels[i].innerHTML = label_content[0] + "<" + abbr + label_content[1];
+    }
   }
 <% end -%>
+

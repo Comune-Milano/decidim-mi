@@ -21,9 +21,9 @@ module Decidim
           return broadcast(:invalid, @form, "error1") unless @form.file
           return broadcast(:invalid, @form, "error2") unless @form.file.path.to_s.end_with?(".csv")
 
-          if current_user.admin? || current_user.role?("initiative_manager")
-            return broadcast(:invalid, @form, "error3") unless check_numero_firme(@form.id,  @form.data.values.count)
-          end
+          #if current_user.admin? || current_user.role?("initiative_manager")
+          #  return broadcast(:invalid, @form, "error3") unless check_numero_firme(@form.id,  @form.data.values.count)
+          #end
 
           if current_user.admin? || current_user.role?("initiative_manager")
             CsvSignatureDatum.clear(params[:id])

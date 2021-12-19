@@ -1,6 +1,6 @@
 ca:
   _type: Tipus
-  _decidim_scopes: Ambits
+  _decidim_scope: Ambit
   _supports_required: Suports necessaris
   stampa:
     pet_stringa_1: Sol·licitud d’admissió al procediment de petició dels ciutadans
@@ -41,7 +41,7 @@ ca:
       initiative:
         decidim_user_group_id: Autoria
         description: Descripció
-        offline_votes: SIGNATURES presencials
+        offline_votes: Signatures presencials
         scope_id: Àmbit
         signature_end_date: Fi del període de recollida de signatures
         signature_start_date: Inici del període de recollida de signatures

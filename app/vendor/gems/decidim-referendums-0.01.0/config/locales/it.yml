@@ -1,7 +1,7 @@
 it:
   totale_firme: "TOTALE FIRME"
   _type: Tipo
-  _decidim_scopes: Ambiti
+  _decidim_scope: Ambito
   _supports_required: Supporti richiesti
   stampa:
     stringa_1: Domanda di ammissione alla procedura di referendum dei cittadini
@@ -73,7 +73,7 @@ it:
         extra_fields_legal_information: Informazioni legali sulla raccolta di dati personali
         minimum_committee_members: Minimo dei membri del comitato
         online_signature_enabled: Firma online abilitata
-        promoting_committee_enabled: Abilita la commissione promozionale
+        promoting_committee_enabled: Abilita la raccolta preliminare di firme
         title: Titolo
         undo_online_signatures_enabled: Consenti agli utenti di annullare le loro firme online
         validate_sms_code_on_votes: Aggiungi il passaggio di convalida del codice SMS al processo di firma
@@ -225,7 +225,7 @@ it:
               accepted: Accettato
               all: Tutti
               created: Creato
-              discarded: Discarded
+              discarded: Scartato
               published: Pubblicato
               rejected: Respinto
               validating: Convalida tecnica
@@ -290,7 +290,7 @@ it:
       admin_states:
         accepted: Accettato
         created: Creato
-        discarded: Discarded
+        discarded: Scartato
         published: Pubblicato
         rejected: Respinto
         validating: Convalida tecnica
@@ -698,12 +698,18 @@ it:
           information: Informazione
       referendum_creation_header:
         back: Indietro
-        fill_data: Creare
-        finish: finire
-        previous_form: Inizio
-        promotal_committee: Comitato promotore
-        select_referendum_type: Scegliere
-        show_similar_referendums: Confronta
+        #fill_data: Creare
+        fill_data: Crea la proposta di referendum
+        #finish: finire
+        finish: Invia la proposta di referendum
+        #previous_form: Inizio
+        previous_form: Formula il testo del referendum
+        #promotal_committee: Comitato promotore
+        promotal_committee: (Definisci il Comitato promotore) TBD 
+        #select_referendum_type: Scegliere
+        select_referendum_type: Scegli il tipo di referendum
+        #show_similar_referendums: Confronta
+        show_similar_referendums: Confrontalo con i referendum in corso
         step: Passaggio %{current} di %{total}
         title: Crea un nuovo referendum
       referendum_header:
@@ -722,6 +728,6 @@ it:
       referendums:
         referendum:
           check: Controlla
-          check_and_support: Guardalo e firmalo
+          check_and_support: Leggi e firma
         no_referendums_yet:
           no_referendums_yet: Nessun referendum ancora!

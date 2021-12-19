@@ -10,13 +10,13 @@ module Decidim
 
         attribute :supports_required, Integer
         #attribute :decidim_scopes_id, Integer
-        attribute :decidim_areas_id, Integer
+	attribute :decidim_areas_id, Integer
 
         validates :supports_required,
                   presence: true,
                   numericality: {
-                      only_integer: true,
-                      greater_than: 0
+                    only_integer: true,
+                    greater_than: 0
                   }
 
         #validates :decidim_scopes_id, presence: true

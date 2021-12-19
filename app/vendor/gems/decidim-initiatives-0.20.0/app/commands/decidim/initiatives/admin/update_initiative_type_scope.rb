@@ -28,13 +28,13 @@ module Decidim
           decidim_areas_id = form.decidim_areas_id
           dummy =  Decidim::InitiativesTypeScope.where("id != ? and decidim_initiatives_types_id = ? and decidim_areas_id = ?", id.to_s, type_id.to_s, decidim_areas_id.to_s).present?
           if dummy == true
-            form.errors.add("", "Errore: l'ambito è già stato scelto.")
+		  form.errors.add("", "Errore: ambito presente.")
             return broadcast(:invalid)
           end
 
 
-          initiative_type_scope.update(attributes)
-          broadcast(:ok, initiative_type_scope)
+         initiative_type_scope.update(attributes)
+         broadcast(:ok, initiative_type_scope)
         end
 
         private
@@ -43,13 +43,12 @@ module Decidim
 
         def attributes
           {
-              supports_required: form.supports_required,
-              #decidim_scopes_id: form.decidim_scopes_id
-              decidim_scopes_id: form.decidim_areas_id,
-              decidim_areas_id: form.decidim_areas_id
+            supports_required: form.supports_required,
+            #decidim_scopes_id: form.decidim_scopes_id
+            decidim_scopes_id: form.decidim_areas_id,
+            decidim_areas_id: form.decidim_areas_id
           }
         end
-
       end
     end
   end

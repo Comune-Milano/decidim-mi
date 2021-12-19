@@ -11,11 +11,12 @@ module Decidim
       def query
 
         Decidim::Initiative
-          .includes(:scoped_type)
-          .where(state: "published")
-          .where(signature_type: "online")
-          .where("signature_end_date = ?", Date.current + 7.days)
+            .includes(:scoped_type)
+            .where(state: "published")
+            .where(signature_type: "online")
+            .where("signature_end_date = ?", Date.current + 7.days)
       end
     end
   end
 end
+

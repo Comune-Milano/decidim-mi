@@ -25,7 +25,6 @@
                                     :last,
                                     legend_title: t(".author") %>
   <% end %>
-
   <div class="filters__section">
     <fieldset>
       <legend><h6 class="heading6">TIPI DI PETIZIONE</h6></legend>
@@ -64,7 +63,9 @@
   </div>
 
 
-  <%#= scopes_picker_field form, :scope_id, root: nil %>
+  <%#= scopes_picker_field form, :scope_id, root: nil %> <!-- COMMENTATO PARTE FILTRI AMBITI TEMATICI PER CAMBIAMENTO IN TERRITORIALI  -->
 
   <%= hidden_field_tag :order, order, id: nil, class: "order_filter" %>
+
 <% end %>
+
