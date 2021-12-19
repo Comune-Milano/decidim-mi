@@ -154,12 +154,12 @@ it:
           notification_title: La data di fine delle firme per la petizione <a href="%{resource_path}">%{resource_title}</a> è stata estesa.
         milestone_completed:
           affected_user:
-            email_intro: La tua petizione %{resource_title} ha raggiunto l' %{percentage}% delle firme!
-            email_outro: Hai ricevuto questa notifica perché sei l'autore della petizione %{resource_title}.
-            email_subject: Nuova pietra miliare completata!
+            email_intro: La tua petizione %{resource_title} ha conseguito il %{percentage}% delle firme necessarie!
+            email_outro: Un importante traguardo è stato raggiunto. Continua così!
+            email_subject: La tua petizione ha raggiunto un importante traguardo
             notification_title: La tua petizione <a href="%{resource_path}">%{resource_title}</a> ha raggiunto il %{percentage}% delle firme.
           follower:
-            email_intro: La petizione %{resource_title} ha raggiunto l' %{percentage}% delle firme!
+            email_intro: La petizione %{resource_title} ha conseguito il %{percentage}% delle firme necessarie!
             email_outro: Hai ricevuto questa notifica perché stai seguendo %{resource_title}. È possibile interrompere la ricezione di notifiche seguendo il collegamento precedente.
             email_subject: Nuova pietra miliare completata!
             notification_title: La petizione <a href="%{resource_path}">%{resource_title}</a> ha raggiunto il %{percentage}% delle firme.
@@ -315,7 +315,7 @@ it:
         finish:
           back: Indietro
           back_to_initiatives: Torna alle petizioni
-          callout_text: Complimenti! La tua petizione cittadina è stata creata con successo.
+          callout_text: Primo passo compiuto con successo! La tua petizione è stata creata. Segui le istruzioni qui sotto per richiedere la convalida tecnica.
           go_to_my_initiatives: Vai alle mie petizioni
           more_information: "(Maggiori informazioni)"
         finish_help:
@@ -336,7 +336,7 @@ it:
           more_information: "(Maggiori informazioni)"
         select_initiative_type:
           back: Indietro
-          choose_html: Voglio creare uno <strong>%{title}</strong>
+          choose_html: Voglio creare una <strong>%{title}</strong>
           more_information: "(Maggiori informazioni)"
           #select: Voglio promuovere questa petizione
           select: Voglio creare questo tipo di petizione
@@ -456,7 +456,7 @@ it:
         vote_cabin:
           already_voted: Già firmato
           supports_required: "%{total_supports} firme richieste"
-          verification_required: Verifica il tuo account per firmare la petizione
+          verification_required: Firma
           vote: Firma
           votes_blocked: Firma disabilitata
         votes_count:
@@ -466,7 +466,7 @@ it:
           most_popular_initiative: Petizione più popolare
           need_more_votes: Hai bisogno di più firme
       initiatives_mailer:
-        creation_subject: La tua petizione cittadina '%{title}' è stata creata
+        creation_subject: Hai creato la petizione '%{title}'. Segui le istruzioni per procedere.
         initiative_link:
           check_initiative_details: Puoi vedere i dettagli della petizione
           here: Qui
@@ -729,7 +729,7 @@ it:
         title: Iscriviti %{initiative_title}
       initiatives:
         initiative:
-          check: Controlla
+          check: Vedi
           check_and_support: Leggi e firma
         no_initiatives_yet:
           no_initiatives_yet: Nessuna petizione ancora!

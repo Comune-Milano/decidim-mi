@@ -13,9 +13,23 @@ module Decidim
       #
       # Returns a String.
       def state_badge_css_class(referendum)
-        return "success" if referendum.accepted?
-
-        "warning"
+        state_badge = "alert"
+        if referendum.accepted?
+          state_badge = "success"
+        elsif referendum.rejected?
+          state_badge = "alert"
+        elsif referendum.published?
+          if referendum.signature_end_date >= Date.current
+            state_badge = "success"
+          else
+            state_badge = "warning"
+          end
+        elsif referendum.discarded?
+          state_badge = "alert"
+        elsif referendum.validating?
+          state_badge = "warning"
+        end
+        return state_badge
       end
 
       # Public: The state of an referendum in a way a human can understand.
@@ -27,6 +41,31 @@ module Decidim
         I18n.t(referendum.accepted? ? "accepted" : "expired",
                scope: "decidim.referendums.states",
                default: :expired)
+      end
+
+      # Public: The state of an referendum in a way a human can understand.
+      #
+      # referendum - Decidim::Referendum.
+      #
+      # Returns a String.
+      def humanize_state_partecipata(referendum)
+        stato = ""
+        if referendum.accepted?
+          stato = "Ammesso"
+        elsif referendum.rejected?
+          stato = "Firme insufficienti"
+        elsif referendum.published?
+          if referendum.signature_end_date >= Date.current
+            stato = "Raccolta firme in corso"
+          else
+            stato = "Scaduto"
+          end
+        elsif referendum.discarded?
+          stato = "Non ammesso"
+        elsif referendum.validating?
+          stato = "In validazione"
+        end
+        return stato
       end
 
       # Public: The state of an referendum from an administration perspective in

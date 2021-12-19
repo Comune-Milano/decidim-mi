@@ -7,8 +7,17 @@ edit_link(
 %>
 
 <% provide :meta_title, t("referendums.index.title", scope: "decidim") %>
-
 <%= participatory_space_wrapper do %>
+  <div class="row column">
+    <div class="callout secondary">
+      <p>ATTENZIONE<br/>
+        La raccolta firme online su Milano Partecipa può essere avviata solo se la proposta referendaria ha già:
+      <ul><li>raccolto un minimo di 1000 firme autenticate, verificate dall’Ufficio elettorale</li>
+        <li>ottenuto il parere favorevole del Collegio dei Garanti</li></ul>
+      <br/>
+      Leggi con attenzione la pagina di <a href="/pages/referendum">Aiuto</a> prima di procedere. Grazie</p>
+    </div>
+  </div>
   <div class="row columns">
     <div class="title-action">
       <%= render partial: "index_header" %>

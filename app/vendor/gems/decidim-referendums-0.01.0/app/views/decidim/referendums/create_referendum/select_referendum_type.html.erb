@@ -13,7 +13,7 @@
     <div class="main-container">
       <div class="main-container__content">
         <h1 class="section-heading">Attenzione</h1>
-        <p>Non ci sono tipi di referenda o ambiti territoriali ad essi associati.<br />Si prega di contattare un amministratore.<br />Grazie.</p>
+        <p>Non ci sono tipi di referendum o ambiti territoriali ad essi associati.<br />Si prega di contattare un amministratore.<br />Grazie.</p>
       </div>
     </div>
   </div>
@@ -58,7 +58,7 @@
                   <%= decidim_form_for(@form, url: next_wizard_path, method: :put, html: { id: "new_referendum_#{type.id}", class: "form select-referendum_type-form" }) do |f| %>
                     <%= f.hidden_field :type_id, value: type.id, id: "referendum_type_id_#{ type.id }" %>
                   <%#= f.submit t(".select"), class: "button" %>
-                  <%= f.submit "Voglio creare un referendum tipo #{translated_attribute(type.title).downcase}", class: "button" %>
+                  <%= f.submit "Voglio creare un #{translated_attribute(type.title).downcase}", class: "button" %>
                   <% end %>
                 </div>
               <% end %>

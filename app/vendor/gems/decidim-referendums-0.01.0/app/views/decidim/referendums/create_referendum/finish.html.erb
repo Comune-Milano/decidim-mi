@@ -8,7 +8,7 @@
 <div class="row column">
   <div class="medium-centered">
     <div class="callout secondary">
-      <%= t ".callout_text" %>
+      <p>Primo passo compiuto con successo!<br/>Il tuo referendum è stato creato.<br/>Segui le istruzioni qui sotto per richiedere la convalida tecnica.</p>
       <%= link_to t(".more_information"), decidim.page_path("referendums"), target: "_blank" %>
     </div>
   </div>
@@ -18,7 +18,17 @@
     <div class="small-12 medium-centered">
       <div class="card">
         <div class="card__content">
-          <%= render partial: "finish_help" %>
+          <p>Il referendum è stato creato in bozza nel tuo spazio personale di Milano Partecipa.<br/>
+          Il prossimo passo è trasmetterlo all’Amministrazione per la convalida tecnica.<br/>
+          Ti ricordiamo che, per ricevere la convalida tecnica, la proposta referendaria deve avere già ottenuto:
+          <ul><li>almeno 1000 sottoscrizioni apposte su moduli cartacei alla presenza di un autenticatore. Le firme dovranno essere già state validate dall’Ufficio elettorale.</li>
+            <li>il parere favorevole del Collegio dei Garanti</li></ul>
+
+          Se hai già compiuto questi passaggi, e hai già ricevuto riscontro positivo, puoi procedere con la richiesta di convalida tecnica.<br/>
+          Come fare? Clicca sul bottone rosso “Vai ai miei referendum”, seleziona il referendum, verifica che il contenuto corrisponda al quesito approvato dal Collegio dei Garanti e clicca su “Invia a convalida tecnica”.<br/>
+          Gli uffici competenti, verificata la regolarità della richiesta, daranno l’ok alla pubblicazione online. Da quel momento la proposta referendaria può essere sottoscritta online dai cittadini aventi diritto autenticati con Spid.<br/>
+          Per ulteriori informazioni sui referendum, <a href="https://partecipazione.comune.milano.it/pages/referendum">clicca qui.</a><br/>
+          Se hai bisogno di aiuto sull’uso della piattaforma, <a href="https://partecipazione.comune.milano.it/pages/contatti">contattaci.</a></p>
         </div>
 
         <div class="column actions">

@@ -1,0 +1,19 @@
+<% if @referendum.created_by_individual? %>
+  <p>
+    Ciao  <%= @referendum.author.name.to_s %>.<br/>
+    La tua richiesta di convalida tecnica del referendum <%= translated_attribute(@referendum.title).to_s %> è stata inviata correttamente all’Amministrazione. Ti invieremo una notifica via mail non appena la proposta referendaria sarà stata autorizzata alla pubblicazione per la raccolta firme online.<br/>
+    Ti ricordiamo che, per ricevere la convalida tecnica, la proposta referendaria deve avere già ottenuto almeno 1000 sottoscrizioni valide, apposte su moduli cartacei alla presenza di un autenticatore. Le firme dovranno essere già state validate dall’Ufficio elettorale.  Il quesito referendario deve quindi essere già stato trasmesso al Collegio dei Garanti, per il parere di fattibilità.<br/>
+    Qualora non avessi ancora ricevuto riscontro positivo dal Collegio dei Garanti la tua proposta referendaria non potrà essere ammessa alla raccolta firme online.<br/>
+    Ti notificheremo via mail l’esito della tua richiesta.<br/>
+    A presto!<br/>
+    Lo Staff di Milano Partecipa
+  </p>
+<% end %>
+<br><br>
+
+<p>
+  <%= t("check_referendum_details", scope: "decidim.referendums.referendums_mailer.referendum_link") %>
+  <%= link_to t("here",  scope: "decidim.referendums.referendums_mailer.referendum_link"),
+              @link %>
+</p>
+

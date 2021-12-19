@@ -16,19 +16,30 @@ module Decidim
 
         @referendum = referendum
         @organization = referendum.organization
-
+        @link = decidim_admin_referendums.edit_referendum_url(referendum, host: @organization.host)
         with_user(referendum.author) do
-          @subject = I18n.t(
-            "decidim.referendums.referendums_mailer.creation_subject",
-            title: translated_attribute(referendum.title)
-          )
+          @subject = "Hai creato un referendum " + translated_attribute(referendum.title) + ". Segui le istruzioni per procedere"
+
+
+          mail(to: "#{referendum.author.name} <#{referendum.author.email}>", subject: @subject, body: @body)
+        end
+      end
+
+      def notify_validating_to_author(referendum)
+        return if referendum.author.email.blank?
+
+        @referendum = referendum
+        @organization = referendum.organization
+        @link = decidim_admin_referendums.edit_referendum_url(referendum, host: @organization.host)
+        with_user(referendum.author) do
+          @subject = "Referendum inviato a convalida tecnica"
 
           mail(to: "#{referendum.author.name} <#{referendum.author.email}>", subject: @subject)
         end
       end
 
       # Notify changes in state
-      def notify_state_change(referendum, user)
+      def notify_state_change(referendum, user, state)
         return if user.email.blank?
 
         @organization = referendum.organization
@@ -50,7 +61,25 @@ module Decidim
           end
 
 	  @link2 = referendum_url(referendum, host: @organization.host)
-          @body = "Il referendum "+translated_attribute(referendum.title)+" è stato "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"          
+	  if stato == 'pubblicato'
+      @subject = "Il referendum "+translated_attribute(referendum.title)+" è stato ammesso alla raccolta firme online"
+          @body = "Congratulazioni "+user.name+"!<br/>
+La tua proposta referendaria <a href=\""+@link2+"\">"+translated_attribute(referendum.title)+"</a> è stata ammessa alla raccolta firme online. Risulta infatti avere già ricevuto riscontro positivo dal Collegio dei Garanti.<br/>
+Il referendum può essere da subito sottoscritto online da tutti i cittadini aventi diritto.<br/>
+Ti ricordiamo che puoi contestualmente raccogliere le sottoscrizioni anche sui tradizionali moduli cartacei vidimati, alla presenza di un autenticatore. https://partecipazione.comune.milano.it/pages/referendum   <br/>
+Buona fortuna!<br/>
+"    
+	  elsif stato == 'scartato'
+      @subject = "Il referendum "+translated_attribute(referendum.title)+" non è stata ammesso"
+		  @body = "Ciao "+user.name+".<br/>
+Ci dispiace ma la tua proposta referendaria <a href=\""+@link2+"\">"+translated_attribute(referendum.title)+"</a>  non può essere accolta per la raccolta firme online perché non conforme ai requisiti di ammissibilità previsti dal Comune di Milano.<br/>
+Ti ricordiamo che, per ricevere la convalida tecnica, ovvero essere ammessa alla raccolta firme online, la proposta referendaria deve avere già ottenuto almeno 1000 sottoscrizioni valide, apposte su moduli cartacei alla presenza di un autenticatore. Le firme dovranno essere già state validate dall’Ufficio elettorale. Il quesito referendario deve quindi essere già stato trasmesso al Collegio dei Garanti, per il parere di fattibilità.<br/> 
+La tua proposta referendaria non risulta avere completato questi passaggi preliminari, pertanto non può essere ammessa alla raccolta firme online.<br/>
+Non esitare a contattarci per ulteriori informazioni su Milano Partecipa.<br/>
+A presto!<br/>"
+	  else
+		  @body = "Il referendum "+translated_attribute(referendum.title)+" è stato "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"          
+	  end
 
           if state.to_s == "published" || state.to_s == "accepted"
             @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"

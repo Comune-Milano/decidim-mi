@@ -8,7 +8,7 @@
   <div class="callout secondary">
     <%#= t(".compare_help") %>
     <%#= link_to t(".more_information"), decidim.page_path("initiatives"), target: "_blank" %>
-    Se una delle petizioni che vedi qui giù è simile alla tua, ti incoraggiamo a supportarla. La tua proposta avrà più possibilità di conseguire l'obiettivo. <a href="https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione" target="_blank">(Maggiori informazioni)</a>
+    Se una delle petizioni che vedi qui giù è simile alla tua, ti incoraggiamo a supportarla. La tua proposta avrà più possibilità di conseguire l'obiettivo. <a href="https://partecipazione.comune.milano.it/pages/petizioni" target="_blank">(Maggiori informazioni)</a>
   </div>
 </div>
 <br>
@@ -24,13 +24,13 @@
 </div>
 
 <%= javascript_tag nonce: true do -%>
-  var slides = document.getElementsByClassName("success card__text--status");
+  /*var slides = document.getElementsByClassName("success card__text--status");
   for (var i = 0; i < slides.length; i++) {
     if(slides.item(i).innerHTML == "published") {
       slides.item(i).innerHTML = "Pubblicata";
     }
     if(slides.item(i).innerHTML == "accepted") {
-      slides.item(i).innerHTML = "Accettata";
+      slides.item(i).innerHTML = "Ammessa";
     }
   }
   var slides2 = document.getElementsByClassName("alert card__text--status");
@@ -39,9 +39,9 @@
         slides2.item(i).innerHTML = "Scartata";
     }
     if(slides2.item(i).innerHTML == "rejected") {
-        slides2.item(i).innerHTML = "Rifiutata";
+        slides2.item(i).innerHTML = "Firme insufficienti";
     }
-  }
+  }*/
 <% end -%>
 
 

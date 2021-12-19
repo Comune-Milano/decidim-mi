@@ -35,7 +35,7 @@ module Decidim
       def notify_referendum_creation
         Decidim::Referendums::ReferendumsMailer
           .notify_creation(referendum)
-          .deliver_later
+          .deliver_now
       end
 
       def notify_validating_referendum
@@ -44,6 +44,9 @@ module Decidim
             .notify_validating_request(referendum, user)
             .deliver_later
         end
+        Decidim::Referendums::ReferendumsMailer
+            .notify_validating_to_author(referendum)
+            .deliver_now
       end
 
 
@@ -54,15 +57,15 @@ module Decidim
 	# questo metodo manda al mailer lo stato di pubblicata o scartata
         #aggiunto terzo argomento: referendum.state
 
-        referendum.committee_members.approved.each do |committee_member|
-          Decidim::Referendums::ReferendumsMailer
-	    .notify_state_change(referendum, committee_member.user, referendum.state)
-            .deliver_later
-        end
+  #referendum.committee_members.approved.each do |committee_member|
+        #        Decidim::Referendums::ReferendumsMailer
+        #   .notify_state_change(referendum, committee_member.user, referendum.state)
+  #      .deliver_later
+  #end
 
         Decidim::Referendums::ReferendumsMailer
-          .notify_state_change(referendum, referendum.author)
-          .deliver_later
+		.notify_state_change(referendum, referendum.author, referendum.state)
+          .deliver_now
       end
 
       ###########################################################################

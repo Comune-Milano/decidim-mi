@@ -153,12 +153,12 @@ it:
           notification_title: La data di fine delle firme per il referendum <a href="%{resource_path}">%{resource_title}</a> è stata estesa.
         milestone_completed:
           affected_user:
-            email_intro: Il tuo referendum %{resource_title} ha raggiunto l' %{percentage}% delle firme!
-            email_outro: Hai ricevuto questa notifica perché sei l'autore del referendum %{resource_title}.
-            email_subject: Nuova pietra miliare completata!
+            email_intro: Il tuo referendum %{resource_title} ha conseguito il %{percentage}% delle firme necessarie!
+            email_outro: Un importante traguardo è stato raggiunto. Continua così!
+            email_subject: Il tuo referendum ha raggiunto un importante traguardo.
             notification_title: Il tuo referendum <a href="%{resource_path}">%{resource_title}</a> ha raggiunto il %{percentage}% delle firme.
           follower:
-            email_intro: Il referendum %{resource_title} ha raggiunto l' %{percentage}% delle firme!
+            email_intro: Il referendum %{resource_title} ha conseguito il %{percentage}% delle firme necessarie!
             email_outro: Hai ricevuto questa notifica perché stai seguendo %{resource_title}. È possibile interrompere la ricezione di notifiche seguendo il collegamento precedente.
             email_subject: Nuova pietra miliare completata!
             notification_title: Il referendum <a href="%{resource_path}">%{resource_title}</a> ha raggiunto il %{percentage}% delle firme.
@@ -314,7 +314,7 @@ it:
         finish:
           back: Indietro
           back_to_referendums: Torna ai referendum
-          callout_text: Complimenti! Il tuo referendum cittadina è stata creata con successo.
+          callout_text: "Primo passo compiuto con successo!<br/>Il tuo referendum è stato creato.<br/>Segui le istruzioni qui sotto per richiedere la convalida tecnica."
           go_to_my_referendums: Vai ai miei referendum
           more_information: "(Maggiori informazioni)"
         finish_help:
@@ -335,7 +335,7 @@ it:
           more_information: "(Maggiori informazioni)"
         select_referendum_type:
           back: Indietro
-          choose_html: Voglio creare uno <strong>%{title}</strong>
+          choose_html: Voglio creare un <strong>%{title}</strong>
           more_information: "(Maggiori informazioni)"
           select: Voglio promuovere questo referendum
           select_referendum_type_help: I referendum dei cittadini sono un mezzo attraverso il quale la cittadinanza può intervenire in modo che il Consiglio comunale possa intraprendere azioni in difesa dell'interesse generale che rientrano nei campi di giurisdizione municipale. Quale referendum vuoi lanciare?
@@ -454,7 +454,7 @@ it:
         vote_cabin:
           already_voted: Già firmato
           supports_required: "%{total_supports} firme richieste"
-          verification_required: Verifica il tuo account per firmare il referendum
+          verification_required: Firma
           vote: Firma
           votes_blocked: Firma disabilitata
         votes_count:
@@ -464,7 +464,7 @@ it:
           most_popular_referendum: Referendum più popolare
           need_more_votes: Hai bisogno di più firme
       referendums_mailer:
-        creation_subject: Il tuo referendum cittadina '%{title}' è stata creata
+        creation_subject: Hai creato un referendum '%{title}'. Segui le istruzioni per procedere.
         referendum_link:
           check_referendum_details: Puoi vedere i dettagli del referendum
           here: Qui
@@ -727,7 +727,7 @@ it:
         title: Iscriviti %{referendum_title}
       referendums:
         referendum:
-          check: Controlla
+          check: Vedi
           check_and_support: Leggi e firma
         no_referendums_yet:
           no_referendums_yet: Nessun referendum ancora!

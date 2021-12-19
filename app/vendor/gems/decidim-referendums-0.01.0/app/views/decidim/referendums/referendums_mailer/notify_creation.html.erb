@@ -1,16 +1,15 @@
-<p>
-<%= t "decidim.referendums.referendums_mailer.creation_subject", title: translated_attribute(@referendum.title) %>.
-<%= link_to t("decidim.referendums.referendums_mailer.more_information"), decidim.page_url("referendums", host: @organization.host) %>
-</p>
-
 <% if @referendum.created_by_individual? %>
     <p>
-      <%= t "decidim.referendums.referendums_mailer.promotal_committee_help",
-           member_count: Decidim::Referendums.minimum_committee_members %>
-    </p>
-    <p>
-      <%= link_to decidim_referendums.new_referendum_committee_request_url(@referendum, host: @organization.host),
-                  decidim_referendums.new_referendum_committee_request_url(@referendum, host: @organization.host) %>
+      Ciao <%= @referendum.author.name.to_s %>.<br/>
+Il Referendum <%= translated_attribute(@referendum.title).to_s %> è stato creato in bozza nel tuo spazio personale di Milano Partecipa <a href="https://partecipazione.comune.milano.it/admin/referendums"> spazio personale di Milano Partecipa </a>.<br/>
+Il prossimo passo è trasmetterlo all’Amministrazione per la convalida tecnica.<br/><br/>
+<b>ATTENZIONE</b><br/>
+      Per ricevere la convalida tecnica, <b>la proposta referendaria deve avere già ottenuto almeno 1000 sottoscrizioni</b>, apposte su moduli cartacei alla presenza di un autenticatore. Le firme dovranno essere già state <b>validate dall’Ufficio elettorale.</b><br/>
+      Il quesito referendario deve quindi essere già stato <b>trasmesso al Collegio dei Garanti, per il parere di fattibilità.</b><br/>
+Se hai già compiuto questi passaggi, e hai già ricevuto riscontro positivo, puoi procedere con la richiesta di convalida tecnica. Gli uffici competenti, verificata la regolarità della richiesta, daranno l’ok alla pubblicazione online. Da quel momento la proposta referendaria può essere sottoscritta online dai cittadini aventi diritto autenticati con Spid.<br/>
+Per ulteriori informazioni sui referendum, <a href="https://partecipazione.comune.milano.it/pages/referendum ">clicca qui</a>.<br/>
+Se hai bisogno di aiuto sull’uso della piattaforma, <a href="https://partecipazione.comune.milano.it/pages/contatti">contattaci</a>.<br/>
+Lo Staff di Milano Partecipa
     </p>
 <% end %>
 <br><br>
@@ -18,5 +17,5 @@
 <p>
   <%= t("check_referendum_details", scope: "decidim.referendums.referendums_mailer.referendum_link") %>
   <%= link_to t("here",  scope: "decidim.referendums.referendums_mailer.referendum_link"),
-              decidim_admin_referendums.referendum_url(@referendum, host: @organization.host) %>
+              @link %>
 </p>

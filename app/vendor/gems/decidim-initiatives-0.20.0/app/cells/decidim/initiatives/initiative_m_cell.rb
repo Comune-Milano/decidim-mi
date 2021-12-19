@@ -23,11 +23,40 @@ module Decidim
         true
       end
 
+      def badge_name
+        case state
+        when "accepted"
+          "Ammessa"
+        when "published"
+          if model.signature_end_date >= Date.current
+            "Raccolta firme in corso"
+          else
+            "Scaduta"
+          end
+        when "rejected"
+          "Firme insufficienti"
+        when "discarded"
+          "Non ammessa"
+        when "validating"
+          "In validazione"
+        else
+          ""
+        end
+      end
+
       def state_classes
         case state
-        when "accepted", "published"
+        when "accepted"
           ["success"]
-        when "rejected", "discarded"
+        when "published"
+          if model.signature_end_date >= Date.current
+            ["success"]
+          else
+            ["warning"]
+          end
+        when "rejected"
+          ["alert"]
+        when "discarded"
           ["alert"]
         when "validating"
           ["warning"]

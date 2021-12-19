@@ -1,0 +1,16 @@
+<% if @initiative.created_by_individual? %>
+  <p>
+    Ciao  <%= @initiative.author.name.to_s %>.<br/>
+    La tua petizione <%= translated_attribute(@initiative.title).to_s %> è stata inviata correttamente all’Amministrazione per la convalida tecnica.<br/>
+    Riceverai una nostra comunicazione con i riferimenti del protocollo e del responsabile del procedimento.<br/>
+    A presto!<br/>
+    Lo Staff di Milano Partecipa
+  </p>
+<% end %>
+<br><br>
+
+<p>
+  <%= t("check_initiative_details", scope: "decidim.initiatives.initiatives_mailer.initiative_link") %>
+  <%= link_to t("here",  scope: "decidim.initiatives.initiatives_mailer.initiative_link"),
+              @link %>
+</p>

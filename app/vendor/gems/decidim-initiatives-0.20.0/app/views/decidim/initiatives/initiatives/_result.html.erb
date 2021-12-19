@@ -19,8 +19,30 @@
 <% if initiative.rejected? %>
   <br>
   <div class="row column">
+    <div class="callout alert">
+      <p>La petizione non ha raggiunto il numero necessario di firme. Non può quindi ricevere risposta dall’Amministrazione.
+        <a href="https://partecipazione.comune.milano.it/pages/petizioni">Maggiori informazioni</a>
+      </p>
+    </div>
+  </div>
+<% end %>
+
+<% if initiative.accepted? %>
+  <br>
+  <div class="row column">
+    <div class="callout success">
+      <p>La petizione ha raggiunto il numero necessario di firme ed è in attesa della risposta dell’Amministrazione.
+      L’esito della petizione viene notificato agli organi competenti e pubblicato sull’Albo Pretorio e sulla piattaforma Milano Partecipa.
+        <a href="https://partecipazione.comune.milano.it/pages/petizioni">Maggiori informazioni</a></p>
+    </div>
+  </div>
+<% end %>
+
+<% if initiative.published? && initiative.signature_end_date < Date.current %>
+  <br>
+  <div class="row column">
     <div class="callout warning">
-      <h5><%= t(".initiative_rejected_reason") %></h5>
+      <p>E’ in corso il conteggio delle firme cartacee</p>
     </div>
   </div>
 <% end %>

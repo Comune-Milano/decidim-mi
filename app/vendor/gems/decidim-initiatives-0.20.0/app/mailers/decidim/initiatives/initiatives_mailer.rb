@@ -16,12 +16,25 @@ module Decidim
 
         @initiative = initiative
         @organization = initiative.organization
-
+        @link = decidim_admin_initiatives.edit_initiative_url(initiative, host: @organization.host)
         with_user(initiative.author) do
           @subject = I18n.t(
             "decidim.initiatives.initiatives_mailer.creation_subject",
             title: translated_attribute(initiative.title)
           )
+
+          mail(to: "#{initiative.author.name} <#{initiative.author.email}>", subject: @subject)
+        end
+      end
+
+      def notify_validating_to_author(initiative)
+        return if initiative.author.email.blank?
+
+        @initiative = initiative
+        @organization = initiative.organization
+        @link = decidim_admin_initiatives.edit_initiative_url(initiative, host: @organization.host)
+        with_user(initiative.author) do
+          @subject = "Petizione inviata a convalida tecnica"
 
           mail(to: "#{initiative.author.name} <#{initiative.author.email}>", subject: @subject)
         end
@@ -50,7 +63,24 @@ module Decidim
           end
 
  	  @link2 = initiative_url(initiative, host: @organization.host)
-	  @body = "La petizione "+translated_attribute(initiative.title)+" è stata "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+          if stato == 'pubblicata'
+            @subject = "Congratulazioni! La petizione "+translated_attribute(initiative.title)+" è online"
+            @body = "Congratulazioni, "+user.name+".<br/>
+La tua petizione <a href=\""+@link2+"\">"+translated_attribute(initiative.title)+"</a> ha ricevuto la convalida tecnica ed è stata pubblicata.<br/>
+Puoi cominciare subito a diffondere il link <a href=\""+@link2+"\">"+@link2+"</a> per raccogliere le 1000 firme necessarie.<br/>
+Ti ricordiamo che possono sottoscrivere la petizione tutti i cittadini di Milano, residenti e City User dai 16 anni in su.<br/>
+Buona fortuna!"
+
+          elsif stato == 'scartata'
+            @subject = "La petizione "+translated_attribute(initiative.title)+" non è stata ammessa"
+            @body = "Ciao "+user.name+".<br/>
+Ci dispiace ma la tua petizione <a href=\""+@link2+"\">"+translated_attribute(initiative.title)+"</a> non può essere accolta perché non conforme ai requisiti di ammissibilità previsti dal Comune di Milano.<br/>
+Ti invieremo a breve una comunicazione con le motivazioni formulate dall’Amministrazione.<br/>
+Grazie di averci provato. Non esitare a contattarci per ulteriori informazioni su Milano Partecipa.<br/>
+A presto!<br/>"
+          else
+            @body = "La petizione "+translated_attribute(initiative.title)+" è stata "+stato.to_s+".<br />Puoi vedere i dettagli <a href='"+@link2+"'>qui.</a>"
+          end
 
 	  if state.to_s == "published" || state.to_s == "accepted"
             @body += "<br /><br />Congratulazioni!<br />Lo Staff di Milano Partecipa"

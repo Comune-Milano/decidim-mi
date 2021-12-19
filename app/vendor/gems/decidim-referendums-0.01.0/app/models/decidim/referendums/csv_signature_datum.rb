@@ -48,7 +48,7 @@ module Decidim
           end
 
 
-          if !value[4].nil? && stato == 'ok' && (@current_user.admin? || @current_user.role?("initiative_manager"))
+          if stato == 'ok' && (@current_user.admin? || @current_user.role?("initiative_manager"))
             firma_validata = true
           end
 
