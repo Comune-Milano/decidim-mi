@@ -46,7 +46,7 @@
   <p>E' già stata inviata una mail di chiusura per questa proposta</p>
 <%end %>
 <div class="button--double form-general-submit">
-  <% if @component.is_data_fine_petizione_superata(@component_id) %>
+  <% if @component.is_data_fine_superata(@component_id) %>
     <%= link_to "Scarica firme inserite", "/admin/offline_signatures/pdf/create/#{@component_id}/#{@component_type}", class: "button" %>
     <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
       <% if !@component.is_mail_chiusura_mandata(@component_id) && @component.is_data_ultima_superata(@component_id) %>

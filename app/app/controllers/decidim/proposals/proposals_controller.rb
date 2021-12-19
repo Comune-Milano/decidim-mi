@@ -188,7 +188,6 @@ module Decidim
 
       def update
         enforce_permission_to :edit, :proposal, proposal: @proposal
-
         @form = form_proposal_params
         UpdateProposal.call(@form, current_user, @proposal) do
           on(:ok) do |proposal|

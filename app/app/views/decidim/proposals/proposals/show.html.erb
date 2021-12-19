@@ -128,6 +128,9 @@
         <%= render partial: "decidim/shared/static_map", locals: { icon_name: "proposals", geolocalizable: @proposal } %>
       <% end %>
       <%= cell "decidim/proposals/proposal_tags", @proposal %>
+      <% if not (@proposal.geoportale_link.nil? || @proposal.geoportale_link.empty?) %>
+        <h6><b>Link al geoportale: </b><a href="<%= @proposal.geoportale_link %>" target="_blank"><%= @proposal.geoportale_link %></a></h6>
+      <% end %>
     </div>
 
     <%= cell("decidim/announcement", proposal_reason_callout_args) if @proposal.answered? %>

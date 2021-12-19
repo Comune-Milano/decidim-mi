@@ -33,24 +33,20 @@
     <h2 id="proposals-count" class="title-action__title section-heading">
       <%= render partial: "count" %>
     </h2>
-
-    <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
-      <% if current_settings.creation_enabled && current_component.participatory_space.can_participate?(current_user) %>
-        <%= action_authorized_link_to :create, new_proposal_path, class: "title-action__action button small", data: { "redirect_url" => new_proposal_path } do %>
-          <%= t(".new_proposal") %>
-          <%= icon "plus" %>
-        <% end %>
-      <% else %>
-        <span class="title-action__action button small hollow disabled">
+	
+    <% if current_user == nil %>
+        <!-- UTENTE NON LOGGATO -->
+        <% if current_settings.creation_enabled  %>
+	  <div onclick="showModal()" class="button secondary hollow expanded button--icon button--sc" style="border-radius: 5px; font-size: 0.8rem; text-align: center; padding-left: 10px">
+		<span class="title-action__action button small">
           <%= t(".new_proposal") %>
           <%= icon "plus" %>
         </span>
-      <% end %>
-    <% end %>
+	  </div>
+		<% end %>
+	<% end %>
 
-    <% if component_settings.collaborative_drafts_enabled? %>
-      <%= link_to t(".collaborative_drafts_list"), collaborative_drafts_path, class: "title-action__action button small hollow ml-s" %>
-    <% end %>
+	
   </div>
 </div>
 <div class="row">
@@ -113,6 +109,58 @@
 <%= javascript_include_tag("decidim/filters") %>
 <%= javascript_include_tag "decidim/orders" %>
 
+<div id='login' class="reveal-overlay" style="display: none;"><div class="reveal" id="login2" style="width: 450px; display: none; top: 45px; padding: 15px" tabindex="-1">
+  <div class="reveal__header">
+    <h3 class="reveal__title" style="font-size: 24px">Per proseguire clicca su ACCEDI</h3>
+    <button id="close-button" onclick="closeModal()"  class="close-button" data-close="" aria-label="Close modal" type="button">
+      <span aria-hidden="true">×</span>
+    </button>
+  </div>
+    <div class="row">
+
+      <!--
+
+      <div class="columns medium-8 medium-centered" style="display:none">
+            <div>
+              <div class="field">
+              </div>
+              <div class="field">
+              </div>
+            </div>
+            <div class="actions">
+            </div>
+            <p class="text-center">
+            </p>
+          <p class="text-center">
+          </p>
+      </div>
+
+      -->
+      <div>
+         <center>
+         <a class="button expanded" style="color: white; width: 90%" href="/users/auth/saml">Accedi</a>
+        </center>
+      </div>
+    </div>
+</div>
+<script>
+        /*document.getElementsByClassName("column").onclick = function() {
+                document.getElementById('login').style.display = 'block';
+                document.getElementById('login2').style.display = 'block';
+        };*/
+function showModal() {
+   document.getElementById('login').style.display = 'block';
+   document.getElementById('login2').style.display = 'block';
+}
+
+        function closeModal() {
+                document.getElementById('login2').style.display = 'none';
+                document.getElementById('login').style.display = 'none';
+
+        }
+
+
+</script>
 
 <style>
 
@@ -181,6 +229,9 @@
     text-decoration: none;
     cursor: pointer;
   }
+  .hover-section .modal-content a {
+	  color: #157db6;
+  }
 </style>
 
 <!-- The Modal -->
@@ -188,7 +239,7 @@
   <!-- Modal content -->
 
   <div class="modal-content">
-    <span class="close">&times;</span>
+    <span id="button-close1" class="close">&times;</span>
     <form id="form_0" data-remote="true" action="/sender" method="post">
       <h2 style="color: #CCCC00">Ciao. Non risulti residente nel Comune di Milano.</h2>
       <p style="font-size: large">Se sei un City User, ti chiediamo di auto-certificare il tuo rapporto continuativo con la città.<br/> Per visualizzare il link di accesso al modulo di auto-certificazione, ti chiediamo di confermare la tua richiesta cliccando sul bottone rosso <b>CONTINUA</b>.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a>.</p>
@@ -207,7 +258,7 @@
 
 
       <div style="height: 30px"></div>
-      <button id="button-close" class="button card__button button--sc">Chiudi</button>
+      <button id="button-close2" class="button card__button button--sc">Chiudi</button>
     </center>
   </div>
 </div>
@@ -223,11 +274,17 @@
   </div>
 </div>
 
-<%= javascript_tag do -%>
+<script>
+//<![CDATA[
 
-  document.getElementById('button-close').onclick = function() {
+  document.getElementById('button-close1').onclick = function() {
+  document.getElementById('myModal').style.display = 'none';
+  }
+
+  document.getElementById('button-close2').onclick = function() {
   document.getElementById('myModal2').style.display = 'none';
   }
+
 
   document.getElementById('button-close3').onclick = function() {
   document.getElementById('myModal3').style.display = 'none';
@@ -240,6 +297,8 @@
 
   });
   });
-<% end -%>
+
+//]]>
+</script>
 
 

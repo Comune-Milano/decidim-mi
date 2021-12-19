@@ -22,6 +22,7 @@ module Decidim
       #
       # Returns nothing.
       def call
+        return broadcast(:invalid) if @amendment.state == 'accepted'      
         #controllo se ci sono "mi piace" e "commenti" nella proposta. Se ci sono impedisco il ritiro
         query0 = "select decidim_emendation_id from decidim_amendments where id = '#{@amendment.id}'"
         result =  ActiveRecord::Base.connection.execute(query0)

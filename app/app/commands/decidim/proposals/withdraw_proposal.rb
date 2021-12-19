@@ -20,6 +20,7 @@ module Decidim
       #
       # Returns nothing.
       def call
+	return broadcast(:has_supports) if @proposal.state == 'accepted'      
         #controllo se ci sono "mi piace" e "commenti" nella proposta. Se ci sono impedisco il ritiro
         query1 = "SELECT count(id) FROM decidim_proposals_proposal_endorsements where decidim_proposal_id = '#{@proposal.id}'"
         query2 = "SELECT count(id) FROM decidim_comments_comments where decidim_commentable_type like '%Proposal' and decidim_commentable_id = '#{@proposal.id}'"
