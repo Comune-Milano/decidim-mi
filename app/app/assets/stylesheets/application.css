@@ -20,9 +20,18 @@
 }
 
 .logo-wrapper img {
+    width: auto;
+    height: auto;
+    max-height: 75px;
+}
+
+@media only screen and (min-width: 768px) {
+  /* For desktop: */
+  .logo-wrapper img {
     width: 289px;
     height: 142px;
     max-height: 142px;
+  }
 }
 
 .title-bar {
@@ -407,10 +416,36 @@ span.muted.label.proposal-status {
 }*/
 
 
+.author__badge {
+    display: none;
+}
+
+.button--sc > .icon--bell {
+display: none !important;
+}
+
+.icon--comment-square {
+    display: none !important;
+}
+
+
+.card--mini.card--process a, .card--mini.card--process a:link {
+  color: #157db6;
+}
+.title-bar .icon {
+  fill: #ffffff;
+}
+.off-canvas .close-button {
+  color:#000000;
+}
+
+.topbar__search svg, .address__icon svg {
+  fill: #000 !important;
+}
+
 div[id^="flagModalComment"] {
   width: 50%;
 }
-
 
 .modal-custom {
     display: none; /* Hidden by default */
@@ -463,15 +498,15 @@ div[id^="flagModalComment"] {
 }
 
 /* The Close Button */
-.modal-custom .close {
+.close {
     color: #aaaaaa;
     float: right;
     font-size: 28px;
     font-weight: bold;
 }
 
-.modal-custom .close:hover,
-.modal-custom .close:focus {
+.close:hover,
+.close:focus {
     color: #000;
     text-decoration: none;
     cursor: pointer;
