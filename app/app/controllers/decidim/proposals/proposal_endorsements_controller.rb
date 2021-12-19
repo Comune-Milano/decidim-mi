@@ -5,14 +5,14 @@ module Decidim
     # Exposes the proposal endorsement resource so that users can endorse proposals.
     class ProposalEndorsementsController < Decidim::Proposals::ApplicationController
       helper_method :proposal
-
       before_action :authenticate_user!
+     # skip_before_action :verify_authenticity_token
 
       def create
-        if current_user.form_partecipazione_inviato? && !current_user.officialized?
+        if !current_user.admin? && current_user.form_partecipazione_inviato? && !current_user.officialized?
           render :show_modal2
         else
-          if current_user.officialized?
+          if current_user.admin? || current_user.officialized?
             enforce_permission_to :endorse, :proposal, proposal: proposal
             @from_proposals_list = params[:from_proposals_list] == "true"
             user_group_id = params[:user_group_id]
@@ -32,11 +32,11 @@ module Decidim
       end
 
       def destroy
-        if current_user.form_partecipazione_inviato? && !current_user.officialized?
+        if !current_user.admin? && current_user.form_partecipazione_inviato? && !current_user.officialized?
           render :show_modal2
         else
-          if current_user.officialized?
-            enforce_permission_to :unendorse, :proposal, proposal: proposal
+          if current_user.admin? || current_user.officialized?
+           enforce_permission_to :unendorse, :proposal, proposal: proposal
             @from_proposals_list = params[:from_proposals_list] == "true"
             user_group_id = params[:user_group_id]
             user_group = user_groups.find(user_group_id) if user_group_id
