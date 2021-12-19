@@ -41,15 +41,21 @@ module Decidim
     attr_reader :element_class
 
     def my_style
-      #return "display: none !important" if url.to_s == '/decidim/admin/assemblies'
-      #return "display: none !important" if url.to_s == '/decidim/admin/consultations'
       return "display: none !important" if url.to_s == '/admin/assemblies'
       return "display: none !important" if url.to_s == '/admin/consultations'
+      #return "display: none !important" if url.to_s == '/decidim/admin/assemblies'
+      #return "display: none !important" if url.to_s == '/decidim/admin/consultations'
     end
 
     def link_wrapper_classes
-      #return "main-nav__link main-nav__link--active" if url.to_s == '/decidim/processes' && is_active_link?(url)
+      #Rails.logger.warn "\n\n\n"+url.to_s+" --> OK\n\n\n" if url.to_s == '/decidim/processes' && is_active_link?(url)
+      #Rails.logger.warn "\n\n\n"+url.to_s+" --> NOOOOO\n\n\n" if url.to_s == '/decidim/processes' && !is_active_link?(url)
+	    
       return "main-nav__link main-nav__link--active" if url.to_s == '/processes' && is_active_link?(url)
+      #return "main-nav__link main-nav__link--active" if url.to_s == '/decidim/processes' && is_active_link?(url)
+      
+      #return "menu_item_hidden" if url.to_s == '/decidim/admin/assemblies'
+      #return "menu_item_hidden" if url.to_s == '/decidim/admin/consultations'
       return element_class unless is_active_link?(url, active)
       [element_class, active_class].compact.join(" ")
     end

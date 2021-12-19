@@ -11,14 +11,14 @@ module Decidim
       include Decidim::UserProfile
 
       helper_method :proposal
-
       before_action :authenticate_user!
+      #skip_before_action :verify_authenticity_token
 
       def create
-        if current_user.form_partecipazione_inviato? && !current_user.officialized?
+         if !current_user.admin? && current_user.form_partecipazione_inviato? && !current_user.officialized?
           render :show_modal2
-        else
-          if current_user.officialized?
+         else
+           if current_user.admin? || current_user.officialized?
             enforce_permission_to :vote, :proposal, proposal: proposal
             @from_proposals_list = params[:from_proposals_list] == "true"
 
@@ -73,3 +73,4 @@ module Decidim
     end
   end
 end
+

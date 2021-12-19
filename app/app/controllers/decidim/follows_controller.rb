@@ -6,7 +6,7 @@ module Decidim
     include Decidim::UserProfile
     before_action :authenticate_user!
     helper_method :resource
-
+   # skip_before_action :verify_authenticity_token
     def destroy
       @form = form(Decidim::FollowForm).from_params(params)
       @inline = params[:follow][:inline] == "true"
@@ -24,10 +24,10 @@ module Decidim
     end
 
     def create
-      if current_user.form_partecipazione_inviato? && !current_user.officialized?
+      if !current_user.admin? && current_user.form_partecipazione_inviato? && !current_user.officialized?
         render :show_modal2
       else
-        if current_user.admin? || current_user.officialized?
+	if current_user.admin? || current_user.officialized?
           @form = form(Decidim::FollowForm).from_params(params)
           @inline = params[:follow][:inline] == "true"
           enforce_permission_to :create, :follow
@@ -54,3 +54,4 @@ module Decidim
     end
   end
 end
+

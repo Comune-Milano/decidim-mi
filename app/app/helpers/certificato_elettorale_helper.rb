@@ -3,7 +3,7 @@ module CertificatoElettoraleHelper
 
   def check_elettore_abilitato (codice_fiscale)
 
-    token = Rails.configuration.token_autenticazione_servizi
+	  token = Rails.configuration.token_autenticazione_servizi
     params = {
         "Applicazione" => "DECIDIM",
         "Operatore" => "DECIDI",

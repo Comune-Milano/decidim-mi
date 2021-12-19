@@ -1,56 +1,54 @@
-class SenderController < ApplicationController
+class ApplicationController < ActionController::Base
 
-  def index
+  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token, raise: false
 
-      
-      body = "<p>C'è una nuova richiesta di autenticazione su Milano Partecipa da parte di un City User in attesa di risposta.</p>"
-body = body + "<p>Inviata da: " + current_user.name + "</p>"
-##body = body + "<p>Email: " + current_user.email + "</p>"
-      ##body = body + "<p>Richiesta:</p> "	
-##body = body +  "<p>" + params[:sondaggio] + "</p>"
-name_query = current_user.name.gsub! ' ', '+'
-body = body + '<p><a href="' + self.request.headers['HTTP_ORIGIN']  +'/admin/officializations">Qui il LINK</a></p>'
-logger.info "ORIGIN" + body
+  helper_method :profile_user, :logged_in?, :current_user
+  include SessionsHelper
+  before_action :ssologin
+  before_action :set_default_locale
 
+  def set_default_locale
+    I18n.default_locale = :it
+  end
 
-    #invio l'email a tutti gli admin
+  def ssologin
 
-    Decidim::User.all.each do |user|
-      if user.admin?
-  mailer = ActionMailer::Base.new
-        mailer.delivery_method
-        mailer.smtp_settings
-  result = mailer.mail(
-    from: mailer.smtp_settings.to_hash[:from], 
-          to: user.email , 
-    subject: 'Richiesta autenticazione City User su Milano Partecipa', 
-    body: body,
-     content_type: 'text/html'
-  ).deliver
+    @utente_disabilitato = false
+    if !current_user.nil? && current_user.utente_disabilitato?
+      @utente_disabilitato = true
+      current_user.update!(
+          deleted_at: nil,
+          email_on_notification: true,
+          name: 'test-' + current_user.id.to_s,
+          nickname: 'test-' + current_user.id.to_s,
+      )
+      current_user.save
+    end
 
-            
-  
-  
+    logger.warn "**** BEGIN RAW ALL REQUEST HEADERS ***"
+    logger.warn response.body.to_json
+    self.request.headers.each do |header|
+      if header[0].include? "HTTP"
+        logger.warn "HEADER KEY: #{header[0]}"
+        logger.warn "HEADER VAL: #{header[1]}"
       end
     end
-
-     @currentUser  = Decidim::User.find_by(id: current_user.id.to_s)
-       @currentUser.update!(
-              form_inviato: true,
-              richiesta_at: Time.current
-              #body_richiesta: params[sondaggio]
-              )
-#	 current_user.form_inviato = true
-#	 current_user.richiesta_at = Time.current
-#	 current_user.save!
-
-
-    #chiudo il modal
-    respond_to do |format|      
-      format.js { render :js => "document.getElementById('myModal').style.display = 'none'; document.getElementById('myModal3').style.display = 'block';
-  document.getElementById('button-close3').onclick = function() { document.getElementById('myModal3').style.display = 'none'; window.location.reload(); }" }	
-    end
-   
+    logger.warn "*** END RAW ALL REQUEST HEADERS ***"
   end
+
+  #non cancellare questo metodo
+  #è utile se si vuole il context
+  def redirect_to_decidim
+    redirect_to "/decidim"
+  end
+
+
+  #non cancellare questo metodo
+  #  #è utile se si vuole il context
+  #  def redirect_to_api
+  #   redirect_to "/api"
+  #  end
+
 
 end
