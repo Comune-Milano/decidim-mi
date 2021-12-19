@@ -10,12 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_29_080323) do
+ActiveRecord::Schema.define(version: 2020_11_25_174511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
   enable_extension "pg_trgm"
   enable_extension "plpgsql"
+
+  create_table "custom_notifications_emails", force: :cascade do |t|
+    t.integer "notification_id", default: 0, null: false
+    t.integer "proposal_id"
+    t.string "proposal_type"
+    t.string "destination_email", null: false
+    t.integer "decidim_user_id"
+    t.string "subject", null: false
+    t.text "body", null: false
+    t.string "signature_state"
+    t.boolean "sent", default: false, null: false
+    t.boolean "error", default: false, null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["notification_id"], name: "index_custom_notifications_emails_on_notification_id"
+  end
 
   create_table "decidim_accountability_results", id: :serial, force: :cascade do |t|
     t.jsonb "title"
@@ -638,6 +654,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.string "decidim_author_type", null: false
     t.string "reference"
     t.date "signature_last_day"
+    t.boolean "mail_chiusura_mandata"
     t.index "md5((description)::text)", name: "decidim_initiatives_description_search"
     t.index ["answered_at"], name: "index_decidim_initiatives_on_answered_at"
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_initiatives_on_decidim_author"
@@ -674,10 +691,11 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
 
   create_table "decidim_initiatives_type_scopes", force: :cascade do |t|
     t.bigint "decidim_initiatives_types_id"
-    t.bigint "decidim_scopes_id"
+    t.bigint "decidim_scopes_id", null: false
     t.integer "supports_required", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "decidim_areas_id"
     t.index ["decidim_initiatives_types_id"], name: "idx_scoped_initiative_type_type"
     t.index ["decidim_scopes_id"], name: "idx_scoped_initiative_type_scope"
   end
@@ -1176,8 +1194,8 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.datetime "published_at"
     t.integer "state", default: 0, null: false
     t.integer "signature_type", default: 0, null: false
-    t.date "signature_start_date", null: false
-    t.date "signature_end_date", null: false
+    t.date "signature_start_date"
+    t.date "signature_end_date"
     t.jsonb "answer"
     t.datetime "answered_at"
     t.string "answer_url"
@@ -1194,6 +1212,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.string "decidim_author_type", null: false
     t.string "reference"
     t.date "signature_last_day"
+    t.boolean "mail_chiusura_mandata"
     t.index "md5((description)::text)", name: "decidim_referendums_description_search"
     t.index ["answered_at"], name: "index_decidim_referendums_on_answered_at"
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_referendums_on_decidim_author"
@@ -1234,6 +1253,7 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.integer "supports_required", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "decidim_areas_id"
     t.index ["decidim_referendums_types_id"], name: "idx_scoped_referendum_type_type"
     t.index ["decidim_scopes_id"], name: "idx_scoped_referendum_type_scope"
   end
@@ -1527,11 +1547,11 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.datetime "locked_at"
     t.datetime "officialized_at"
     t.jsonb "officialized_as"
+    t.datetime "richiesta_at"
     t.boolean "ga", default: false, null: false
     t.string "codice_fiscale", limit: 25
     t.datetime "officialized_until"
     t.boolean "form_inviato", default: false, null: false
-    t.datetime "richiesta_at"
     t.index ["confirmation_token"], name: "index_decidim_users_on_confirmation_token", unique: true
     t.index ["decidim_organization_id"], name: "index_decidim_users_on_decidim_organization_id"
     t.index ["email", "decidim_organization_id"], name: "index_decidim_users_on_email_and_decidim_organization_id", unique: true, where: "((deleted_at IS NULL) AND (managed = false) AND ((type)::text = 'Decidim::User'::text))"
@@ -1608,6 +1628,9 @@ ActiveRecord::Schema.define(version: 2020_07_29_080323) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "component_type"
+    t.boolean "protocollato"
+    t.string "numero_protocollo"
+    t.integer "id_ud"
   end
 
   create_table "ssologin_tests", force: :cascade do |t|
