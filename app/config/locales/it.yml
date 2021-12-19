@@ -423,6 +423,12 @@ it:
             threshold_per_proposal: Voti necessari per l'approvazione della proposta
             vote_limit: Limite di voto per utente  
     proposals:
+      admin:
+        participatory_texts:
+          sections: 
+            article: "<em>Articolo</em>"
+            section: "<em>Sezione:</em> <strong>%{title}</strong>"
+            sub-section: "<em>Sottosezione:</em> %{title}"
       actions:
         amend: Aggiungi un'osservazione
               #amend: Fai un'osservazione
