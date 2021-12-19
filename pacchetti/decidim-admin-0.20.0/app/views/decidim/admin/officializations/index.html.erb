@@ -1,3 +1,7 @@
+<p>
+  Totale dei partecipanti: <strong><%= @totale_partecipanti %></strong>.<br />
+  Totale dei partecipanti iscritti alla newsletter: <strong><%= @totale_partecipanti_newsletter %></strong>.
+</p>
 <div class="filters row">
   <div class="column medium-3">
     <span class="dropdown-menu-inverted_label"><%= t(".filter_by") %> :</span>
@@ -45,10 +49,11 @@
         <thead>
           <tr>
             <th><%= t(".name") %></th>
+            <th>Codice fiscale</th>
             <th><%= t(".nickname") %></th>
             <th><%= t(".created_at") %></th>
             <th><%= t(".status") %></th>
-            <th><%= t(".badge") %></th>
+            <!-- <th><%#= t(".badge") %></th> -->
             <th><%= t(".actions") %></th>
           </tr>
         </thead>
@@ -57,14 +62,16 @@
             <tr data-user-id="<%= user.id %>">
               <% if user.nickname.present? %>
                 <td><%= link_to user.name, decidim.profile_path(user.nickname) %></td>
+                <td><%= user.codice_fiscale %></td>
                 <td><%= link_to user.nickname, decidim.profile_path(user.nickname) %></td>
               <% else %>
                 <td><%= user.name %></td>
+                <td><%= user.codice_fiscale %></td>
                 <td><%= user.nickname %></td>
               <% end %>
               <td><%= l user.created_at, format: :short %></td>
               <td><%= user.officialized? ? t(".officialized") : t(".not_officialized") %></td>
-              <td><%= translated_attribute(user.officialized_as) %></td>
+<!--              <td><%#= translated_attribute(user.officialized_as) %></td>-->
 
               <td class="table-list__actions">
                 <%= icon_link_to "envelope-closed", current_or_new_conversation_path_with(user), t("decidim.contact"), class:"action-icon--new" %>

@@ -25,12 +25,17 @@ module Decidim
       include Decidim::Referendums::Orderable
       include TypeSelectorOptions
       include NeedsReferendum
+      include CertificatoElettoraleHelper
 
       helper_method :collection, :referendums, :filter, :stats
 
       # GET /referendums
       def index
         enforce_permission_to :list, :referendum
+		@has_certificato_elettorale = false;
+		if !current_user.nil? 
+			@has_certificato_elettorale = check_elettore_abilitato(current_user.codice_fiscale)
+		end
       end
 
       # GET /referendums/:id

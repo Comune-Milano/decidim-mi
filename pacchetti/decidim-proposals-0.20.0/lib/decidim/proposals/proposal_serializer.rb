@@ -16,6 +16,13 @@ module Decidim
 
       # Public: Exports a hash with the serialized data for this proposal.
       def serialize
+
+        # *************** LUCA
+        user_id_query = "SELECT decidim_author_id FROM decidim_coauthorships as t1 JOIN decidim_proposals_proposals as t2 ON t1.coauthorable_id = t2.id AND t1.coauthorable_type = 'Decidim::Proposals::Proposal' WHERE t2.id = '#{@proposal.id}' limit 1"
+        user_id = ActiveRecord::Base.connection.execute(user_id_query)
+        @author_name = Decidim::User.find(user_id[0]['decidim_author_id']).name
+        # *********************
+
         {
           id: proposal.id,
           category: {
@@ -41,6 +48,7 @@ module Decidim
             total_count: proposal.endorsements.count,
             user_endorsements: user_endorsements
           },
+          author: @author_name,
           comments: proposal.comments.count,
           attachments: proposal.attachments.count,
           followers: proposal.followers.count,

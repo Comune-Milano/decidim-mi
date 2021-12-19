@@ -15,6 +15,11 @@ module Decidim
         @query = params[:q]
         @state = params[:state]
 
+        @totale_partecipanti = Decidim::User.count
+        @totale_partecipanti_newsletter = Decidim::User.where("newsletter_notifications_at is not null").count
+        # il campo newsletter_notifications_at indica quando è stato attivato il flag
+        # se questo campo è null allora il flag è disattivato
+
         @users = Decidim::Admin::UserFilter.for(current_organization.users.not_deleted, @query, @state)
                                            .page(params[:page])
                                            .per(15)
