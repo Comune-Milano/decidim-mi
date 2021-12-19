@@ -7,7 +7,7 @@ module Decidim
       include Decidim::Events::NotificationEvent
 
       def email_greeting
-        return 'Congratulazioni  ' + @user.nickname + '!'
+        return 'Congratulazioni  ' + @user.name + '!'
       end
 
       def email_subject
@@ -19,7 +19,7 @@ module Decidim
       end
 
       def resource_text
-        return 'La tua proposta referendaria "' + translated_attribute(@resource.title) + '" ha raggiunto le firme valide necessarie.<br/>
+        return 'La tua proposta referendaria "<a href="' + extra[:referendum_url].to_s + '">' + translated_attribute(@resource.title) + '</a>" ha raggiunto le firme valide necessarie.<br/>
 I controlli formali sulle sottoscrizioni hanno avuto esito favorevole, ai sensi dell\'art. 12 dello Statuto Comunale, e hanno confermato il raggiungimento di almeno ' + @resource.supports_required.to_s + ' firme valide, raccolte sia online sia offline.<br/>
 Di seguito la sintesi delle firme validate:<br/>
 - Firme online raccolte: ' + extra[:online_total].to_s + '<br/>

@@ -1,0 +1,9 @@
+$(document).ready(function() {
+    if (<%= @error_message == 1 %>) {
+        $('#myModal-manda-notifica-content').html('Non è stato possibile effettuare inviare le notifiche per la proposta. Contattare l\'amministratore del sito se l\'errore persiste.');
+    }
+    else {
+        $('#myModal-manda-notifica-content').html('Le notifiche sono state correttamente inviate');
+    }
+    $('#myModal-manda-notifica').show();
+});

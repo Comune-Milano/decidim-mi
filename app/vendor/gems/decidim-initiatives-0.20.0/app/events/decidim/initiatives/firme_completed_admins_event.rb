@@ -2,7 +2,7 @@
 
 module Decidim
   module Initiatives
-    class FirmeCompletedEventAdmins < Decidim::Events::SimpleEvent
+    class FirmeCompletedAdminsEvent < Decidim::Events::SimpleEvent
       i18n_attributes :percentage
 
       def email_greeting
@@ -18,7 +18,7 @@ module Decidim
       end
 
       def resource_text
-        return 'La petizione <a href="'+@resource_url+'">'+ translated_attribute(@resource.title) +'</a> ha raggiunto le firme necessarie all\'avvio della procedura per la risposta da parte dell\'Amministrazione.<br/>La petizione può continuare la raccolta firme online oppure interromperla e procedere con l’iter di risposta.<br/>Ricordati di comunicare al proponente '+@author+' le informazioni relative al procedimento.'
+        return 'La petizione "<a href="' + extra[:initiative_url].to_s + '">' + translated_attribute(@resource.title) +'</a>" ha raggiunto le firme necessarie all\'avvio della procedura per la risposta da parte dell\'Amministrazione.<br/>La petizione può continuare la raccolta firme online oppure interromperla e procedere con l’iter di risposta.<br/>Ricordati di comunicare al proponente '+extra[:author].to_s+' le informazioni relative al procedimento.'
       end
 
       def email_outro

@@ -358,6 +358,17 @@ module Decidim
       return false
     end
 
+    def self.is_data_fine_superata(initiative_id)
+      sql = "SELECT case when
+          (select true from decidim_initiatives WHERE id = #{initiative_id} and NOW() >= signature_end_date)
+          then 'true' else 'false' end AS issuperata"
+      result = ActiveRecord::Base.connection.select_value(sql)
+      if result.to_s == "true"
+        return true
+      end
+      return false
+    end
+
     def self.is_data_fine_petizione_superata(initiative_id)
       sql = "SELECT case when
           (select true from decidim_initiatives WHERE id = #{initiative_id} and NOW() >= signature_end_date)

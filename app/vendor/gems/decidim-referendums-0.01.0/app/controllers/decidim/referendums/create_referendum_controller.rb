@@ -34,7 +34,7 @@ module Decidim
           redirect_to '/'
         else
           enforce_permission_to :create, :referendum
-          send("#{step}_step", params)
+          send("#{step}_step", referendum: session_referendum)
         end
       end
 

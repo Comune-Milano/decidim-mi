@@ -26,15 +26,15 @@ module Decidim
       def badge_name
         case state
         when "accepted"
-          "Ammessa"
+          "Conclusa"
         when "published"
           if model.signature_end_date >= Date.current
             "Raccolta firme in corso"
           else
-            "Scaduta"
+            "In attesa di risposta"
           end
         when "rejected"
-          "Firme insufficienti"
+          "Non ammessa"
         when "discarded"
           "Non ammessa"
         when "validating"

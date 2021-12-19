@@ -51,7 +51,7 @@
                   publish_referendum_path(current_referendum),
                   method: :post,
                   class: "button hollow",
-                  data: { confirm: 'Se clicchi su ""OK" autorizzi la raccolta firme online per questo referendum. Se non sei sicuro, verifica che la proposta referendaria sia già stata validata dal Collegio dei Garanti.' } %>
+                  data: { confirm: 'Se clicchi su "OK" autorizzi la raccolta firme online per questo referendum. Se non sei sicuro, verifica che la proposta referendaria sia già stata validata dal Collegio dei Garanti.' } %>
     <% end %>
 
     <% if allowed_to? :unpublish, :referendum, referendum: current_referendum %>

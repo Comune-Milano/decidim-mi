@@ -18,7 +18,7 @@ module Decidim
       end
 
       def resource_text
-        return 'La tua petizione '+ translated_attribute(@resource.title) +' ha raggiunto l\'obiettivo di firme online. Verrà ora trasmessa agli uffici competenti. Riceverai una nostra comunicazione con le informazioni sui prossimi passi.'
+        return 'La tua petizione "<a href="' + extra[:initiative_url].to_s + '">' + translated_attribute(@resource.title) +'</a>" ha raggiunto l\'obiettivo di firme online. Riceverai una nostra comunicazione con le informazioni sui prossimi passi.'
       end
 
       def email_outro

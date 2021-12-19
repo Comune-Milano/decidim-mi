@@ -28,12 +28,12 @@
 
 <% if referendum.accepted? %>
   <br>
-  <div class="row column">
+  <!--<div class="row column">
     <div class="callout success">
       <p>Questo referendum ha raggiunto il numero di firme necessarie ed è stato ammesso al voto, ai sensi dell’art. 19 del <a href="https://partecipazione.comune.milano.it/pages/regolamentocomunalepartecipazione">Regolamento della Partecipazione</a><br/>
         La data della consultazione è indetta dal Sindaco <a href="https://partecipazione.comune.milano.it/pages/referendum">https://partecipazione.comune.milano.it/pages/referendum</a> .</p>
     </div>
-  </div>
+  </div>-->
 <% end %>
 
 <% if referendum.published? && referendum.signature_end_date < Date.current %>

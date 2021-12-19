@@ -7,7 +7,7 @@ module Decidim
       include Decidim::Events::NotificationEvent
 
       def email_greeting
-        return 'Caro ' + @user.nickname + ','
+        return 'Caro ' + @user.name + ','
       end
 
       def email_subject
@@ -19,7 +19,7 @@ module Decidim
       end
 
       def resource_text
-        return 'purtroppo la tua proposta referendaria "' + translated_attribute(@resource.title) + '" non ha raggiunto le firme valide necessarie.<br/>
+        return 'purtroppo la tua proposta referendaria "<a href="' + extra[:referendum_url].to_s + '">' + translated_attribute(@resource.title) + '</a>" non ha raggiunto le firme valide necessarie.<br/>
 I controlli formali eseguiti sulle sottoscrizioni hanno dato esito negativo rispetto a quanto previsto dall\'art 12 dello Statuto Comunale, ovvero hanno verificato il non raggiungimento di almeno ' + @resource.supports_required.to_s + ' firme valide, raccolte sia online sia offline.<br/>
 Pertanto, la richiesta di referendum non può essere accolta.<br/>
 Di seguito la sintesi delle firme validate:<br/>

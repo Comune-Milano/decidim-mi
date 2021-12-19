@@ -1,7 +1,7 @@
 <% if initiative.answered? && translated_attribute(initiative.answer).present? %>
   <br>
   <div class="row column">
-    <div class="callout success">
+    <div class="callout <%= state_badge_css_class(initiative) %>">
       <h5><%= t(initiative.state, scope: "decidim.initiatives.initiatives.result.answer_title") %>:</h5>
       <p>
         <% if initiative.answer_url.present? %>
@@ -20,7 +20,7 @@
   <br>
   <div class="row column">
     <div class="callout alert">
-      <p>La petizione non ha raggiunto il numero necessario di firme. Non può quindi ricevere risposta dall’Amministrazione.
+      <p>La petizione non è coerente con i criteri di ammissibilità del Comune di Milano. Non può quindi ricevere risposta dall’Amministrazione.
         <a href="https://partecipazione.comune.milano.it/pages/petizioni">Maggiori informazioni</a>
       </p>
     </div>
@@ -31,18 +31,8 @@
   <br>
   <div class="row column">
     <div class="callout success">
-      <p>La petizione ha raggiunto il numero necessario di firme ed è in attesa della risposta dell’Amministrazione.
-      L’esito della petizione viene notificato agli organi competenti e pubblicato sull’Albo Pretorio e sulla piattaforma Milano Partecipa.
+      <p>La petizione ha ricevuto risposta dall'amministratore.
         <a href="https://partecipazione.comune.milano.it/pages/petizioni">Maggiori informazioni</a></p>
-    </div>
-  </div>
-<% end %>
-
-<% if initiative.published? && initiative.signature_end_date < Date.current %>
-  <br>
-  <div class="row column">
-    <div class="callout warning">
-      <p>E’ in corso il conteggio delle firme cartacee</p>
     </div>
   </div>
 <% end %>

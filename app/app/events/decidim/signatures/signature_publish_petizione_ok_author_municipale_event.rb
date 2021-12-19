@@ -7,11 +7,11 @@ module Decidim
       include Decidim::Events::NotificationEvent
 
       def email_greeting
-        return 'Congratulazioni  ' + @user.nickname + '!'
+        return 'Congratulazioni  ' + @user.name + '!'
       end
 
       def email_subject
-        return 'La petizione "' + translated_attribute(@resource.title) + '" ha ottenuto le firme necessarie'
+        return 'La tua petizione ha ricevuto risposta'
       end
 
       def email_intro
@@ -19,8 +19,11 @@ module Decidim
       end
 
       def resource_text
-        return 'La tua petizione "' + translated_attribute(@resource.title) + '" ha raggiunto ' + @resource.supports_required.to_s + ' firme valide. Verrà quindi inviata al Presidente del Municipio e riceverà risposta scritta e motivata ai sensi dell\'<a href="https://partecipazione.comune.milano.it/pages/partecipazione-municipi" target="_blank">art. 64 del Regolamento dei Municipi</a>.<br/>Oltre che sulla piattaforma Milano Partecipa, la risposta viene pubblicata nell’Albo Pretorio del Comune di Milano.'
-      end
+        return 'Il Comune ha risposto alla tua petizione "' + translated_attribute(@resource.title) + '".<br/>
+        <a href="' + extra[:initiative_url].to_s + '">Leggila su Milano Partecipa</a>.<br/>
+        Ti ricordiamo che la risposta viene pubblicata anche su Albo Pretorio.<br/>
+        Grazie del tuo impegno. Non esitare a contattarci per ulteriori informazioni.'
+    end
 
       def email_outro
         return 'A presto! Lo Staff di Milano Partecipa'

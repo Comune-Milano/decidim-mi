@@ -1,0 +1,40 @@
+<% if !flash[:notice].blank? %>
+  <div class = "alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+
+<br />
+
+<%= link_to "Carica Pdf", new_pdf_signed_path, class: "button btn btn-primary" %>
+<br />
+<br />
+
+<table class = "table table-bordered table-striped">
+  <thead>
+  <tr>
+
+    <th>N° protocollo</th>
+    <th>PDF</th>
+  </tr>
+  </thead>
+
+  <tbody>
+
+  <% @pdf_signeds.each do |pdf_signed| %>
+
+    <tr>
+      <td><%= pdf_signed.numero_protocollo %></td>
+      <td><%= link_to "Scarica", pdf_signeds_download_path(pdf_signed.id) %></td>
+      <!--<td><%#= button_to "Delete",  pdf_signed, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{pdf_signed.id}?" %></td>-->
+    </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
+<% if @component_type == 'initiative' %>
+  <%= link_to "Torna indietro", "/admin/offline_signatures/pdf/" + @component_id.to_s + "/petizione", class:"button" %>
+<% else %>
+  <%= link_to "Torna indietro", "/admin/offline_signatures/pdf/" + @component_id.to_s + "/referendum", class:"button" %>
+<% end %>

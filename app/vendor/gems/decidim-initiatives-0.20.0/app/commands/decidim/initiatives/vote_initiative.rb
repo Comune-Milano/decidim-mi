@@ -113,18 +113,27 @@ module Decidim
         end
 
         return unless percentage
+        organization = @initiative.organization
+        init_url = 'https://'+organization.host+'/initiatives/'+@initiative.slug
         Decidim::EventsManager.publish(
             event: "decidim.events.initiatives.firme_completed",
             event_class: Decidim::Initiatives::FirmeCompletedEvent,
             resource: @initiative,
             affected_users: [@initiative.author],
+            extra: {
+                initiative_url: init_url
+            }
         )
         @initiative.organization.admins.each do |user|
           Decidim::EventsManager.publish(
               event: "decidim.events.initiatives.firme_completed_admins",
-              event_class: Decidim::Initiatives::FirmeCompletedEventAdmins,
+              event_class: Decidim::Initiatives::FirmeCompletedAdminsEvent,
               resource: @initiative,
               affected_users: [user],
+              extra: {
+                  initiative_url: init_url,
+                  author: @initiative.author.name
+              }
               )
         end
       end

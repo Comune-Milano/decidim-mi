@@ -1,7 +1,7 @@
 <% if @initiative.created_by_individual? %>
   <p>
     Ciao  <%= @initiative.author.name.to_s %>.<br/>
-    La tua petizione <%= translated_attribute(@initiative.title).to_s %> è stata inviata correttamente all’Amministrazione per la convalida tecnica.<br/>
+    La tua petizione <%= link_to translated_attribute(@initiative.title).to_s, @link %> è stata inviata correttamente all’Amministrazione per la convalida tecnica.<br/>
     Riceverai una nostra comunicazione con i riferimenti del protocollo e del responsabile del procedimento.<br/>
     A presto!<br/>
     Lo Staff di Milano Partecipa

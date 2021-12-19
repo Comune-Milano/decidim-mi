@@ -35,7 +35,7 @@ module Decidim
       def notify_initiative_creation
         Decidim::Initiatives::InitiativesMailer
           .notify_creation(initiative)
-          .deliver_later
+          .deliver_now
       end
 
       def notify_validating_initiative
@@ -46,7 +46,7 @@ module Decidim
         end
         Decidim::Initiatives::InitiativesMailer
             .notify_validating_to_author(initiative)
-            .deliver_later
+            .deliver_now
       end
 
       ####################################################################
@@ -64,7 +64,7 @@ module Decidim
 
         Decidim::Initiatives::InitiativesMailer
           .notify_state_change(initiative, initiative.author, initiative.state)
-          .deliver_later
+          .deliver_now
       end
 
       ######################################################################

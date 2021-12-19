@@ -52,14 +52,14 @@ module Decidim
       def humanize_state_partecipata(initiative)
         stato = ""
         if initiative.accepted?
-          stato = "Ammessa"
+          stato = "Conclusa"
         elsif initiative.rejected?
-          stato = "Firme insufficienti"
+          stato = "Non ammessa"
         elsif initiative.published?
           if initiative.signature_end_date >= Date.current
             stato = "Raccolta firme in corso"
           else
-            stato = "Scaduta"
+            stato = "In attesa di risposta"
           end
         elsif initiative.discarded?
           stato = "Non ammessa"

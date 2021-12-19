@@ -165,21 +165,29 @@ module Admin
         extra_componente = {}
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_petizione_ok_author_municipale'
           event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorMunicipaleEvent
+          init_url = 'https://'+organization.host+'/initiatiaves/'+componente.slug
+          extra_componente = {
+              initiative_url: init_url
+          }
         else
           componente = Decidim::Referendum.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_referendum_ok_author_municipale'
           event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorMunicipaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
           total_comp = online_total_comp + offline_validated_comp
+          ref_url = 'https://'+organization.host+'/referendums/'+componente.slug
           extra_componente = {
               offline_total: offline_total_comp,
               offline_validated: offline_validated_comp,
               online_total: online_total_comp,
-              total: total_comp
+              total: total_comp,
+              referendum_url: ref_url
           }
         end
         componente.state = 5
@@ -207,21 +215,29 @@ module Admin
         extra_componente = {}
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_petizione_ok_author_comunale'
           event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorComunaleEvent
+          init_url = 'https://'+organization.host+'/initiatiaves/'+componente.slug
+          extra_componente = {
+              initiative_url: init_url
+          }
         else
           componente = Decidim::Referendum.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_referendum_ok_author_comunale'
           event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorComunaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
           total_comp = online_total_comp + offline_validated_comp
+          ref_url = 'https://'+organization.host+'/referendums/'+componente.slug
           extra_componente = {
               offline_total: offline_total_comp,
               offline_validated: offline_validated_comp,
               online_total: online_total_comp,
-              total: total_comp
+              total: total_comp,
+              referendum_url: ref_url
           }
         end
         componente.state = 5
@@ -249,21 +265,30 @@ module Admin
         extra_componente = {}
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_petizione_ko_author_municipale'
           event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorMunicipaleEvent
+          #init_url = Decidim::Initiative.initiative_url(componente, host: organization.host)
+          init_url = 'https://'+organization.host+'/initiatiaves/'+componente.slug
+          extra_componente = {
+              initiative_url: init_url
+          }
         else
           componente = Decidim::Referendum.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_referendum_ko_author_municipale'
           event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorMunicipaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
           total_comp = online_total_comp + offline_validated_comp
+          ref_url = 'https://'+organization.host+'/referendums/'+componente.slug
           extra_componente = {
               offline_total: offline_total_comp,
               offline_validated: offline_validated_comp,
               online_total: online_total_comp,
-              total: total_comp
+              total: total_comp,
+              referendum_url: ref_url
           }
         end
         componente.state = 4
@@ -291,21 +316,29 @@ module Admin
         extra_componente = {}
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_petizione_ko_author_comunale'
           event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorComunaleEvent
+          init_url = 'https://'+organization.host+'/initiatiaves/'+componente.slug
+          extra_componente = {
+              initiative_url: init_url
+          }
         else
           componente = Decidim::Referendum.find(params[:id])
+          organization = componente.organization
           event_string = 'decidim.events.signatures.signature_publish_referendum_ko_author_comunale'
           event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorComunaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
           total_comp = online_total_comp + offline_validated_comp
+          ref_url = 'https://'+organization.host+'/referendums/'+componente.slug
           extra_componente = {
               offline_total: offline_total_comp,
               offline_validated: offline_validated_comp,
               online_total: online_total_comp,
-              total: total_comp
+              total: total_comp,
+              referendum_url: ref_url
           }
         end
         componente.state = 4

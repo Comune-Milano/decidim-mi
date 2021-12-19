@@ -435,10 +435,10 @@ it:
           recent: Piu recente
         result:
           answer_title:
-            accepted: Questa proposta è stata accettata perché
+            accepted: Nota
             created: Questa proposta è stata creata
             discarded: Questa proposta è stata scartata perché
-            published: Questa proposta è pubblicata perché
+            published: Risposta dell'amministrazione alla Petizione
             rejected: Questa proposta è stata respinta perché
             validating: Questa proposta è in corso di valutazione
           initiative_rejected_reason: Questa petizione è stata respinta a causa della sua mancanza di supporti.

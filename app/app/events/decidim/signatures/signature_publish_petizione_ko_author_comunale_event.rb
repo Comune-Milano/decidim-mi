@@ -7,11 +7,11 @@ module Decidim
       include Decidim::Events::NotificationEvent
 
       def email_greeting
-        return 'Caro ' + @user.nickname + ','
+        return 'Caro ' + @user.name + ','
       end
 
       def email_subject
-        return 'La petizione "' + translated_attribute(@resource.title) + '" non ha ottenuto le firme necessarie.'
+        return 'La tua petizione non può essere ammessa.'
       end
 
       def email_intro
@@ -19,10 +19,8 @@ module Decidim
       end
 
       def resource_text
-        return 'purtroppo la tua petizione "' + translated_attribute(@resource.title) + '" non ha raggiunto le ' + @resource.supports_required.to_s + ' firme valide necessarie.<br/>
-I controlli formali eseguiti sulle sottoscrizioni hanno dato esito negativo rispetto a quanto previsto dall\'<a href="https://partecipazione.comune.milano.it/pages/regoledellapartecipazione" target="_blank">art 9 dello Statuto Comunale</a><br/>
-Pertanto, la petizione non può essere accolta.<br/>
-Ti ringraziamo e restiamo a tua disposizione per eventuali chiarimenti.'
+        return 'Ci dispiace ma la tua petizione "<a href="' + extra[:initiative_url].to_s + '">' + translated_attribute(@resource.title) + '</a>" non può essere accolta perché non conforme ai requisiti di ammissibilità previsti dal Comune di Milano.<br/>
+Grazie di averci provato. Non esitare a contattarci per ulteriori informazioni su Milano Partecipa.'
       end
 
       def email_outro

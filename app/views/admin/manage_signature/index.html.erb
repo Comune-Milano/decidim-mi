@@ -1,0 +1,77 @@
+<% if !flash[:notice].blank? %>
+  <div class="alert alert-info">
+    <%= flash[:notice] %>
+  </div>
+<% end %>
+<div class="card">
+  <div class="card-section">
+    <div class="row column">
+      <%# if !current_user.nil? && (!current_user.admin? && !current_user.role?("initiative_manager")) %>
+      <% if @component.is_data_ultima_superata(@component_id) %>
+        <% if current_user.admin? %>
+          <p>La proposta è chiusa.</p>
+        <% else %>
+          <% if !current_user.role?("initiative_manager") %>
+            <p>La proposta è stata chiusa e non è quindi possibile apportare modifiche</p>
+          <% end %>
+        <% end %>
+      <% end %>
+      <%# end %>
+    </div>
+  </div>
+</div>
+<table class="table table-bordered table-striped">
+  <thead>
+  <tr>
+
+    <th>N° protocollo</th>
+    <th>PDF</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  <% @pdfs.each do |pdf_signed| %>
+
+    <tr>
+      <td><%= pdf_signed.numero_protocollo %></td>
+      <td><%= link_to "Scarica", pdf_signeds_download_path(pdf_signed.id) %></td>
+      <!--<td><%#= button_to "Delete",  pdf_signed, method: :delete, class: "btn btn-danger", confirm: "Are you sure that you wish to delete #{pdf_signed.id}?" %></td>-->
+    </tr>
+
+  <% end %>
+  </tbody>
+
+</table>
+<% if @component.is_mail_chiusura_mandata(@component_id) %>
+  <p>E' già stata inviata una mail di chiusura per questa proposta</p>
+<%end %>
+<div class="button--double form-general-submit">
+  <% if @component.is_data_fine_superata(@component_id) %>
+    <%= link_to "Scarica firme inserite", "/admin/offline_signatures/pdf/create/#{@component_id}/#{@component_type}", class: "button" %>
+    <% if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager")) %>
+      <% if !@component.is_mail_chiusura_mandata(@component_id) && @component.is_data_ultima_superata(@component_id) %>
+        <% if @component_type == 'referendum' %>
+          <%= link_to "Carica firme validate", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
+        <% else %>
+          <%= link_to "Carica firme validate", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
+        <% end %>
+      <% end %>
+    <% else %>
+      <% if !@component.is_data_ultima_superata(@component_id) %>
+        <% if @component_type == 'referendum' %>
+          <%= link_to "Carica firme offline", "/admin/referendums_offline_signatures?id=" + @component_id, class: "button" %>
+        <% else %>
+          <%= link_to "Carica firme offline", "/admin/initiatives_offline_signatures?id=" + @component_id, class: "button" %>
+        <% end %>
+        <%= link_to "Carica pdf", "/admin/pdf_signeds/" + @component_id + "/new/" + @component_type, class: "button" %>
+      <% end %>
+    <% end %>
+  <% end %>
+  <% if @component_type == 'referendum' %>
+    <%= link_to "Torna indietro", "/admin/referendums", class: "button" %>
+  <% else %>
+    <%= link_to "Torna indietro", "/admin/initiatives", class: "button" %>
+  <% end %>
+</div>
+
+
