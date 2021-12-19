@@ -41,6 +41,10 @@ module Decidim
         # GET /admin/initiatives/:id/edit
         def edit
           enforce_permission_to :edit, :initiative, initiative: current_initiative
+          @offline_total_comp = current_initiative.get_offline_votes_total(current_initiative.id)
+          @offline_validated_comp = current_initiative.get_offline_votes_validated(current_initiative.id)
+          @online_total_comp = current_initiative.get_online_votes
+          @total_comp = @online_total_comp + @offline_validated_comp
           @form = form(Decidim::Initiatives::Admin::InitiativeForm)
                   .from_model(
                     current_initiative,

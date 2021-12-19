@@ -1,7 +1,7 @@
 <% if @referendum.created_by_individual? %>
     <p>
       Ciao <%= @referendum.author.name.to_s %>.<br/>
-Il Referendum <%= translated_attribute(@referendum.title).to_s %> è stato creato in bozza nel tuo spazio personale di Milano Partecipa <a href="https://partecipazione.comune.milano.it/admin/referendums"> spazio personale di Milano Partecipa </a>.<br/>
+Il Referendum <%= translated_attribute(@referendum.title).to_s %> è stato creato in bozza nel tuo <a href="https://partecipazione.comune.milano.it/admin/referendums">spazio personale di Milano Partecipa </a>.<br/>
 Il prossimo passo è trasmetterlo all’Amministrazione per la convalida tecnica.<br/><br/>
 <b>ATTENZIONE</b><br/>
       Per ricevere la convalida tecnica, <b>la proposta referendaria deve avere già ottenuto almeno 1000 sottoscrizioni</b>, apposte su moduli cartacei alla presenza di un autenticatore. Le firme dovranno essere già state <b>validate dall’Ufficio elettorale.</b><br/>

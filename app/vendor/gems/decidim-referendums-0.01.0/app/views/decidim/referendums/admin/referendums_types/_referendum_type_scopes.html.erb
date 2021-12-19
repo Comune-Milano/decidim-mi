@@ -4,7 +4,7 @@
       <%#= t ".title" %>
       AMBITI TERRITORIALI PER QUESTO TIPO DI REFERENDUM
       <%#= link_to t("actions.new", scope: "decidim.admin", name: t("models.referendums_type_scope.name", scope: "decidim.admin")), %>
-      <%= link_to "NUOVO AMBITO PER QUESTO TIPO DI PETIZIONE",
+      <%= link_to "NUOVO AMBITO PER QUESTO TIPO DI REFERENDUM",
                   new_referendums_type_referendums_type_scope_path(referendum_type),
                   class: "button tiny button--title" if allowed_to? :create, :referendum_type_scope %>
 

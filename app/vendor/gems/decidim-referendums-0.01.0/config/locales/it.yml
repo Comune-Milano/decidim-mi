@@ -433,7 +433,7 @@ it:
           recent: Piu recente
         result:
           answer_title:
-            accepted: Questa proposta è stata accettata perché
+            accepted: Nota
             created: Questa proposta è stata creata
             discarded: Questa proposta è stata scartata perché
             published: Questa proposta è pubblicata perché

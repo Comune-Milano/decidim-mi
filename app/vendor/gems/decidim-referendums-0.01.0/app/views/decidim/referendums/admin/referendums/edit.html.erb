@@ -3,6 +3,14 @@
 
   <% if current_referendum.is_data_ultima_superata_model(current_referendum.id) %>
     <% if (current_referendum.state == 'published') %>
+      <div id="riepilogo-chiusura-referendum">
+        <ul>
+          <li>Firme online raccolte: <%= @online_total_comp %></li>
+          <li>Firme offline inviate: <%= @offline_total_comp %></li>
+          <li>Firme offline validate: <%= @offline_validated_comp %></li>
+          <li>Firme totali ritenute valide:  <%= @total_comp %></li>
+        </ul>
+      </div>
       <div id="form-chiusura-container">
         <%= form_with(url: "/admin/signatures/" + current_referendum.id.to_s() + "/referendum/accept_send_notifications_municipale", method: "post") do %>
           <%= submit_tag "Accetta la proposta MUNICIPALE e invia mail di chiusura", class: "button force-margin-right" %>
@@ -33,7 +41,7 @@
       <%= link_to t(".send_to_technical_validation"),
                   send_to_technical_validation_referendum_path(current_referendum),
                   class: "button muted",
-                  data: { confirm: t(".confirm") } %>
+                  data: { confirm: 'Con l\'invio a convalida tecnica, l\'Amministrazione verifica che la proposta referendaria per la quale hai richiesto di raccogliere firme online è già stata approvata dal Collegio dei Garanti. Se vuoi procedere clicca su "OK".'}  %>
     <% elsif current_referendum.created? %>
       <%= link_to t(".send_to_technical_validation"), "#", class: "button muted disabled" %>
     <% end %>
@@ -43,7 +51,7 @@
                   publish_referendum_path(current_referendum),
                   method: :post,
                   class: "button hollow",
-                  data: { confirm: t(".confirm") } %>
+                  data: { confirm: 'Se clicchi su ""OK" autorizzi la raccolta firme online per questo referendum. Se non sei sicuro, verifica che la proposta referendaria sia già stata validata dal Collegio dei Garanti.' } %>
     <% end %>
 
     <% if allowed_to? :unpublish, :referendum, referendum: current_referendum %>

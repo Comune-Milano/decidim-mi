@@ -3,6 +3,14 @@
 
   <% if current_initiative.is_data_ultima_superata_model(current_initiative.id) %>
     <% if (current_initiative.state == 'published') %>
+      <div id="riepilogo-chiusura-referendum">
+        <ul>
+          <li>Firme online raccolte: <%= @online_total_comp %></li>
+          <li>Firme offline inviate: <%= @offline_total_comp %></li>
+          <li>Firme offline validate: <%= @offline_validated_comp %></li>
+          <li>Firme totali ritenute valide:  <%= @total_comp %></li>
+        </ul>
+      </div>
       <div id="form-chiusura-container">
         <%= form_with(url: "/admin/signatures/" + current_initiative.id.to_s() + "/petizione/accept_send_notifications_municipale", method: "post") do %>
 
@@ -37,7 +45,7 @@
       <%= link_to t(".send_to_technical_validation"),
                   send_to_technical_validation_initiative_path(current_initiative),
                   class: "button muted",
-                  data: {confirm: t(".confirm")} %>
+                  data: {confirm: 'Con l\'invio a convalida tecnica, l\'Amministrazione verifica che la Petizione sia coerente con i criteri di ammissibilità e possa essere autorizzata alla raccolta firme online. Se vuoi procedere clicca su "OK".'} %>
     <% elsif current_initiative.created? %>
       <%= link_to t(".send_to_technical_validation"), "#", class: "button muted disabled" %>
     <% end %>
@@ -47,7 +55,7 @@
                   publish_initiative_path(current_initiative),
                   method: :post,
                   class: "button hollow",
-                  data: {confirm: t(".confirm")} %>
+                  data: {confirm: 'Se clicchi su "OK" autorizzi la raccolta firme online per questa petizione.'} %>
     <% end %>
 
     <% if allowed_to? :unpublish, :initiative, initiative: current_initiative %>

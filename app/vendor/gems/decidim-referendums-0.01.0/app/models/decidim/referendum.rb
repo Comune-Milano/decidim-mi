@@ -357,7 +357,7 @@ module Decidim
       return false
     end
 
-    def self.is_data_fine_petizione_superata(referendum_id)
+    def self.is_data_fine_referendum_superata(referendum_id)
       sql = "SELECT case when
           (select true from decidim_referendums WHERE id = #{referendum_id} and NOW() >= signature_end_date)
           then 'true' else 'false' end AS issuperata"

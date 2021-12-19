@@ -135,10 +135,10 @@
                 <% end %>
               <% end %>
               <% if allowed_to? :read, :initiative, initiative: initiative %>
-                <%= icon_link_to "print",
+                <!--<%= icon_link_to "print",
                                  decidim_admin_initiatives.initiative_path(initiative.id),
                                  t(".print",),
-                                 class: "action-icon--print" %>
+                                 class: "action-icon--print" %>-->
               <% end %>
               <% if initiative.closed?  && (initiative.state == 'published' || initiative.state=='accepted' || initiative.state=='rejected')%>
                 <%# if allowed_to? :edit, :initiative, initiative: initiative %>

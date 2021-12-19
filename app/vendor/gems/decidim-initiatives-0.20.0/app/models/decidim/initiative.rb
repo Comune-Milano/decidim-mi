@@ -257,6 +257,30 @@ module Decidim
       digital_votes + face_to_face_votes
     end
 
+    def get_offline_votes_total(initiative_id)
+      sql = "Select count(decidim_initiatives_csv_signature_data.id) from decidim_initiatives_csv_signature_data
+        join decidim_initiatives ON decidim_initiatives.id = decidim_initiatives_csv_signature_data.initiatives_id
+        where decidim_initiatives_csv_signature_data.initiatives_id = #{initiative_id}"
+      records_array = ActiveRecord::Base.connection.select_all(sql)
+      if records_array.present?
+        records_array.first["count"]
+      else
+        return "0"
+      end
+    end
+
+    def get_offline_votes_validated(initiative_id)
+      sql = "Select count(decidim_initiatives_csv_signature_data.id) from decidim_initiatives_csv_signature_data
+        join decidim_initiatives ON decidim_initiatives.id = decidim_initiatives_csv_signature_data.initiatives_id
+        where decidim_initiatives_csv_signature_data.initiatives_id = #{initiative_id} and decidim_initiatives_csv_signature_data.validazione = true"
+      records_array = ActiveRecord::Base.connection.select_all(sql)
+      if records_array.present?
+        records_array.first["count"]
+      else
+        return "0"
+      end
+    end
+
     def get_online_votes
       digital_votes = offline_signature_type? ? 0 : (initiative_votes_count + initiative_supports_count)
       return digital_votes

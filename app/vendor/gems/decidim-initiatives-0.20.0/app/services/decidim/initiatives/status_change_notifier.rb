@@ -39,11 +39,11 @@ module Decidim
       end
 
       def notify_validating_initiative
-        #initiative.organization.admins.each do |user|
-        #  Decidim::Initiatives::InitiativesMailer
-        #    .notify_validating_request(initiative, user)
-        #    .deliver_later
-        #end
+        initiative.organization.admins.each do |user|
+          Decidim::Initiatives::InitiativesMailer
+            .notify_validating_request(initiative, user)
+            .deliver_later
+        end
         Decidim::Initiatives::InitiativesMailer
             .notify_validating_to_author(initiative)
             .deliver_later

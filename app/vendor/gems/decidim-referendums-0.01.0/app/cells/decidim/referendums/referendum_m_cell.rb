@@ -31,7 +31,7 @@ module Decidim
           if model.signature_end_date >= Date.current
             "Raccolta firme in corso"
           else
-            "Scaduto"
+            "Verifica firme in corso"
           end
         when "rejected"
           "Firme insufficienti"

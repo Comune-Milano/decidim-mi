@@ -45,7 +45,10 @@ module Decidim
                     current_referendum,
                     referendum: current_referendum
                   )
-
+          @offline_total_comp = current_referendum.get_offline_votes_total(current_referendum.id)
+          @offline_validated_comp = current_referendum.get_offline_votes_validated(current_referendum.id)
+          @online_total_comp = current_referendum.get_online_votes
+          @total_comp = @online_total_comp + @offline_validated_comp
           render layout: "decidim/admin/referendum"
         end
 

@@ -135,10 +135,10 @@
                 <% end %>
               <% end %>
               <% if allowed_to? :read, :referendum, referendum: referendum %>
-                <%= icon_link_to "print",
+                <!--<%= icon_link_to "print",
                                  decidim_admin_referendums.referendum_path(referendum.id),
                                  t(".print",),
-                                 class: "action-icon--print" %>
+                                 class: "action-icon--print" %>-->
               <% end %>
               <% if referendum.closed?  && (referendum.state == 'published' || referendum.state=='accepted' || referendum.state=='rejected')%>
 	        <%# if allowed_to? :edit, :referendum, referendum: referendum %>

@@ -3,12 +3,16 @@
     <%= render partial: "count" %>
   </h2>
 
-  <% if current_user != nil && (current_user.admin? || current_user.officialized?) %>
-    <% if allowed_to? :create, :referendum %>
-      <%= link_to create_referendum_path(:select_referendum_type), class: "title-action__action button small" do %>
-          <%= t(".new_referendum") %>
-          <%= icon "plus" %>
+  <% if current_user != nil && (current_user.admin? || current_user.officialized?)%>
+    <% if @has_certificato_elettorale %>
+      <% if allowed_to? :create, :referendum %>
+        <%= link_to create_referendum_path(:select_referendum_type), class: "title-action__action button small" do %>
+            <%= t(".new_referendum") %>
+            <%= icon "plus" %>
+        <% end %>
       <% end %>
+    <% else %>
+      <button onclick="document.getElementById('myModal5').style.display = 'block';" class="title-action__action button small"><%= t(".new_referendum") %><%= icon "plus" %></button>
     <% end %>
   <% elsif current_user == nil %>
 	<button onclick="showModal()" class="title-action__action button small"><%= t(".new_referendum") %><%= icon "plus" %></button>
@@ -84,26 +88,16 @@
   </div>
 </div>
 
-<div id="myModal3" class="modal">
-  <div class="modal-content">
-    <center>
-<h2 style="color: #CCCC00">Grazie.</h2><p>Per completare la tua richiesta ti chiediamo di compilare anche il modulo di auto-certificazione, <a href="https://servizicrm.comune.milano.it/decidim/autocertificazione" target="_blank">cliccando qui</a>.<br /> Non appena il tuo profilo di City User sarà attivo, riceverai una mail di conferma con le istruzioni per accedere a Milano Partecipa. Grazie.<br/> Per informazioni, consulta la pagina di <a href='https://partecipazione.comune.milano.it/pages'>Aiuto</a></p>
-
-      <div style="height: 30px"></div>
-      <button id="button-close3" class="button card__button button--sc">Chiudi</button>
-    </center>
-  </div>
-</div>
-
-<div id="myModal4" class="modal">
+<div id="myModal5" class="modal">
   <div class="modal-content" style="width: 40%">
     <center>
-      <h2 style="color: #CCCC00; font-size: 24px">Questa proposta non può essere modificata perché contiene dei <%= link_to "commenti", "/pages/proposte" %> e/o <%= link_to "supporti", "/pages/proposte" %></h2>
+      <h2 style="color: #CCCC00; font-size: 24px">Ci dispiace, ma non puoi creare un nuovo referendum perché non risulti iscritto nelle liste elettorali del Comune di Milano.<br/>Ti ricordiamo che possono partecipare al referendum solo i cittadini maggiorenni residenti e iscritti alle liste elettorali, compresi i cittadini appartenenti a Stati dell'Unione Europea. Possono partecipare anche i cittadini residenti di origine extra-europea se iscritti nelle liste elettorali e titolari di permesso di soggiorno UE per soggiornanti di lungo periodo e in assenza di condanne penali che impediscano l'elettorato attivo, secondo la normativa italiana vigente.<br/>I diritti di partecipazione ai referendum cittadini sono definiti nello <a href="https://partecipazione.comune.milano.it/pages/regoledellapartecipazione">Statuto del comune di Milano, articoli 6 e 11.</a></h2>
       <div style="height: 30px"></div>
-      <button class="button card__button button--sc" onclick="edit_not_allowed_hide()">Chiudi</button>
+      <button id="button-close5" class="button card__button button--sc">Chiudi</button>
     </center>
   </div>
 </div>
+
 
 <%= javascript_tag do -%>
 
@@ -117,6 +111,10 @@
 
   document.getElementById('button-close2').onclick = function() {
     document.getElementById('myModal2').style.display = 'none';
+  }
+
+  document.getElementById('button-close5').onclick = function() {
+    document.getElementById('myModal5').style.display = 'none';
   }
 
 

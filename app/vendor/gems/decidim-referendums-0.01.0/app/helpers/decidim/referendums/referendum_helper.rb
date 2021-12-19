@@ -58,7 +58,7 @@ module Decidim
           if referendum.signature_end_date >= Date.current
             stato = "Raccolta firme in corso"
           else
-            stato = "Scaduto"
+            stato = "Verifica firme in corso"
           end
         elsif referendum.discarded?
           stato = "Non ammesso"

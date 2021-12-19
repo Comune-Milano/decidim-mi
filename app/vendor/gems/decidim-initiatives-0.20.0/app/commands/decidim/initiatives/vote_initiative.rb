@@ -35,6 +35,7 @@ module Decidim
         percentage_after = @initiative.reload.percentage
 
         notify_percentage_change(percentage_before, percentage_after)
+        notify_firme_completed(percentage_before, percentage_after)
 
         broadcast(:ok, vote)
       end
@@ -88,7 +89,7 @@ module Decidim
       end
 
       def notify_percentage_change(before, after)
-        percentage = [25, 50, 75, 100].find do |milestone|
+        percentage = [25, 50, 75].find do |milestone|
           before < milestone && after >= milestone
         end
 
@@ -104,6 +105,28 @@ module Decidim
                 percentage: percentage
             }
         )
+      end
+
+      def notify_firme_completed(before, after)
+        percentage = [100].find do |milestone|
+          before < milestone && after >= milestone
+        end
+
+        return unless percentage
+        Decidim::EventsManager.publish(
+            event: "decidim.events.initiatives.firme_completed",
+            event_class: Decidim::Initiatives::FirmeCompletedEvent,
+            resource: @initiative,
+            affected_users: [@initiative.author],
+        )
+        @initiative.organization.admins.each do |user|
+          Decidim::EventsManager.publish(
+              event: "decidim.events.initiatives.firme_completed_admins",
+              event_class: Decidim::Initiatives::FirmeCompletedEventAdmins,
+              resource: @initiative,
+              affected_users: [user],
+              )
+        end
       end
     end
   end

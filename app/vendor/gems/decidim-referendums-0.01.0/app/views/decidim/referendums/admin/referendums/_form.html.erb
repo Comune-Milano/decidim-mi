@@ -60,7 +60,7 @@
       <input type="hidden" name="referendum[decidim_areas_id]" value="<%= petAreaScelta.to_s %>" />
       <% # ricavo tutti i tipi e seleziono quello già scelto %>
       <% petTypes = Decidim::ReferendumsType.order(:title) %>
-      <label>Tipo di petizione</label>
+      <label>Tipo di referendum</label>
       <select name="referendum[type_id]" onchange="change(this)" <%= "disabled" if current_referendum.published? || (!current_user.admin? && current_referendum.state != 'created') %>>
         <% petTypes.each do |petType|  %>
           <option value="<%= petType.id %>"
@@ -92,20 +92,26 @@
         </div>
 
         <div class="columns xlarge-6">
-          <%= form.date_field :signature_end_date %>
+          <%= form.date_field :signature_end_date,
+                              {
+              disabled: true
+          } %>
         </div>
 
         <div class="columns xlarge-6">
-          <%= form.date_field :signature_last_day %>
+          <%= form.date_field :signature_last_day,
+                              {
+                                  disabled: true
+                              }  %>
         </div>
 
       </div>
     <% end %>
 
     <div class="row">
-      <div class="columns xlarge-6">
+      <!--<div class="columns xlarge-6">
         <%= form.text_field :hashtag, disabled: !allowed_to?(:update, :referendum, referendum: current_referendum) %>
-      </div>
+      </div>-->
 
       <div class="columns xlarge-6" style="display: none">
         <%= form.select :signature_type, [], {}, { disabled: !@form.signature_type_updatable? } %>

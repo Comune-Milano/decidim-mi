@@ -12,6 +12,7 @@ module Decidim
       include Decidim::FormFactory
       include ReferendumHelper
       include TypeSelectorOptions
+      include CertificatoElettoraleHelper
 
       helper Decidim::Admin::IconLinkHelper
       helper ReferendumHelper
@@ -29,13 +30,21 @@ module Decidim
             :finish
 
       def show
-        enforce_permission_to :create, :referendum
-        send("#{step}_step", referendum: session_referendum)
+        if current_user.nil? || !check_elettore_abilitato(current_user.codice_fiscale)
+          redirect_to '/'
+        else
+          enforce_permission_to :create, :referendum
+          send("#{step}_step", params)
+        end
       end
 
       def update
-        enforce_permission_to :create, :referendum
-        send("#{step}_step", params)
+        if current_user.nil? || !check_elettore_abilitato(current_user.codice_fiscale)
+          redirect_to '/'
+        else
+			enforce_permission_to :create, :referendum
+			send("#{step}_step", params)
+        end
       end
 
       private

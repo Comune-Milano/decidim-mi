@@ -66,7 +66,8 @@ module Decidim
           @body = "Congratulazioni "+user.name+"!<br/>
 La tua proposta referendaria <a href=\""+@link2+"\">"+translated_attribute(referendum.title)+"</a> è stata ammessa alla raccolta firme online. Risulta infatti avere già ricevuto riscontro positivo dal Collegio dei Garanti.<br/>
 Il referendum può essere da subito sottoscritto online da tutti i cittadini aventi diritto.<br/>
-Ti ricordiamo che puoi contestualmente raccogliere le sottoscrizioni anche sui tradizionali moduli cartacei vidimati, alla presenza di un autenticatore. https://partecipazione.comune.milano.it/pages/referendum   <br/>
+Ti ricordiamo che puoi contestualmente raccogliere le sottoscrizioni anche sui tradizionali moduli cartacei vidimati, alla presenza di un autenticatore.<br/>
+<a href=\"https://partecipazione.comune.milano.it/pages/referendum\">Maggiori informazioni</a>   <br/>
 Buona fortuna!<br/>
 "    
 	  elsif stato == 'scartato'
@@ -213,7 +214,7 @@ A presto!<br/>"
         @link = referendum_url(referendum, host: @organization.host)
 
         with_user(user) do
-          @body = "Manca una settimana prima della chiusura della raccolta firme per la petizione #{translated_attribute(referendum.title)}."
+          @body = "Manca una settimana prima della chiusura della raccolta firme per il referendum #{translated_attribute(referendum.title)}."
           @subject = "Scadenza imminente per la raccolta firme (#{translated_attribute(referendum.title)})"
           mail(to: "#{user.name} <#{user.email}>", subject: @subject)
         end
@@ -221,7 +222,7 @@ A presto!<br/>"
 
       ######################## CR DICEMBRE
 
-      # Notifica una settiamana prima della scadenza della petizione
+      # Notifica una settiamana prima della scadenza del referendum
       def notify_one_week_before_end_referendum(referendum, user)
         return if user.email.blank?
 
