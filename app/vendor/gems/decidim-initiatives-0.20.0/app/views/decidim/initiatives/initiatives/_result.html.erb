@@ -1,21 +1,3 @@
-<% if initiative.answered? && translated_attribute(initiative.answer).present? %>
-  <br>
-  <div class="row column">
-    <div class="callout <%= state_badge_css_class(initiative) %>">
-      <h5><%= t(initiative.state, scope: "decidim.initiatives.initiatives.result.answer_title") %>:</h5>
-      <p>
-        <% if initiative.answer_url.present? %>
-          <a href="<%= initiative.answer_url %>" target="_blank">
-            <%= decidim_sanitize translated_attribute initiative.answer %>
-          </a>
-        <% else %>
-          <%= decidim_sanitize translated_attribute initiative.answer %>
-        <% end %>
-      </p>
-    </div>
-  </div>
-<% end %>
-
 <% if initiative.rejected? %>
   <br>
   <div class="row column">
@@ -33,6 +15,24 @@
     <div class="callout success">
       <p>La petizione ha ricevuto risposta dall'amministratore.
         <a href="https://partecipazione.comune.milano.it/pages/petizioni">Maggiori informazioni</a></p>
+    </div>
+  </div>
+<% end %>
+
+<% if initiative.answered? && translated_attribute(initiative.answer).present? %>
+  <br>
+  <div class="row column">
+    <div class="callout <%= state_badge_css_class(initiative) %>">
+      <h5><%= t(initiative.state, scope: "decidim.initiatives.initiatives.result.answer_title") %>:</h5>
+      <p>
+        <% if initiative.answer_url.present? %>
+          <a href="<%= initiative.answer_url %>" target="_blank">
+            <%= decidim_sanitize translated_attribute initiative.answer %>
+          </a>
+        <% else %>
+          <%= decidim_sanitize translated_attribute initiative.answer %>
+        <% end %>
+      </p>
     </div>
   </div>
 <% end %>

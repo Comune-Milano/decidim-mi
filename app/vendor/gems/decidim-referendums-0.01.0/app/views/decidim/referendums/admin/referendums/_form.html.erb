@@ -96,10 +96,6 @@
           <label>Fine del periodo di raccolta firme: <%= Date.strptime(current_referendum.signature_end_date.to_s, '%Y-%m-%d').strftime('%d/%m/%Y') %></label>
         </div>
 
-        <div class="columns xlarge-6">
-          <label>Scadenza upload firme: <%= Date.strptime(current_referendum.signature_last_day.to_s, '%Y-%m-%d').strftime('%d/%m/%Y') %></label>
-        </div>
-
         <div class="columns xlarge-6" style="display:none">
           <%= form.date_field :signature_end_date,
                               {
