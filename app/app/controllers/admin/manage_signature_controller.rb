@@ -22,7 +22,7 @@ module Admin
     def check_user_can_manage_signature (id_proposta, tipo_proposta)
       user_richiedente = check_is_user_richiedente(id_proposta, tipo_proposta)
       user_admin = current_user.admin || current_user.role?("initiative_manager")
-      return user_richiedente || user_admin
+      return user_admin
     end
 
     def check_is_user_richiedente (id_proposta, tipo_proposta)
@@ -105,6 +105,57 @@ module Admin
     end
 
 
+    def accept_send_notification_custom
+      if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager"))
+        component_id = params[:id]
+        component_type = params[:type]
+        componente = nil
+        if component_type == 'petizione'
+          componente = Decidim::Initiative.find(params[:id])
+        else
+          componente = Decidim::Referendum.find(params[:id])
+        end
+        componente.state = 5
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ok_author",
+              event_class: Decidim::Signatures::SignaturePublishPropostaOkAuthorEvent,
+              resource: componente,
+              affected_users: [componente.author],
+			  force_send: true,
+              )
+        componente.mail_chiusura_mandata = true
+        componente.save
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
+    def reject_send_notification_custom
+      if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager"))
+        component_id = params[:id]
+        component_type = params[:type]
+        componente = nil
+        if component_type == 'petizione'
+          componente = Decidim::Initiative.find(params[:id])
+        else
+          componente = Decidim::Referendum.find(params[:id])
+        end
+        componente.state = 4
+          Decidim::EventsManager.publish(
+              event: "decidim.events.signatures.signature_publish_proposta_ko_author",
+              event_class: Decidim::Signatures::SignaturePublishPropostaKoAuthorEvent,
+              resource: componente,
+              affected_users: [componente.author],
+              )
+        componente.mail_chiusura_mandata = true
+        componente.save
+        respond_to do |format|
+          format.js
+        end
+      end
+    end
+
     def accept_send_notification_custom_municipale
       if !current_user.nil? && (current_user.admin? || current_user.role?("initiative_manager"))
         component_id = params[:id]
@@ -115,11 +166,11 @@ module Admin
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_petizione_ok_author_municipale'
-          event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorEventMunicipale
+          event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorMunicipaleEvent
         else
           componente = Decidim::Referendum.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_referendum_ok_author_municipale'
-          event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorEventMunicipale
+          event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorMunicipaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
@@ -157,11 +208,11 @@ module Admin
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_petizione_ok_author_comunale'
-          event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorEventComunale
+          event_class_string = Decidim::Signatures::SignaturePublishPetizioneOkAuthorComunaleEvent
         else
           componente = Decidim::Referendum.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_referendum_ok_author_comunale'
-          event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorEventComunale
+          event_class_string = Decidim::Signatures::SignaturePublishReferendumOkAuthorComunaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
@@ -199,11 +250,11 @@ module Admin
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_petizione_ko_author_municipale'
-          event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorEventMunicipale
+          event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorMunicipaleEvent
         else
           componente = Decidim::Referendum.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_referendum_ko_author_municipale'
-          event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorEventMunicipale
+          event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorMunicipaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
@@ -241,11 +292,11 @@ module Admin
         if component_type == 'petizione'
           componente = Decidim::Initiative.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_petizione_ko_author_comunale'
-          event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorEventComunale
+          event_class_string = Decidim::Signatures::SignaturePublishPetizioneKoAuthorComunaleEvent
         else
           componente = Decidim::Referendum.find(params[:id])
           event_string = 'decidim.events.signatures.signature_publish_referendum_ko_author_comunale'
-          event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorEventComunale
+          event_class_string = Decidim::Signatures::SignaturePublishReferendumKoAuthorComunaleEvent
           offline_total_comp = componente.get_offline_votes_total(params[:id])
           offline_validated_comp = componente.get_offline_votes_validated(params[:id])
           online_total_comp = componente.get_online_votes
