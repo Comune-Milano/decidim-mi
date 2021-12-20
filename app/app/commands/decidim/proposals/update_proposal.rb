@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-module Decidim
+    module Decidim
   module Proposals
     # A command with all the business logic when a user updates a proposal.
     class UpdateProposal < Rectify::Command
@@ -20,8 +20,10 @@ module Decidim
         @id_code = ''
         if (form.geoportale_link =~ /\A#{URI::regexp}\z/)
           uri    = URI.parse(form.geoportale_link)
-          params = CGI.parse(uri.query)
-          @id_code = params['id_code'].first.to_s
+          if(!uri.query.nil?)
+            params = CGI.parse(uri.query)
+            @id_code = params['idCode'].first.to_s
+          end
         end
       end
 

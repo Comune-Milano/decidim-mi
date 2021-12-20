@@ -1,0 +1,29 @@
+<!-- AGID - SPID IDP BUTTON LARGE "ENTRA CON SPID" * begin * -->
+
+<div id="spid-idp-button-large-get" class="spid-idp-button spid-idp-button-tip spid-idp-button-relative" style="margin-left:18px">
+	<ul id="spid-idp-list-large-root-get" class="spid-idp-button-menu" aria-labelledby="spid-idp">
+		<%
+			SPID_PROVIDER_LIST_HASH.each do |hash| 
+				hash.symbolize_keys!
+				%>
+					<li class="spid-idp-button-link" data-idp="<%=hash[:alt].downcase.delete(' ')%>">
+						<%= link_to decidim.send("user_spid_omniauth_authorize_path", idp_param: hash[:identity_provider]), {:style=>'box-sizing: initial;', :method=>:post} do %>
+							<span class="spid-sr-only"><%=hash[:identity_provider].capitalize%> ID</span>
+							<%=image_tag(hash[:svg_image_path], alt: hash[:alt], src: 'Image Not Found', onerror: "this.error=null;this.src=#{hash[:png_image_path]}" )%>
+						<% end %>
+					</li>
+				<%
+			end
+		%>
+		<li class="spid-idp-support-link">
+			<a href="https://www.spid.gov.it">Maggiori informazioni</a>
+		</li>
+		<li class="spid-idp-support-link">
+			<a href="https://www.spid.gov.it/richiedi-spid">Non hai SPID?</a>
+		</li>
+		<li class="spid-idp-support-link">
+			<a href="https://www.spid.gov.it/serve-aiuto">Serve aiuto?</a>
+		</li>
+	</ul>
+</div>
+<!-- AGID - SPID IDP BUTTON LARGE "ENTRA CON SPID" * end * -->

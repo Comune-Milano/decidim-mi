@@ -515,3 +515,20 @@ div[id^="flagModalComment"] {
 #form-chiusura-container {
     text-align: center;
 }
+
+.spid-idp-button-menu {
+	list-style: none;
+}
+
+.spid-idp-button-menu li.spid-idp-button-link {
+	 border-bottom: 1px solid black;
+	 padding: 5px 0;
+}
+
+.spid-idp-button-menu li img {
+	height: 40px;
+}
+
+.spid-idp-button-menu .spid-sr-only {
+	display: none;
+}

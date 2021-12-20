@@ -3,7 +3,7 @@ class SenderController < ApplicationController
     def index
 
         
-        body = "<p>C'è una nuova richiesta di autenticazione su Milano Partecipa da parte di un City User in attesa di risposta.</p>"
+        body = "<p>C'Ã¨ una nuova richiesta di autenticazione su Milano Partecipa da parte di un City User in attesa di risposta.</p>"
 	body = body + "<p>Inviata da: " + current_user.name + "</p>"
 	##body = body + "<p>Email: " + current_user.email + "</p>"
         ##body = body + "<p>Richiesta:</p> "	

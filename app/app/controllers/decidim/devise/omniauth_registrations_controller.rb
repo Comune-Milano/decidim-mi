@@ -2,17 +2,21 @@
 
 module Decidim
   module Devise
-    # This controller customizes the behaviour of Devise::Omniauthable.
     class OmniauthRegistrationsController < ::Devise::OmniauthCallbacksController
       include FormFactory
       include Decidim::DeviseControllers
-	protect_from_forgery :except => [:saml]
+
       def new
         @form = form(OmniauthRegistrationForm).from_params(params[:user])
       end
 
       def create
         form_params = user_params_from_oauth_hash || params[:user]
+        unless form_params[:errors].nil?
+          #SpidAccessLogger.info("SPID REGISTRATION ERROR: #{form_params[:errors].values.to_sentence}")
+          redirect_to decidim.new_user_session_path, flash: { errors: form_params[:errors].values.to_sentence }
+          return
+        end
 
         @form = form(OmniauthRegistrationForm).from_params(form_params)
         @form.email ||= verified_email
@@ -20,22 +24,13 @@ module Decidim
         CreateOmniauthRegistration.call(@form, verified_email) do
           on(:ok) do |user|
             if user.active_for_authentication?
-				if user.birthdate.nil?
-					Rails.logger.info "form_params: " + form_params.to_s
-					unless form_params[:birthdate].nil?
-						unless form_params[:birthdate].empty?
-							user.birthdate = form_params[:birthdate].to_s
-							user.save
-						end
-					end
-				end
+              SpidAccessLogger.info("SPID REGISTRATION: USERNAME #{user.name}, NICKNAME #{user.nickname}, WITH EMAIL #{user.email} IDP #{@form.provider} AUTHENTICATED")
               sign_in_and_redirect user, event: :authentication
               set_flash_message :notice, :success, kind: @form.provider.capitalize
             else
               expire_data_after_sign_in!
-              user.resend_confirmation_instructions unless user.confirmed?
-              redirect_to decidim.root_path
-              flash[:notice] = t("devise.registrations.signed_up_but_unconfirmed")
+              redirect_to root_path
+              flash[:notice] = t('devise.registrations.signed_up_but_unconfirmed')
             end
           end
 
@@ -46,7 +41,51 @@ module Decidim
 
           on(:error) do |user|
             if user.errors[:email]
-              set_flash_message :alert, :failure, kind: @form.provider.capitalize, reason: t("decidim.devise.omniauth_registrations.create.email_already_exists")
+              set_flash_message :alert, :failure, kind: @form.provider.capitalize, reason: t('decidim.devise.omniauth_registrations.create.email_already_exists')
+            end
+
+            render :new
+          end
+        end
+      end
+
+      def spid
+        form_params = user_params_from_spid_oauth_hash || params[:user]
+        unless form_params[:errors].nil?
+          redirect_to decidim.new_user_session_path, flash: { errors: form_params[:errors].values.to_sentence }
+          return
+        end
+
+        @form = form(OmniauthRegistrationForm).from_params(form_params)
+        @form.email ||= verified_email
+
+        CreateOmniauthRegistration.call(@form, verified_email) do
+          on(:ok) do |user|
+            if !user.confirmed? && user.email == verified_email
+              user.skip_confirmation!
+              user.save!
+            end
+
+            if user.active_for_authentication? && user.confirmed?
+              #SpidAccessLogger.info("SPID ACCESS: USERNAME #{user.name}, NICKNAME #{user.nickname}, WITH EMAIL #{user.email} IDP #{@form.provider} AUTHENTICATED")
+              sign_in_and_redirect user, event: :authentication
+              set_flash_message :notice, :success, kind: @form.provider.capitalize
+            else
+              expire_data_after_sign_in!
+              user.resend_confirmation_instructions unless user.confirmed?
+              redirect_to root_path
+              flash[:notice] = t('devise.registrations.signed_up_but_unconfirmed')
+            end
+          end
+
+          on(:invalid) do
+            set_flash_message :notice, :success, kind: @form.provider.capitalize
+            render :new
+          end
+
+          on(:error) do |user|
+            if user.errors[:email]
+              set_flash_message :alert, :failure, kind: @form.provider.capitalize, reason: t('decidim.devise.omniauth_registrations.create.email_already_exists')
             end
 
             render :new
@@ -83,40 +122,56 @@ module Decidim
       private
 
       def oauth_data
-        @oauth_data ||= oauth_hash.slice(:provider, :uid, :info)
+        @oauth_data ||= oauth_hash.slice(:provider, :uid, :user_info, :extra)
+      end
+
+      def user_params_from_spid_oauth_hash
+        return nil if oauth_data.empty?
+        if !oauth_data[:provider].nil? && !oauth_data[:uid].nil?
+          {
+            provider: oauth_data[:provider],
+            uid: oauth_data[:uid],
+            email: oauth_data[:user_info][:email],
+            oauth_signature: OmniauthRegistrationForm.create_signature(oauth_data[:provider], oauth_data[:uid]),
+			name: oauth_data[:user_info][:last_name],
+			nickname: oauth_data[:user_info][:name],
+			avatar_url: '',
+			raw_data: oauth_hash,
+			codice_fiscale: oauth_data[:user_info][:fiscal_number],
+			giuridica_fisica: 'F',
+			#nome_proprio: oauth_data[:user_info][:name]
+          }
+        elsif !oauth_data[:extra][:raw_info].nil?
+          {
+            errors: oauth_data[:extra][:raw_info]
+          }
+        end
       end
 
       # Private: Create form params from omniauth hash
       # Since we are using trusted omniauth data we are generating a valid signature.
       def user_params_from_oauth_hash
         return nil if oauth_data.empty?
-                bdFromSpid = oauth_hash[:extra][:raw_info][:cdmNascitaData]
-                anno = bdFromSpid[0] + bdFromSpid[1] + bdFromSpid[2] + bdFromSpid[3] 	 	# anno
-                mese = bdFromSpid[4] + bdFromSpid[5] 	 					# mese
-                giorno = bdFromSpid[6] + bdFromSpid[7]					 	# giorno
-				
-                birthdate = anno.to_s + "-" + mese.to_s + "-" + giorno.to_s
         {
           provider: oauth_data[:provider],
           uid: oauth_data[:uid],
           name: oauth_data[:info][:name],
           nickname: oauth_data[:info][:nickname],
-	  codice_fiscale: oauth_data[:info][:codice_fiscale],
-	  giuridica_fisica: oauth_data[:info][:giuridica_fisica],
-	  nome_proprio: oauth_data[:info][:nickname],
           oauth_signature: OmniauthRegistrationForm.create_signature(oauth_data[:provider], oauth_data[:uid]),
           avatar_url: oauth_data[:info][:image],
           raw_data: oauth_hash,
-                    birthdate: birthdate
+		  codice_fiscale: oauth_data[:user_info][:fiscal_number],
+		  giuridica_fisica: 'fisica',
+		  nome_proprio: oauth_data[:info][:nickname]
         }
       end
 
       def verified_email
-        @verified_email ||= oauth_data.dig(:info, :email)
+        @verified_email ||= oauth_data.dig(:user_info, :email)
       end
 
       def oauth_hash
-        raw_hash = request.env["omniauth.auth"]
+        raw_hash = request.env['omniauth.auth']
         return {} unless raw_hash
 
         raw_hash.deep_symbolize_keys

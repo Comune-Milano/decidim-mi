@@ -16,7 +16,7 @@ module Admin
           component = Decidim::Referendum.where(id: id_proposta)
         end
       end
-      return check_user_can_manage_signature(id_proposta, tipo_proposta) && component.is_data_fine_petizione_superata(id_proposta)
+      return check_user_can_manage_signature(id_proposta, tipo_proposta) && component.is_data_fine_superata(id_proposta)
     end
 
     def check_user_can_manage_signature (id_proposta, tipo_proposta)

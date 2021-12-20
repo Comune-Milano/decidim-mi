@@ -1,0 +1,18 @@
+---
+attr_serv_list:
+  - 
+    name: Decidim
+    fields: 
+      - :spid_code
+      - :email
+      - :name
+      - :fiscal_number
+      - :family_name
+  - 
+    name: Step One Authentication
+    fields: 
+      - :spid_code
+      - :email
+      - :name
+      - :fiscal_number
+      - :family_name

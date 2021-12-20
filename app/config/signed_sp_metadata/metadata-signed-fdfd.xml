@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><md:EntityDescriptor xmlns:md="urn:oasis:names:tc:SAML:2.0:metadata" xmlns:ds="http://www.w3.org/2000/09/xmldsig#" xmlns:spid="https://spid.gov.it/saml-extensions" ID="_653ae87b822c8f985a22ab4820ebc952" entityID="https://decidim-dev.ecaas.comune.milano.it/spid/metadata"><ds:Signature>
+<ds:SignedInfo>
+<ds:CanonicalizationMethod Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+<ds:SignatureMethod Algorithm="http://www.w3.org/2001/04/xmldsig-more#rsa-sha256"/>
+<ds:Reference URI="#_653ae87b822c8f985a22ab4820ebc952">
+<ds:Transforms>
+<ds:Transform Algorithm="http://www.w3.org/2000/09/xmldsig#enveloped-signature"/>
+<ds:Transform Algorithm="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+</ds:Transforms>
+<ds:DigestMethod Algorithm="http://www.w3.org/2001/04/xmlenc#sha256"/>
+<ds:DigestValue>KCt3O33nxTu8LAcCz32YiGzGlFIgfdpaNt5OJsuxvk4=</ds:DigestValue>
+</ds:Reference>
+</ds:SignedInfo>
+<ds:SignatureValue>
+AEpevMYqhcwM1jfHLl2Arm4+63kqKGzdP3PPLdnPG+bLoaOAe+kEPCP7l72BVPkWzfn3OXOJRZKy
+VvwH1yzAFN4HqUPSuf7cFdBkMZ5wtkJ+RTMZ/hdxTdhMLcl5AMfNDRdgqsDb7Zffmo3drOtVhQ21
+Xpd6zGBwj+TdqxZiwD6+5ufwOIvMupF8QQk7ITQ+1qggHewgrKtvP3M8keeiZt8NENQ7AwcxRnUW
+khw6XEqtq/PryIcoGxqvZkgwAlolialUN2Am0wUWlQT5PJuwnuUTAhkHv48v9VpaZyPEXDEh8Yy4
+/Iy1vUDllZ6gj84XrH9F80SSb9sj8uR+xZuFWbGv1E5Wewafx2IxjaJ4vIbqRrfxArzmTQM8pkEs
+L7G/cYbPBYIChz/dOeB8Wr25DUt5+WkSoBZIsfzUyU9Vg0x8Gt/844MwbelVe2Q8WCCSP0bU78KP
+FJBaHnqICPcR0hqN544OstnyWB9o6Yrn2Ta3KMrrfhrhpkloYiLyr1xa
+</ds:SignatureValue>
+<ds:KeyInfo>
+<ds:KeyValue>
+<ds:RSAKeyValue>
+<ds:Modulus>
+uZkLd62lyrJlANVnwH4FkudIt2/oOY59aqRj05545e3MfeGrij2cJ5JbTV/BWjeR5rq3Q9uCcMUf
+PFV+ZXMDMPHpNFueM5x+RqdVx6AW6s7iA425E+MwIB08lRJJrfXtTnb/0YG7li9ayujaUNeK9utf
+7fvfkmvawsEk3fWO3bUQr7KEH67LtCoy6R8hVproLDqQ/xII3+9clK++GQxrTezR2HdBbzoCTbkw
+37rZUsXcdgfwTELruRZvis1YkhFv2MbEFXoAr7Q+ARe5N0DQaq3Tsk+iD9LUw62rRMIzJb+hAnt+
+Y654vQf+wwi2c59y5JlzUpER7kQeUHpvrpqUENSufMU03J0gmLMtEu9ca/H8rYYG4AK4LoSN+hFJ
+FqGElUBLh6cUOZQPWLb+Knuswz39/RTjbY7UjwpmaDEDOoVojz3uVgB9roP5NDU52W919XLiRD+5
+kFMu+rJRvQSus07N+JGYjnwpVbxRvlOM73v9QHGQjadlerzLFmvhwcJH
+</ds:Modulus>
+<ds:Exponent>AQAB</ds:Exponent>
+</ds:RSAKeyValue>
+</ds:KeyValue>
+<ds:X509Data>
+<ds:X509Certificate>
+MIIFXTCCA8WgAwIBAgIUXC7u2Zxq+IFEk+t7Y2pxPdhNunwwDQYJKoZIhvcNAQENBQAwga4xGTAX
+BgNVBAMMEENvbXVuZSBkaSBNaWxhbm8xCzAJBgNVBAYTAklUMQ8wDQYDVQQHDAZNaWxhbm8xFTAT
+BgNVBGEMDFBBOklULWNfZjIwNTEZMBcGA1UECgwQQ29tdW5lIGRpIE1pbGFubzFBMD8GA1UEUww4
+aHR0cHM6Ly9kZWNpZGltLWRldi5lY2Fhcy5jb211bmUubWlsYW5vLml0L3NwaWQvbWV0YWRhdGEw
+HhcNMjEwODAzMTUxNzQ1WhcNMzEwODAxMTUxNzQ1WjCBrjEZMBcGA1UEAwwQQ29tdW5lIGRpIE1p
+bGFubzELMAkGA1UEBhMCSVQxDzANBgNVBAcMBk1pbGFubzEVMBMGA1UEYQwMUEE6SVQtY19mMjA1
+MRkwFwYDVQQKDBBDb211bmUgZGkgTWlsYW5vMUEwPwYDVQRTDDhodHRwczovL2RlY2lkaW0tZGV2
+LmVjYWFzLmNvbXVuZS5taWxhbm8uaXQvc3BpZC9tZXRhZGF0YTCCAaIwDQYJKoZIhvcNAQEBBQAD
+ggGPADCCAYoCggGBALmZC3etpcqyZQDVZ8B+BZLnSLdv6DmOfWqkY9OeeOXtzH3hq4o9nCeSW01f
+wVo3kea6t0PbgnDFHzxVfmVzAzDx6TRbnjOcfkanVcegFurO4gONuRPjMCAdPJUSSa317U52/9GB
+u5YvWsro2lDXivbrX+3735Jr2sLBJN31jt21EK+yhB+uy7QqMukfIVaa6Cw6kP8SCN/vXJSvvhkM
+a03s0dh3QW86Ak25MN+62VLF3HYH8ExC67kWb4rNWJIRb9jGxBV6AK+0PgEXuTdA0Gqt07JPog/S
+1MOtq0TCMyW/oQJ7fmOueL0H/sMItnOfcuSZc1KREe5EHlB6b66alBDUrnzFNNydIJizLRLvXGvx
+/K2GBuACuC6EjfoRSRahhJVAS4enFDmUD1i2/ip7rMM9/f0U422O1I8KZmgxAzqFaI897lYAfa6D
++TQ1OdlvdfVy4kQ/uZBTLvqyUb0ErrNOzfiRmI58KVW8Ub5TjO97/UBxkI2nZXq8yxZr4cHCRwID
+AQABo3EwbzAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIGwDBSBgNVHSAESzBJMCAGBCtMEAYwGDAW
+BggrBgEFBQcCAjAKGghhZ0lEY2VydDAlBgYrTBAEAgEwGzAZBggrBgEFBQcCAjANGgtjZXJ0X1NQ
+X1B1YjANBgkqhkiG9w0BAQ0FAAOCAYEARyWgH3a01irA/MTgoLEXzukQdXYgyu5q0GoYIDNpJ/bH
+72FS5ff+kanV5+yk6tE4D9A7w/1/nOuRA8gQal7LjA5ERADfoDsv+gIyNF09L2gjK2xPuaSJe/gG
+rhw7zWtm3nYcnczZ7Qy+AdkV+YTdx9Xl7XlDW8WiXyxoJJMzLiCmrpDx2zZ0clA0HCaNjSSfQgMU
+dQtCeqhmHXowQ0VWNqSoRqU9MSQpGyfzTOSSHTVtesdfSrT40DuCADZhmOYUg56gyCmWueL1pujC
+2xo3hLvrKx/NzcaM8AKyHogC3GPi9PYN0OFezY7Nczks0jErInGgZRUCPKIPIHY5D1XwqIOBGVE9
+2rQGopVP4BXlT/OJEOaB7JgmWDR1CiduT6ctuvvD2IqPHHPuB8uwenLq3zQsgHeWjoO+nEf0c6wy
+TFQlfNtnjPyuKpvwsMJKUifYNRIt2V+xAdfUgPviZ269TW4iuwhKKEhfeGiydDh5yot3C1vQtoi5
+0TTaWCgZS+Ky
+</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</ds:Signature>
+<md:SPSSODescriptor AuthnRequestsSigned="true" WantAssertionsSigned="true" protocolSupportEnumeration="urn:oasis:names:tc:SAML:2.0:protocol">
+<md:KeyDescriptor use="signing">
+<ds:KeyInfo>
+<ds:X509Data>
+<ds:X509Certificate>MIIFXTCCA8WgAwIBAgIUXC7u2Zxq+IFEk+t7Y2pxPdhNunwwDQYJKoZIhvcNAQENBQAwga4xGTAXBgNVBAMMEENvbXVuZSBkaSBNaWxhbm8xCzAJBgNVBAYTAklUMQ8wDQYDVQQHDAZNaWxhbm8xFTATBgNVBGEMDFBBOklULWNfZjIwNTEZMBcGA1UECgwQQ29tdW5lIGRpIE1pbGFubzFBMD8GA1UEUww4aHR0cHM6Ly9kZWNpZGltLWRldi5lY2Fhcy5jb211bmUubWlsYW5vLml0L3NwaWQvbWV0YWRhdGEwHhcNMjEwODAzMTUxNzQ1WhcNMzEwODAxMTUxNzQ1WjCBrjEZMBcGA1UEAwwQQ29tdW5lIGRpIE1pbGFubzELMAkGA1UEBhMCSVQxDzANBgNVBAcMBk1pbGFubzEVMBMGA1UEYQwMUEE6SVQtY19mMjA1MRkwFwYDVQQKDBBDb211bmUgZGkgTWlsYW5vMUEwPwYDVQRTDDhodHRwczovL2RlY2lkaW0tZGV2LmVjYWFzLmNvbXVuZS5taWxhbm8uaXQvc3BpZC9tZXRhZGF0YTCCAaIwDQYJKoZIhvcNAQEBBQADggGPADCCAYoCggGBALmZC3etpcqyZQDVZ8B+BZLnSLdv6DmOfWqkY9OeeOXtzH3hq4o9nCeSW01fwVo3kea6t0PbgnDFHzxVfmVzAzDx6TRbnjOcfkanVcegFurO4gONuRPjMCAdPJUSSa317U52/9GBu5YvWsro2lDXivbrX+3735Jr2sLBJN31jt21EK+yhB+uy7QqMukfIVaa6Cw6kP8SCN/vXJSvvhkMa03s0dh3QW86Ak25MN+62VLF3HYH8ExC67kWb4rNWJIRb9jGxBV6AK+0PgEXuTdA0Gqt07JPog/S1MOtq0TCMyW/oQJ7fmOueL0H/sMItnOfcuSZc1KREe5EHlB6b66alBDUrnzFNNydIJizLRLvXGvx/K2GBuACuC6EjfoRSRahhJVAS4enFDmUD1i2/ip7rMM9/f0U422O1I8KZmgxAzqFaI897lYAfa6D+TQ1OdlvdfVy4kQ/uZBTLvqyUb0ErrNOzfiRmI58KVW8Ub5TjO97/UBxkI2nZXq8yxZr4cHCRwIDAQABo3EwbzAJBgNVHRMEAjAAMA4GA1UdDwEB/wQEAwIGwDBSBgNVHSAESzBJMCAGBCtMEAYwGDAWBggrBgEFBQcCAjAKGghhZ0lEY2VydDAlBgYrTBAEAgEwGzAZBggrBgEFBQcCAjANGgtjZXJ0X1NQX1B1YjANBgkqhkiG9w0BAQ0FAAOCAYEARyWgH3a01irA/MTgoLEXzukQdXYgyu5q0GoYIDNpJ/bH72FS5ff+kanV5+yk6tE4D9A7w/1/nOuRA8gQal7LjA5ERADfoDsv+gIyNF09L2gjK2xPuaSJe/gGrhw7zWtm3nYcnczZ7Qy+AdkV+YTdx9Xl7XlDW8WiXyxoJJMzLiCmrpDx2zZ0clA0HCaNjSSfQgMUdQtCeqhmHXowQ0VWNqSoRqU9MSQpGyfzTOSSHTVtesdfSrT40DuCADZhmOYUg56gyCmWueL1pujC2xo3hLvrKx/NzcaM8AKyHogC3GPi9PYN0OFezY7Nczks0jErInGgZRUCPKIPIHY5D1XwqIOBGVE92rQGopVP4BXlT/OJEOaB7JgmWDR1CiduT6ctuvvD2IqPHHPuB8uwenLq3zQsgHeWjoO+nEf0c6wyTFQlfNtnjPyuKpvwsMJKUifYNRIt2V+xAdfUgPviZ269TW4iuwhKKEhfeGiydDh5yot3C1vQtoi50TTaWCgZS+Ky</ds:X509Certificate>
+</ds:X509Data>
+</ds:KeyInfo>
+</md:KeyDescriptor>
+<md:SingleLogoutService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://decidim-dev.ecaas.comune.milano.it/spid/samlslo" ResponseLocation="https://decidim-dev.ecaas.comune.milano.it/"/>
+<md:AssertionConsumerService Binding="urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect" Location="https://decidim-dev.ecaas.comune.milano.it/spid/samlsso" index="0" isDefault="true"/>
+<md:AttributeConsumingService index="0">
+<md:ServiceName xml:lang="it">Decidim</md:ServiceName>
+<md:RequestedAttribute Name="spidCode"/>
+<md:RequestedAttribute Name="email"/>
+<md:RequestedAttribute Name="expirationDate"/>
+<md:RequestedAttribute Name="address"/>
+<md:RequestedAttribute Name="mobilePhone"/>
+<md:RequestedAttribute Name="companyName"/>
+<md:RequestedAttribute Name="ivaCode"/>
+<md:RequestedAttribute Name="placeOfBirth"/>
+<md:RequestedAttribute Name="gender"/>
+<md:RequestedAttribute Name="name"/>
+<md:RequestedAttribute Name="spidCode"/>
+<md:RequestedAttribute Name="fiscalNumber"/>
+<md:RequestedAttribute Name="familyName"/>
+<md:RequestedAttribute Name="dateOfBirth"/>
+<md:RequestedAttribute Name="countyOfBirth"/>
+<md:RequestedAttribute Name="idCard"/>
+<md:RequestedAttribute Name="registeredOffice"/>
+<md:RequestedAttribute Name="email"/>
+<md:RequestedAttribute Name="digitalAddress"/>
+</md:AttributeConsumingService>
+<md:AttributeConsumingService index="1">
+<md:ServiceName xml:lang="it">Step One Authentication</md:ServiceName>
+<md:RequestedAttribute Name="expirationDate"/>
+<md:RequestedAttribute Name="address"/>
+<md:RequestedAttribute Name="mobilePhone"/>
+<md:RequestedAttribute Name="companyName"/>
+<md:RequestedAttribute Name="ivaCode"/>
+<md:RequestedAttribute Name="placeOfBirth"/>
+<md:RequestedAttribute Name="gender"/>
+<md:RequestedAttribute Name="name"/>
+<md:RequestedAttribute Name="spidCode"/>
+<md:RequestedAttribute Name="fiscalNumber"/>
+<md:RequestedAttribute Name="familyName"/>
+<md:RequestedAttribute Name="dateOfBirth"/>
+<md:RequestedAttribute Name="countyOfBirth"/>
+<md:RequestedAttribute Name="idCard"/>
+<md:RequestedAttribute Name="registeredOffice"/>
+<md:RequestedAttribute Name="email"/>
+<md:RequestedAttribute Name="digitalAddress"/>
+</md:AttributeConsumingService>
+</md:SPSSODescriptor>
+<md:Organization>
+<md:OrganizationName xml:lang="it">Comune di Milano</md:OrganizationName>
+<md:OrganizationDisplayName xml:lang="it">Comune di Milano</md:OrganizationDisplayName>
+<md:OrganizationURL xml:lang="it">https://decidim-dev.ecaas.comune.milano.it/</md:OrganizationURL>
+</md:Organization>
+<md:ContactPerson contactType="other">
+<md:Extensions>
+<spid:FiscalCode>SBTMRA80L25H501B</spid:FiscalCode>
+</md:Extensions>
+<md:Company/>
+<md:EmailAddress>m.sabatino.ext@eustema.it</md:EmailAddress>
+<md:TelephoneNumber/>
+</md:ContactPerson>
+</md:EntityDescriptor>

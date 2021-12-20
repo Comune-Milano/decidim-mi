@@ -11,7 +11,7 @@ module Decidim
     include Decidim::Searchable
     include Decidim::ActsAsAuthor
 
-    OMNIAUTH_PROVIDERS = [:facebook, :twitter, :google_oauth2,:saml, (:developer if Rails.env.development?)].compact
+    OMNIAUTH_PROVIDERS = [:spid].compact
 
     class Roles
       def self.all
@@ -23,7 +23,6 @@ module Decidim
            :recoverable, :rememberable, :trackable, :lockable,
            :decidim_validatable, :decidim_newsletterable,
            :omniauthable, omniauth_providers: OMNIAUTH_PROVIDERS,
-
                           request_keys: [:env], reset_password_keys: [:decidim_organization_id, :email],
                           confirmation_keys: [:decidim_organization_id, :email]
 
@@ -190,7 +189,12 @@ module Decidim
     def interested_scopes
       @interested_scopes ||= organization.scopes.where(id: interested_scopes_ids)
     end
-
+    def body_richiesta
+       super
+    end
+    def richiesta_at?
+      !richiesta_at.nil?
+    end
     protected
 
     # Overrides devise email required validation.
